@@ -1,5 +1,7 @@
 package de.dhbw.arukone;
 
+import java.util.Arrays;
+
 /**
  * created by Karsten Köhler on 02.02.2016
  */
@@ -58,4 +60,37 @@ public class ArukoneBoard {
                 {0,1,4,5,0}
         };
     }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+
+        for (int x = 0; x < this.board.length; x++) {
+            for (int y = 0; y < this.board[x].length; y++) {
+                String format = "%3d";
+                result.append(String.format(format, this.board[x][y]));
+            }
+            result.append("\n");
+        }
+
+        return result.toString();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
