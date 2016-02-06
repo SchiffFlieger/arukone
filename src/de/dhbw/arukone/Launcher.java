@@ -6,6 +6,14 @@ package de.dhbw.arukone;
 public class Launcher {
     public static void main(String... args) {
         ArukoneBoard board = new ArukoneBoard();
-        System.out.println(board);
+        GeneticAlgorithmArukone algorithm = new GeneticAlgorithmArukone(board);
+
+        System.out.println(board.advancedToString());
+        System.out.println();
+        System.out.println();
+
+        algorithm.solve();
+        System.out.println(board.advancedToString());
+
     }
 }

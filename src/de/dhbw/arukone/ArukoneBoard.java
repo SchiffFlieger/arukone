@@ -22,6 +22,18 @@ public class ArukoneBoard {
         setForbiddenMoves();
     }
 
+    public void setValueAt(int x, int y, int value) {
+        this.board[x][y] = value;
+    }
+
+    public int getValueAt(int x, int y) {
+        return this.board[x][y];
+    }
+
+    public int getEdgeLength() {
+        return this.board.length;
+    }
+
     private void setForbiddenMoves () {
         int size = this.originalBoard.length;
         this.forbiddenMove = new boolean[size][size];
@@ -74,6 +86,29 @@ public class ArukoneBoard {
         }
 
         return result.toString();
+    }
+
+    public String advancedToString() {
+        StringBuilder result = new StringBuilder();
+
+        StringBuilder lineSeparatorBuilder = new StringBuilder();
+        for (int i = 0; i < this.board.length; i++) {
+            lineSeparatorBuilder.append(".   ");
+        }
+        lineSeparatorBuilder.append(".\n");
+        lineSeparatorBuilder.insert(0, "\n");
+        String lineSeparator = lineSeparatorBuilder.toString();
+
+        result.append(lineSeparator);
+        for (int x = 0; x < this.board.length; x++) {
+            for (int y = 0; y < this.board[x].length; y++) {
+                String format = "%3d ";
+                result.append(String.format(format, this.board[x][y]));
+            }
+            result.append(lineSeparator);
+        }
+
+        return  result.toString();
     }
 }
 
