@@ -5,7 +5,7 @@ package de.dhbw.arukone;
  */
 public class Launcher {
     public static void main(String... args) {
-        ArukoneBoard board = new ArukoneBoard(9);
+        ArukoneBoard board = new ArukoneBoard(5);
         initEasyField(board);
 //        initDifficultField(board);
 

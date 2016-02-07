@@ -38,14 +38,21 @@ public class ArukoneBoard {
     public String toString() {
         StringBuilder result = new StringBuilder();
         String lineSep = getLineSeparator();
+
         result.append(lineSep);
-
         int[][] grid = getGrid();
-        return Arrays.deepToString(grid);
+        for (int x = 0; x < this.size; x++) {
+            for (int y = 0; y < this.size; y++) {
+                if (grid[x][y] != 0) {
+                    result.append(String.format("%3d ", grid[x][y]));
+                } else {
+                    result.append("    ");
+                }
+            }
+            result.append("\n" + lineSep);
+        }
 
-
-//        return result.toString();
-
+        return result.toString();
     }
 
     private int[][] getGrid() {
@@ -62,7 +69,7 @@ public class ArukoneBoard {
 
     private String getLineSeparator() {
         StringBuilder lineSepBuilder = new StringBuilder();
-        for (int i = 0; i < this.size; i++) {
+        for (int i = 0; i <= this.size; i++) {
             lineSepBuilder.append(".   ");
         }
         return lineSepBuilder.toString() + "\n";
