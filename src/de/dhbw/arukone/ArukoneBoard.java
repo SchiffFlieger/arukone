@@ -23,6 +23,14 @@ public class ArukoneBoard {
         }
     }
 
+    public boolean addWaypointById(final int id, Point point) {
+        if (this.paths.get(id-1).addWaypoint(point)) {
+            occupy(point);
+            return true;
+        }
+        return false;
+    }
+
     private void occupy(Point point) {
         this.occupiedFields[point.getX()][point.getY()] = true;
     }

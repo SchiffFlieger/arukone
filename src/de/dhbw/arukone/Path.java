@@ -61,12 +61,12 @@ public class Path {
 
     public boolean addWaypoint(Point point) {
         if (point.isReachable(this.getLastPointFromStart())) {
-            System.out.printf("add point %s to start \n", point);
+            System.out.printf("add point %s to start of path %d\n", point, id);
             this.pathFromStart.add(point);
             return true;
         } else if (point.isReachable(this.getLastPointFromEnd())) {
             this.pathFromEnd.add(point);
-            System.out.printf("add point %s to end \n", point);
+            System.out.printf("add point %s to end of path %d\n", point, id);
             return true;
         } else {
             return false;

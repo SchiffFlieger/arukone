@@ -13,14 +13,7 @@ public class Launcher {
 
     private static ArukoneBoard initEasyField() {
         ArukoneBoard board = new ArukoneBoard(5);
-        Path path = new Path(new Point(0, 0), new Point(4, 1));
-        path.addWaypoint(new Point(1, 0));
-        path.addWaypoint(new Point(2, 0));
-        path.addWaypoint(new Point(3, 0));
-        path.addWaypoint(new Point(4, 0));
-        board.addPath(path);
-        System.out.println(path);
-        System.out.println(path.isComplete());
+        board.addPath(new Path(new Point(0, 0), new Point(4, 1)));
         board.addPath(new Path(new Point(0, 2), new Point(3, 1)));
         board.addPath(new Path(new Point(1, 2), new Point(4, 2)));
         board.addPath(new Path(new Point(0, 4), new Point(3, 3)));
