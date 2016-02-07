@@ -1,6 +1,7 @@
 package de.dhbw.arukone;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by karsten on 06.02.16.
@@ -8,94 +9,90 @@ import java.util.ArrayList;
 public class Path {
     private static int id_counter = 1;
     private final int id;
-    private Point start, end;
-    private ArrayList<Point> path;
-
-    public Path() {
-        this.id = id_counter;
-        id_counter++;
-        this.path = new ArrayList<>();
-    }
+    private List<Point> pathFromStart;
+    private List<Point> pathFromEnd;
 
     public Path(Point start, Point end) {
-        this();
-        this.start = start;
-        this.end = end;
+        this.id = id_counter;
+        id_counter++;
+        this.pathFromStart = new ArrayList<>();
+        this.pathFromEnd = new ArrayList<>();
+        this.pathFromStart.add(start);
+        this.pathFromEnd.add(end);
     }
 
     public int getId() {
         return id;
     }
 
-    public Point getLastWaypoint() {
-        return this.path.get(this.path.size()-1);
+    private Point getLastPointFromStart() {
+        return this.pathFromStart.get(this.pathFromStart.size()-1);
+    }
+
+    private Point getLastPointFromEnd() {
+        return this.pathFromEnd.get(this.pathFromEnd.size()-1);
+    }
+
+    public Point getStart() {
+        return this.pathFromStart.get(0);
+    }
+
+    public Point getEnd() {
+        return this.pathFromEnd.get(0);
     }
 
     public boolean isComplete() {
-        if (this.path.isEmpty()) {
-            if (this.start.isReachable(this.end)) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        for (int i = 0; i < this.path.size()-1; i++) {
-            if (!this.path.get(i).isReachable(this.path.get(i+1))) {
-                return false;
-            }
-        }
-
-        if (!this.start.isReachable(this.path.get(0))) {
-            return false;
-        }
-
-        if (!this.getLastWaypoint().isReachable(this.end)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    public boolean addWaypoint(Point point) {
-        if (this.path.isEmpty()) {
-            if (this.start.isReachable(point)) {
-                this.path.add(point);
-                return true;
-            }
-        } else {
-            if (this.getLastWaypoint().isReachable(point)) {
-                this.path.add(point);
-                return true;
-            }
+        if (this.pathFromEnd.get(this.pathFromEnd.size() - 1).isReachable(this.pathFromStart.get(this.pathFromStart.size() - 1)) &&
+                isPartComplete(this.pathFromStart) &&
+                isPartComplete(this.pathFromEnd)) {
+            return true;
         }
         return false;
     }
 
-    public Point getEnd() {
-        return end;
+    private boolean isPartComplete(List<Point> points) {
+        for (int i = 0; i < points.size() - 1; i++) {
+            if (!points.get(i).isReachable(points.get(i + 1))) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    public ArrayList<Point> getPath() {
-        return path;
+    public boolean addWaypoint(Point point) {
+        if (point.isReachable(this.getLastPointFromStart())) {
+            System.out.printf("add point %s to start \n", point);
+            this.pathFromStart.add(point);
+            return true;
+        } else if (point.isReachable(this.getLastPointFromEnd())) {
+            this.pathFromEnd.add(point);
+            System.out.printf("add point %s to end \n", point);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public Point getStart() {
-        return start;
+    public List<Point> getAllPoints() {
+        List<Point> list = new ArrayList<>();
+        list.addAll(this.pathFromStart);
+        list.addAll(this.pathFromEnd);
+        return list;
     }
 
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
 
-        result.append(start + ", ");
-        for (Point point : this.path) {
+        for (Point point : this.pathFromStart) {
             result.append(point + ", ");
         }
         if (!isComplete()) {
             result.append("... ");
         }
-        result.append(end + "\n");
+        for (int i = this.pathFromEnd.size()-1; i >= 0; i--) {
+            result.append(this.pathFromEnd.get(i) + ", ");
+        }
 
         return result.toString();
     }

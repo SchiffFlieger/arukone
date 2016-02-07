@@ -18,9 +18,7 @@ public class ArukoneBoard {
 
     public void addPath(Path path) {
         this.paths.add(path);
-        occupy(path.getStart());
-        occupy(path.getEnd());
-        for (Point point : path.getPath()) {
+        for (Point point : path.getAllPoints()) {
             occupy(point);
         }
     }
@@ -59,7 +57,7 @@ public class ArukoneBoard {
         for (Path path : this.paths) {
             grid[path.getStart().getX()][path.getStart().getY()] = path.getId();
             grid[path.getEnd().getX()][path.getEnd().getY()] = path.getId();
-            for (Point point : path.getPath()) {
+            for (Point point : path.getAllPoints()) {
                 grid[point.getX()][point.getY()] = path.getId();
             }
         }
