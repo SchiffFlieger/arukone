@@ -73,6 +73,18 @@ public class Path {
         }
     }
 
+    public boolean removeWaypoint(Point point) {
+        if (this.pathFromStart.get(this.pathFromStart.size()-1).equals(point)) {
+            this.pathFromStart.remove(point);
+            return true;
+        } else if (this.pathFromEnd.get(this.pathFromEnd.size()-1).equals(point)) {
+            this.pathFromEnd.remove(point);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public List<Point> getAllPoints() {
         List<Point> list = new ArrayList<>();
         list.addAll(this.pathFromStart);

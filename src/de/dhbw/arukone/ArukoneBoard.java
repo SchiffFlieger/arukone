@@ -23,9 +23,17 @@ public class ArukoneBoard {
         }
     }
 
-    public boolean addWaypointById(final int id, Point point) {
+    public boolean addWaypointByPathId(final int id, Point point) {
         if (this.paths.get(id-1).addWaypoint(point)) {
             occupy(point);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeWaypointByPathId(final int id, Point point) {
+        if (this.paths.get(id-1).removeWaypoint(point)) {
+            free(point);
             return true;
         }
         return false;

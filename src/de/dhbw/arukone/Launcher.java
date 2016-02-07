@@ -7,7 +7,7 @@ public class Launcher {
     public static void main(String... args) {
         ArukoneBoard board = initEasyField();
 //        ArukoneBoard board = initDifficultField();
-
+        
         System.out.println(board);
     }
 
