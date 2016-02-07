@@ -1,114 +1,71 @@
 package de.dhbw.arukone;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
  * created by Karsten Köhler on 02.02.2016
  */
 public class ArukoneBoard {
-    private boolean[][] forbiddenMove;
-    private int[][] board;
-    private int[][] originalBoard;
+    private ArrayList<Path> paths;
+    private boolean[][] occupiedFields;
+    private final int size;
 
-    public ArukoneBoard() {
-
-        if (Configuration.instance.isDifficult) {
-            initDifficult();
-        } else {
-            initEasy();
-        }
-
-        this.board = originalBoard;
-        setForbiddenMoves();
+    public ArukoneBoard(final int size) {
+        this.size = size;
+        this.occupiedFields = new boolean[size][size];
+        this.paths = new ArrayList<>();
     }
 
-    public void setValueAt(int x, int y, int value) {
-        this.board[x][y] = value;
-    }
-
-    public int getValueAt(int x, int y) {
-        return this.board[x][y];
-    }
-
-    public int getEdgeLength() {
-        return this.board.length;
-    }
-
-    private void setForbiddenMoves () {
-        int size = this.originalBoard.length;
-        this.forbiddenMove = new boolean[size][size];
-
-        for (int x = 0; x < size; x++) {
-            for (int y = 0; y < size; y++) {
-                if (this.originalBoard[x][y] == 0) {
-                    this.forbiddenMove[x][y] = false;
-                } else {
-                    this.forbiddenMove[x][y] = true;
-                }
-            }
+    public void addPath(Path path) {
+        this.paths.add(path);
+        occupy(path.getStart());
+        occupy(path.getEnd());
+        for (Point point : path.getPath()) {
+            occupy(point);
         }
     }
 
-    private void initDifficult () {
-        this.originalBoard = new int[][] {
-                {0,0,0,0,0,0,1,2,3},
-                {0,4,0,0,0,0,0,0,0},
-                {5,0,0,1,0,0,0,0,0},
-                {0,0,0,2,0,0,0,0,0},
-                {0,3,0,0,0,0,0,7,0},
-                {0,0,0,0,9,0,0,0,0},
-                {0,0,0,0,0,0,8,0,8},
-                {0,0,0,5,0,0,9,7,6},
-                {4,0,0,0,0,6,0,0,0}
-        };
+    private void occupy(Point point) {
+        this.occupiedFields[point.x][point.y] = true;
     }
 
-    private void initEasy () {
-        this.originalBoard = new int[][] {
-                {1,0,2,0,3},
-                {0,0,4,0,5},
-                {0,0,0,0,0},
-                {0,2,0,3,0},
-                {0,1,4,5,0}
-        };
+    private void free(Point point) {
+        this.occupiedFields[point.x][point.y] = false;
     }
 
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
+        String lineSep = getLineSeparator();
+        result.append(lineSep);
 
-        for (int x = 0; x < this.board.length; x++) {
-            for (int y = 0; y < this.board[x].length; y++) {
-                String format = "%3d";
-                result.append(String.format(format, this.board[x][y]));
-            }
-            result.append("\n");
-        }
+        int[][] grid = getGrid();
+        return Arrays.deepToString(grid);
 
-        return result.toString();
+
+//        return result.toString();
+
     }
 
-    public String advancedToString() {
-        StringBuilder result = new StringBuilder();
-
-        StringBuilder lineSeparatorBuilder = new StringBuilder();
-        for (int i = 0; i < this.board.length; i++) {
-            lineSeparatorBuilder.append(".   ");
-        }
-        lineSeparatorBuilder.append(".\n");
-        lineSeparatorBuilder.insert(0, "\n");
-        String lineSeparator = lineSeparatorBuilder.toString();
-
-        result.append(lineSeparator);
-        for (int x = 0; x < this.board.length; x++) {
-            for (int y = 0; y < this.board[x].length; y++) {
-                String format = "%3d ";
-                result.append(String.format(format, this.board[x][y]));
+    private int[][] getGrid() {
+        int[][] grid = new int[this.size][this.size];
+        for (Path path : this.paths) {
+            grid[path.getStart().x][path.getStart().y] = path.getId();
+            grid[path.getEnd().x][path.getEnd().y] = path.getId();
+            for (Point point : path.getPath()) {
+                grid[point.x][point.y] = path.getId();
             }
-            result.append(lineSeparator);
         }
+        return grid;
+    }
 
-        return  result.toString();
+    private String getLineSeparator() {
+        StringBuilder lineSepBuilder = new StringBuilder();
+        for (int i = 0; i < this.size; i++) {
+            lineSepBuilder.append(".   ");
+        }
+        return lineSepBuilder.toString() + "\n";
     }
 }
 
