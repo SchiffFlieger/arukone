@@ -27,16 +27,14 @@ public class Path {
         return id;
     }
 
+    public void addWaypoint(Point point) {
+        if (this.path.isEmpty()) {
+
+        }
+    }
+
     public Point getEnd() {
         return end;
-    }
-
-    public void setEnd(Point end) {
-        this.end = end;
-    }
-
-    public Point getLastVisitedPoint() {
-        return this.path.get(this.path.size()-1);
     }
 
     public ArrayList<Point> getPath() {
@@ -45,9 +43,5 @@ public class Path {
 
     public Point getStart() {
         return start;
-    }
-
-    public void setStart(Point start) {
-        this.start = start;
     }
 }

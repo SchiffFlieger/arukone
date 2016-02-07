@@ -1,15 +1,14 @@
 package de.dhbw.arukone;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * created by Karsten Köhler on 02.02.2016
  */
 public class ArukoneBoard {
+    private final int size;
     private ArrayList<Path> paths;
     private boolean[][] occupiedFields;
-    private final int size;
 
     public ArukoneBoard(final int size) {
         this.size = size;
@@ -27,11 +26,11 @@ public class ArukoneBoard {
     }
 
     private void occupy(Point point) {
-        this.occupiedFields[point.x][point.y] = true;
+        this.occupiedFields[point.getX()][point.getY()] = true;
     }
 
     private void free(Point point) {
-        this.occupiedFields[point.x][point.y] = false;
+        this.occupiedFields[point.getX()][point.getY()] = false;
     }
 
     @Override
@@ -58,10 +57,10 @@ public class ArukoneBoard {
     private int[][] getGrid() {
         int[][] grid = new int[this.size][this.size];
         for (Path path : this.paths) {
-            grid[path.getStart().x][path.getStart().y] = path.getId();
-            grid[path.getEnd().x][path.getEnd().y] = path.getId();
+            grid[path.getStart().getX()][path.getStart().getY()] = path.getId();
+            grid[path.getEnd().getX()][path.getEnd().getY()] = path.getId();
             for (Point point : path.getPath()) {
-                grid[point.x][point.y] = path.getId();
+                grid[point.getX()][point.getY()] = path.getId();
             }
         }
         return grid;
