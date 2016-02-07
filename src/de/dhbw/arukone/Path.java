@@ -27,10 +27,49 @@ public class Path {
         return id;
     }
 
-    public void addWaypoint(Point point) {
-        if (this.path.isEmpty()) {
+    public Point getLastWaypoint() {
+        return this.path.get(this.path.size()-1);
+    }
 
+    public boolean isComplete() {
+        if (this.path.isEmpty()) {
+            if (this.start.isReachable(this.end)) {
+                return true;
+            } else {
+                return false;
+            }
         }
+
+        for (int i = 0; i < this.path.size()-1; i++) {
+            if (!this.path.get(i).isReachable(this.path.get(i+1))) {
+                return false;
+            }
+        }
+
+        if (!this.start.isReachable(this.path.get(0))) {
+            return false;
+        }
+
+        if (!this.getLastWaypoint().isReachable(this.end)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean addWaypoint(Point point) {
+        if (this.path.isEmpty()) {
+            if (this.start.isReachable(point)) {
+                this.path.add(point);
+                return true;
+            }
+        } else {
+            if (this.getLastWaypoint().isReachable(point)) {
+                this.path.add(point);
+                return true;
+            }
+        }
+        return false;
     }
 
     public Point getEnd() {
@@ -43,5 +82,21 @@ public class Path {
 
     public Point getStart() {
         return start;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+
+        result.append(start + ", ");
+        for (Point point : this.path) {
+            result.append(point + ", ");
+        }
+        if (!isComplete()) {
+            result.append("... ");
+        }
+        result.append(end + "\n");
+
+        return result.toString();
     }
 }
