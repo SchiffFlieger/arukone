@@ -25,11 +25,11 @@ public class Path {
         return id;
     }
 
-    private Point getLastPointFromStart() {
+    public Point getLastPointFromStart() {
         return this.pathFromStart.get(this.pathFromStart.size()-1);
     }
 
-    private Point getLastPointFromEnd() {
+    public Point getLastPointFromEnd() {
         return this.pathFromEnd.get(this.pathFromEnd.size()-1);
     }
 
