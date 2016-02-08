@@ -51,18 +51,28 @@ public class Point {
     }
 
     public Point left() {
+        if (this.y <= 0)
+            return null;
         return new Point(this.x, this.y-1);
     }
 
     public Point right() {
+        if (this.y >= Configuration.instance.size-1)
+            return null;
         return new Point(this.x, this.y+1);
     }
 
     public Point up() {
+        if (this.x <= 0) {
+            return null;
+        }
         return new Point(this.x-1, this.y);
     }
 
     public Point down() {
+        if (this.x >= Configuration.instance.size-1) {
+            return null;
+        }
         return new Point(this.x+1, this.y);
     }
 
