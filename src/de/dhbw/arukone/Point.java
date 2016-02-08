@@ -50,6 +50,22 @@ public class Point {
         return false;
     }
 
+    public Point left() {
+        return new Point(this.x, this.y-1);
+    }
+
+    public Point right() {
+        return new Point(this.x, this.y+1);
+    }
+
+    public Point up() {
+        return new Point(this.x-1, this.y);
+    }
+
+    public Point down() {
+        return new Point(this.x+1, this.y);
+    }
+
     @Override
     public String toString() {
         return String.format("[%d, %d]", this.x, this.y);
