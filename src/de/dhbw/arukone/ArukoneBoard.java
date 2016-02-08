@@ -53,7 +53,7 @@ public class ArukoneBoard {
     }
 
     public boolean isFree(Point point) {
-        return this.occupiedFields[point.getX()][point.getY()];
+        return !this.occupiedFields[point.getX()][point.getY()];
     }
 
     @Override

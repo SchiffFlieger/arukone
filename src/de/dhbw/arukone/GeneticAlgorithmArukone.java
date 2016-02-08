@@ -25,6 +25,12 @@ public class GeneticAlgorithmArukone {
                         board.addWaypointByPathId(path.getId(), freeNeighbours.get(0));
                         step = true;
                     }
+                    freeNeighbours.clear();
+                    freeNeighbours = getNeighbours(path.getLastPointFromEnd());
+                    if (freeNeighbours.size() == 1) {
+                        board.addWaypointByPathId(path.getId(), freeNeighbours.get(0));
+                        step = true;
+                    }
                 }
             }
         }
