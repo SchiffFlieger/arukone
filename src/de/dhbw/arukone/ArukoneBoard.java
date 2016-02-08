@@ -8,6 +8,11 @@ import java.util.ArrayList;
 public class ArukoneBoard {
     private final int size;
     private ArrayList<Path> paths;
+
+    public ArrayList<Path> getPaths() {
+        return paths;
+    }
+
     private boolean[][] occupiedFields;
 
     public ArukoneBoard(final int size) {
@@ -45,6 +50,10 @@ public class ArukoneBoard {
 
     private void free(Point point) {
         this.occupiedFields[point.getX()][point.getY()] = false;
+    }
+
+    public boolean isFree(Point point) {
+        return this.occupiedFields[point.getX()][point.getY()];
     }
 
     @Override

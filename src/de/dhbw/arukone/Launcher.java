@@ -1,5 +1,8 @@
 package de.dhbw.arukone;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by karsten on 19.01.16.
  */
@@ -7,12 +10,15 @@ public class Launcher {
     public static void main(String... args) {
         ArukoneBoard board = initEasyField();
 //        ArukoneBoard board = initDifficultField();
-        
+        GeneticAlgorithmArukone algorithm = new GeneticAlgorithmArukone(board);
+        System.out.println(board);
+        algorithm.presolve();
+        System.out.println("--------------------------");
         System.out.println(board);
     }
 
     private static ArukoneBoard initEasyField() {
-        ArukoneBoard board = new ArukoneBoard(5);
+        ArukoneBoard board = new ArukoneBoard(Configuration.instance.size);
         board.addPath(new Path(new Point(0, 0), new Point(4, 1)));
         board.addPath(new Path(new Point(0, 2), new Point(3, 1)));
         board.addPath(new Path(new Point(1, 2), new Point(4, 2)));
@@ -22,7 +28,7 @@ public class Launcher {
     }
 
     private static ArukoneBoard initDifficultField() {
-        ArukoneBoard board = new ArukoneBoard(9);
+        ArukoneBoard board = new ArukoneBoard(Configuration.instance.size);
         board.addPath(new Path(new Point(1,1), new Point(4,4)));
         board.addPath(new Path(new Point(1,2), new Point(2,3)));
         board.addPath(new Path(new Point(1,3), new Point(2,7)));
