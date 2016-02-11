@@ -12,6 +12,7 @@ public class Path {
     private final int id;
     private List<Point> pathFromStart;
     private List<Point> pathFromEnd;
+    private List<Point> blockedPoints;
     private List<Integer> memory;
 
     public Path(Point start, Point end) {
@@ -20,6 +21,7 @@ public class Path {
         this.pathFromStart = new ArrayList<>();
         this.pathFromEnd = new ArrayList<>();
         this.memory = new LinkedList<>();
+        this.blockedPoints = new LinkedList<>();
         this.pathFromStart.add(start);
         this.pathFromEnd.add(end);
     }
@@ -118,6 +120,14 @@ public class Path {
         list.addAll(this.pathFromStart);
         list.addAll(this.pathFromEnd);
         return list;
+    }
+
+    public void addBlockedPoint(Point point) {
+        this.blockedPoints.add(point);
+    }
+
+    public boolean isBlocked(Point point) {
+        return this.blockedPoints.contains(point);
     }
 
     @Override
