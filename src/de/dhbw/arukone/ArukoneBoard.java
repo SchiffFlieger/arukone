@@ -38,7 +38,7 @@ public class ArukoneBoard {
     }
 
     public boolean removeWaypointByPathId(final int id, Point point) {
-        if (this.paths.get(id-1).removeWaypoint(point)) {
+        if (this.paths.get(id-1).removeWaypoint(point) != null) {
             free(point);
             return true;
         }
@@ -54,7 +54,7 @@ public class ArukoneBoard {
     }
 
     public boolean isFree(Point point) {
-        return !this.occupiedFields[point.getX()][point.getY()];
+        return (point != null && !this.occupiedFields[point.getX()][point.getY()]);
     }
 
     @Override
@@ -100,6 +100,10 @@ public class ArukoneBoard {
         }
 
         return neighbours;
+    }
+
+    public boolean hasFreeNeighbours(Point point) {
+        return (getFreeNeighbours(point).size() > 0);
     }
 
     private int[][] getGrid() {

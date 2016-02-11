@@ -78,22 +78,22 @@ public class Path {
         }
     }
 
-    public boolean removeWaypoint(Point point) {
+    public Point removeWaypoint(Point point) {
         if (this.pathFromStart.get(this.pathFromStart.size()-1).equals(point)) {
             this.pathFromStart.remove(point);
-            return true;
+            return point;
         } else if (this.pathFromEnd.get(this.pathFromEnd.size()-1).equals(point)) {
             this.pathFromEnd.remove(point);
-            return true;
+            return point;
         } else {
-            return false;
+            return null;
         }
     }
 
-    public boolean removeLastSetWaypoint() {
+    public Point removeLastSetWaypoint() {
         int flag = getLastWaypointFlag();
         if (flag == 0) {
-            return false; // list is empty
+            return null; // list is empty
         } else {
             if (flag == 1) {
                 this.memory.remove(memory.size()-1);

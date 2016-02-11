@@ -1,6 +1,8 @@
 package de.dhbw.arukone;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by karsten on 19.01.16.
@@ -14,10 +16,10 @@ public class Launcher {
             board = initEasyField();
         }
 
-        GeneticAlgorithmArukone algorithm = new GeneticAlgorithmArukone(board);
+        ArukoneSolver solver = new ArukoneSolver(board);
         System.out.println(board);
         long a = System.currentTimeMillis();
-        algorithm.presolve();
+        solver.solvePath(board.getPaths().get(0));
         System.out.println(System.currentTimeMillis()-a);
         System.out.println("--------------------------");
         System.out.println(board);

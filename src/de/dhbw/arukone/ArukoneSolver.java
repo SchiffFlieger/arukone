@@ -1,5 +1,6 @@
 package de.dhbw.arukone;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -35,22 +36,36 @@ public class ArukoneSolver {
         }
     }
 
-    public void solveRecursively() {
-
+    public void solvePath(Path path) {
+        this.solvePath(path, new LinkedList<>());
     }
 
-    private boolean solveRecursively(List<Path> paths, int index) {
+    private void solvePath(Path path, List<Point> blockedPoints) {
+        if (!path.isComplete()) {
+            Point lastPoint = path.getLastPointFromStart();
+            Point up = lastPoint.up();
+            Point down = lastPoint.down();
+            Point left = lastPoint.left();
+            Point right = lastPoint.right();
 
-        return false;
-    }
-
-    private boolean solvePath(Path path) {
-        Point lastFromStart = path.getLastPointFromStart();
-        if (board.hasFreeNeighbours(lastFromStart)) {
-
+            if (board.isFree(up) && !blockedPoints.contains(up)) {
+                board.addWaypointByPathId(path.getId(), up);
+                solvePath(path);
+            } else if (board.isFree(right) && !blockedPoints.contains(right)) {
+                board.addWaypointByPathId(path.getId(), right);
+                solvePath(path);
+            } else if (board.isFree(down) && !blockedPoints.contains(down)) {
+                board.addWaypointByPathId(path.getId(), down);
+                solvePath(path);
+            } else if (board.isFree(left) && !blockedPoints.contains(left)) {
+                board.addWaypointByPathId(path.getId(), left);
+                solvePath(path);
+            } else {
+                Point point = path.removeLastSetWaypoint();
+                blockedPoints.add(point);
+                solvePath(path, blockedPoints);
+            }
         }
-
-        return true;
     }
 
 
