@@ -9,6 +9,6 @@ public enum Configuration {
     MersenneTwisterFast twister = new MersenneTwisterFast(System.nanoTime());
     int maximumNumberOfGenerations = 100 * 100;
     double mutationPropability = 0.05;
-    boolean isDifficult = false;
-    int size = 5;
+    boolean isDifficult = true;
+    int size = (isDifficult ? 9 : 5);
 }

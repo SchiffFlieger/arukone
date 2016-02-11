@@ -1,18 +1,24 @@
 package de.dhbw.arukone;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
 /**
  * Created by karsten on 19.01.16.
  */
 public class Launcher {
-    public static void main(String... args) {
-        ArukoneBoard board = initEasyField();
-//        ArukoneBoard board = initDifficultField();
+    public static void main(String... args) throws IOException {
+        ArukoneBoard board = null;
+        if (Configuration.instance.isDifficult) {
+            board = initDifficultField();
+        } else {
+            board = initEasyField();
+        }
+
         GeneticAlgorithmArukone algorithm = new GeneticAlgorithmArukone(board);
         System.out.println(board);
+        long a = System.currentTimeMillis();
         algorithm.presolve();
+        System.out.println(System.currentTimeMillis()-a);
         System.out.println("--------------------------");
         System.out.println(board);
     }
@@ -41,3 +47,6 @@ public class Launcher {
         return board;
     }
 }
+
+
+

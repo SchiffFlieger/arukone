@@ -1,6 +1,7 @@
 package de.dhbw.arukone;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * created by Karsten Köhler on 02.02.2016
@@ -75,6 +76,30 @@ public class ArukoneBoard {
         }
 
         return result.toString();
+    }
+
+    public List<Point> getFreeNeighbours(Point point) {
+        List<Point> neighbours = new ArrayList<>(4);
+
+        Point up = point.up();
+        Point right = point.right();
+        Point down = point.down();
+        Point left = point.left();
+
+        if (up != null && this.isFree(up)) {
+            neighbours.add(up);
+        }
+        if (right != null && this.isFree(right)) {
+            neighbours.add(right);
+        }
+        if (down != null && this.isFree(down)) {
+            neighbours.add(down);
+        }
+        if (left != null && this.isFree(left)) {
+            neighbours.add(left);
+        }
+
+        return neighbours;
     }
 
     private int[][] getGrid() {
