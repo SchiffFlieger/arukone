@@ -16,9 +16,8 @@ public class Launcher {
 
         ArukoneSolver solver = new ArukoneSolver(board);
         System.out.println(board);
-        long a = System.currentTimeMillis();
+        System.out.println("--------------------------");
         solver.solvePath(board.getPaths().get(0));
-        System.out.println(System.currentTimeMillis()-a);
         System.out.println("--------------------------");
         System.out.println(board);
     }
