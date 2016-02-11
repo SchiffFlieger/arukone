@@ -1,6 +1,7 @@
 package de.dhbw.arukone;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -11,12 +12,14 @@ public class Path {
     private final int id;
     private List<Point> pathFromStart;
     private List<Point> pathFromEnd;
+    private List<Integer> memory;
 
     public Path(Point start, Point end) {
         this.id = id_counter;
         id_counter++;
         this.pathFromStart = new ArrayList<>();
         this.pathFromEnd = new ArrayList<>();
+        this.memory = new LinkedList<>();
         this.pathFromStart.add(start);
         this.pathFromEnd.add(end);
     }
@@ -63,10 +66,12 @@ public class Path {
         if (point.isReachable(this.getLastPointFromStart())) {
             System.out.printf("add point %s to start of path %d\n", point, id);
             this.pathFromStart.add(point);
+            this.memory.add(1);
             return true;
         } else if (point.isReachable(this.getLastPointFromEnd())) {
-            this.pathFromEnd.add(point);
             System.out.printf("add point %s to end of path %d\n", point, id);
+            this.pathFromEnd.add(point);
+            this.memory.add(-1);
             return true;
         } else {
             return false;
@@ -82,6 +87,29 @@ public class Path {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public boolean removeLastSetWaypoint() {
+        int flag = getLastWaypointFlag();
+        if (flag == 0) {
+            return false; // list is empty
+        } else {
+            if (flag == 1) {
+                this.memory.remove(memory.size()-1);
+                return removeWaypoint(getLastPointFromStart());
+            } else {
+                this.memory.remove(memory.size()-1);
+                return removeWaypoint(getLastPointFromEnd());
+            }
+        }
+    }
+
+    private int getLastWaypointFlag() {
+        if (this.memory.isEmpty()) {
+            return 0;
+        } else {
+            return this.memory.get(this.memory.size()-1);
         }
     }
 

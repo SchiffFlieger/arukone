@@ -5,10 +5,10 @@ import java.util.List;
 /**
  * created by Karsten Köhler on 02.02.2016
  */
-public class GeneticAlgorithmArukone {
+public class ArukoneSolver {
     private ArukoneBoard board;
 
-    public GeneticAlgorithmArukone(ArukoneBoard board) {
+    public ArukoneSolver(ArukoneBoard board) {
         this.board = board;
     }
 
@@ -34,4 +34,24 @@ public class GeneticAlgorithmArukone {
             }
         }
     }
+
+    public void solveRecursively() {
+
+    }
+
+    private boolean solveRecursively(List<Path> paths, int index) {
+
+        return false;
+    }
+
+    private boolean solvePath(Path path) {
+        Point lastFromStart = path.getLastPointFromStart();
+        if (board.hasFreeNeighbours(lastFromStart)) {
+
+        }
+
+        return true;
+    }
+
+
 }
