@@ -36,7 +36,7 @@ public class ArukoneSolver {
         }
     }
 
-    public void solvePath(Path path) {
+    public boolean solvePath(Path path) {
         if (!path.isComplete()) {
             Point lastPoint = path.getLastPointFromStart();
             Point up = lastPoint.up();
@@ -46,23 +46,26 @@ public class ArukoneSolver {
 
             if (board.isFree(up) && !path.isBlocked(up)) {
                 board.addWaypointByPathId(path.getId(), up);
-                solvePath(path);
+                return solvePath(path);
             } else if (board.isFree(right) && !path.isBlocked(right)) {
                 board.addWaypointByPathId(path.getId(), right);
-                solvePath(path);
+                return solvePath(path);
             } else if (board.isFree(down) && !path.isBlocked(down)) {
                 board.addWaypointByPathId(path.getId(), down);
-                solvePath(path);
+                return solvePath(path);
             } else if (board.isFree(left) && !path.isBlocked(left)) {
                 board.addWaypointByPathId(path.getId(), left);
-                solvePath(path);
+                return solvePath(path);
             } else {
-                Point point = path.removeLastSetWaypoint();
-                path.addBlockedPoint(point);
-                solvePath(path);
+                Point point = board.removeLastSetWaypointByPathId(path.getId());
+                if (point != null) {
+                    path.addBlockedPoint(point);
+                    return solvePath(path);
+                } else {
+                    return false;
+                }
             }
         }
+        return true;
     }
-
-
 }

@@ -1,6 +1,8 @@
 package de.dhbw.arukone;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by karsten on 19.01.16.
@@ -16,10 +18,14 @@ public class Launcher {
 
         ArukoneSolver solver = new ArukoneSolver(board);
         System.out.println(board);
-        System.out.println("--------------------------");
-        solver.solvePath(board.getPaths().get(0));
-        System.out.println("--------------------------");
+        solver.presolve();
         System.out.println(board);
+        for (int i = 0; i < board.getPaths().size(); i++) {
+            System.out.println("--------------------------");
+            System.out.println(solver.solvePath(board.getPaths().get(i)));
+            System.out.println("--------------------------");
+            System.out.println(board);
+        }
     }
 
     private static ArukoneBoard initEasyField() {

@@ -83,9 +83,11 @@ public class Path {
     public Point removeWaypoint(Point point) {
         if (this.pathFromStart.get(this.pathFromStart.size()-1).equals(point)) {
             this.pathFromStart.remove(point);
+            System.out.printf("remove point %s from start of path %d\n", point, id);
             return point;
         } else if (this.pathFromEnd.get(this.pathFromEnd.size()-1).equals(point)) {
             this.pathFromEnd.remove(point);
+            System.out.printf("remove point %s from end of path %d\n", point, id);
             return point;
         } else {
             return null;

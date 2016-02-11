@@ -57,6 +57,14 @@ public class ArukoneBoard {
         return (point != null && !this.occupiedFields[point.getX()][point.getY()]);
     }
 
+    public Point removeLastSetWaypointByPathId(int id) {
+        Point point = paths.get(id-1).removeLastSetWaypoint();
+        if (point != null) {
+            free(point);
+        }
+        return point;
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
