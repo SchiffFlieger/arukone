@@ -17,15 +17,20 @@ public class Launcher {
         }
 
         ArukoneSolver solver = new ArukoneSolver(board);
+        System.out.println("1. --------------------");
         System.out.println(board);
-        solver.presolve();
+        solver.solvePath(board.getPaths().get(0));
+        System.out.println("2. --------------------");
         System.out.println(board);
-        for (int i = 0; i < board.getPaths().size(); i++) {
-            System.out.println("--------------------------");
-            System.out.println(solver.solvePath(board.getPaths().get(i)));
-            System.out.println("--------------------------");
-            System.out.println(board);
-        }
+        solver.solvePath(board.getPaths().get(0), 1);
+        System.out.println("3. --------------------");
+        System.out.println(board);
+        solver.solvePath(board.getPaths().get(0), 2);
+        System.out.println("4. --------------------");
+        System.out.println(board);
+        solver.solvePath(board.getPaths().get(0), 3);
+        System.out.println("5. --------------------");
+        System.out.println(board);
     }
 
     private static ArukoneBoard initEasyField() {
