@@ -12,8 +12,10 @@ public class Launcher {
         }
 
         System.out.println(board);
+        System.out.println("-----------------");
         ArukoneSolver solver = new ArukoneSolver();
-        board = solver.solve(board);
+        board = solver.solvePath(board, 1);
+        System.out.println("------------------");
         System.out.println(board);
     }
 
