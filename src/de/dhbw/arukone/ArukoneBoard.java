@@ -65,6 +65,15 @@ public class ArukoneBoard {
         return point;
     }
 
+    public boolean isSolved() {
+        for (Path path : paths) {
+            if (!path.isComplete()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
