@@ -1,12 +1,7 @@
 package de.dhbw.arukone;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-/**
- * Created by karsten on 19.01.16.
- */
 public class Launcher {
     public static void main(String... args) throws IOException {
         ArukoneBoard board = null;

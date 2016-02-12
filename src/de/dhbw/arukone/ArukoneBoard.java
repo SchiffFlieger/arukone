@@ -3,9 +3,6 @@ package de.dhbw.arukone;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * created by Karsten Köhler on 02.02.2016
- */
 public class ArukoneBoard {
     private final int size;
     private ArrayList<Path> paths;

@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by karsten on 06.02.16.
- */
 public class Path {
     private static int id_counter = 1;
     private final int id;

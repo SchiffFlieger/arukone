@@ -1,8 +1,5 @@
 package de.dhbw.arukone;
 
-/**
- * Created by karsten on 06.02.16.
- */
 public class Point {
     private final int x, y;
 
