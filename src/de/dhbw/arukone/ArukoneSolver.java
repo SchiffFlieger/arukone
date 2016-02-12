@@ -1,13 +1,11 @@
 package de.dhbw.arukone;
 
 public class ArukoneSolver {
-    private ArukoneBoard board;
 
-    public ArukoneSolver(ArukoneBoard board) {
-        this.board = board;
+    public ArukoneSolver() {
     }
 
-    public void solve() {
-
+    public ArukoneBoard solve(ArukoneBoard board) {
+        return null;
     }
 }
