@@ -22,6 +22,20 @@ public class ArukoneBoard {
         this.paths = new ArrayList<>();
     }
 
+    public ArukoneBoard(ArukoneBoard board) {
+        this.size = board.size;
+        this.occupiedFields = new boolean[size][size];
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
+                this.occupiedFields[x][y] = board.occupiedFields[x][y];
+            }
+        }
+        this.paths = new ArrayList<>();
+        for (Path path : board.paths) {
+            this.paths.add(new Path(path));
+        }
+    }
+
     public void addPath(Path path) {
         this.paths.add(path);
         for (Point point : path.getAllPoints()) {

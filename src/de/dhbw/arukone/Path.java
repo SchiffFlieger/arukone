@@ -26,6 +26,26 @@ public class Path {
         this.pathFromEnd.add(end);
     }
 
+    public Path(Path path) {
+        this.id = path.getId();
+        this.pathFromStart = new ArrayList<>();
+        for (Point point : path.pathFromStart) {
+            this.pathFromStart.add(new Point(point));
+        }
+        this.pathFromStart = new ArrayList<>();
+        for (Point point : path.pathFromEnd) {
+            this.pathFromEnd.add(new Point(point));
+        }
+        this.blockedPoints = new ArrayList<>();
+        for (Point point : path.blockedPoints) {
+            this.pathFromStart.add(new Point(point));
+        }
+        this.memory = new ArrayList<>();
+        for (int i : path.memory) {
+            this.memory.add(i);
+        }
+    }
+
     public int getId() {
         return id;
     }

@@ -7,7 +7,7 @@ public class ArukoneSolver {
         this.board = board;
     }
 
-    public void presolve() {
+    public void solve() {
 
     }
 }
