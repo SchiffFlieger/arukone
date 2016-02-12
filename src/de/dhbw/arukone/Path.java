@@ -29,7 +29,7 @@ public class Path {
         for (Point point : path.pathFromStart) {
             this.pathFromStart.add(new Point(point));
         }
-        this.pathFromStart = new ArrayList<>();
+        this.pathFromEnd = new ArrayList<>();
         for (Point point : path.pathFromEnd) {
             this.pathFromEnd.add(new Point(point));
         }
