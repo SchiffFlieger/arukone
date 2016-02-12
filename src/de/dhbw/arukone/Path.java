@@ -95,18 +95,9 @@ public class Path {
     }
 
     public Point removeLastSetWaypoint() {
-        int flag = getLastWaypointFlag();
-        if (flag == 0) {
-            return null; // list is empty
-        } else {
-            if (flag == 1) {
-                this.memory.remove(memory.size()-1);
-                return removeWaypoint(getLastPointFromStart());
-            } else {
-                this.memory.remove(memory.size()-1);
-                return removeWaypoint(getLastPointFromEnd());
-            }
-        }
+        Point point = getLastSetWaypoint();
+        this.memory.remove(memory.size()-1);
+        return removeWaypoint(point);
     }
 
     private int getLastWaypointFlag() {
@@ -114,6 +105,19 @@ public class Path {
             return 0;
         } else {
             return this.memory.get(this.memory.size()-1);
+        }
+    }
+
+    public Point getLastSetWaypoint() {
+        int flag = getLastWaypointFlag();
+        if (flag == 0) {
+            return null; // list is empty
+        } else {
+            if (flag == 1) {
+                return getLastPointFromStart();
+            } else {
+                return getLastPointFromEnd();
+            }
         }
     }
 
