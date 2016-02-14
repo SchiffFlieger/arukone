@@ -1,21 +1,17 @@
 package de.dhbw.arukone;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ArukoneBoard {
     private final int size;
     private List<Path> paths;
-    private Set<Move> illegalMoves;
     private boolean[][] occupiedFields;
 
     public ArukoneBoard(final int size) {
         this.size = size;
         this.occupiedFields = new boolean[size][size];
         this.paths = new ArrayList<>();
-        this.illegalMoves = new HashSet<>();
     }
 
     public ArukoneBoard(ArukoneBoard board) {
@@ -29,9 +25,6 @@ public class ArukoneBoard {
         this.paths = new ArrayList<>();
         for (Path path : board.paths) {
             this.paths.add(new Path(path));
-        }
-        for (Move move : board.illegalMoves) {
-            this.illegalMoves.add(move);
         }
     }
 
@@ -49,15 +42,6 @@ public class ArukoneBoard {
     public Path getPathById(int id) {
         return this.paths.get(id-1);
     }
-
-    public void addIllegalMove(Move move) {
-        illegalMoves.add(move);
-    }
-
-    public boolean isIllegalMove(Move move) {
-        return illegalMoves.contains(move);
-    }
-
 
     public boolean addWaypointByPathId(final int id, Point point) {
         if (this.paths.get(id-1).addWaypoint(point)) {

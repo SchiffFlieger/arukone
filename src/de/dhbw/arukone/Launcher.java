@@ -14,9 +14,14 @@ public class Launcher {
         System.out.println(board);
         System.out.println("-----------------");
         ArukoneSolver solver = new ArukoneSolver();
-        board = solver.solvePath(board, 1);
+        long a = System.currentTimeMillis();
+        board = solver.solve(board, 1);
+        long b = System.currentTimeMillis();
         System.out.println("------------------");
         System.out.println(board);
+
+        System.out.println();
+        System.out.printf("time: %d\n", b-a);
     }
 
     private static ArukoneBoard initEasyField() {
