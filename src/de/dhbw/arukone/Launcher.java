@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class Launcher {
     public static int size = 0;
-    public static final boolean doPresolve = true;
+    private static final boolean doPresolve = true;
 
     public static void main(String... args) throws IOException {
         ArukoneSolver solver = new ArukoneSolver();
