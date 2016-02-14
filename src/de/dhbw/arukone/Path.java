@@ -23,6 +23,10 @@ public class Path {
         this.pathFromEnd.add(end);
     }
 
+    public static void reset() {
+        id_counter = 1;
+    }
+
     public Path(Path path) {
         this.id = path.getId();
         this.pathFromStart = new ArrayList<>();

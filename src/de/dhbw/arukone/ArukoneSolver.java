@@ -4,6 +4,16 @@ import java.util.List;
 
 public class ArukoneSolver {
 
+    private static long iterations = 0;
+
+    public static void reset() {
+        iterations = 0;
+    }
+
+    public static long getIterations() {
+        return iterations;
+    }
+
     public void presolve(ArukoneBoard board) {
         boolean step = true;
         while (step) {
@@ -15,6 +25,9 @@ public class ArukoneSolver {
                     if (freeNeighbours.size() == 1) {
                         board.addWaypointByPathId(path.getId(), freeNeighbours.get(0));
                         step = true;
+                    }
+                    if (path.isComplete()) {
+                        continue;
                     }
                     freeNeighbours.clear();
                     freeNeighbours = board.getFreeNeighbours(path.getLastPointFromEnd());
@@ -28,13 +41,7 @@ public class ArukoneSolver {
     }
 
     public ArukoneBoard solve(ArukoneBoard board, int pathId) {
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println(board);
-//        System.out.println("------------------------");
+        iterations++;
         if (board.isSolved()) {
             return board; // board solved
         } else

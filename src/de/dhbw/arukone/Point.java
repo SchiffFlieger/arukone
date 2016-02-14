@@ -59,7 +59,7 @@ public class Point {
     }
 
     public Point right() {
-        if (this.y >= Configuration.instance.size-1)
+        if (this.y >= Launcher.size-1)
             return null;
         return new Point(this.x, this.y+1);
     }
@@ -72,7 +72,7 @@ public class Point {
     }
 
     public Point down() {
-        if (this.x >= Configuration.instance.size-1) {
+        if (this.x >= Launcher.size-1) {
             return null;
         }
         return new Point(this.x+1, this.y);
