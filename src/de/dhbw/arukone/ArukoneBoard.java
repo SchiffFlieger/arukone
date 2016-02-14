@@ -40,20 +40,12 @@ public class ArukoneBoard {
     }
 
     public Path getPathById(int id) {
-        return this.paths.get(id-1);
+        return this.paths.get(id - 1);
     }
 
     public boolean addWaypointByPathId(final int id, Point point) {
-        if (this.paths.get(id-1).addWaypoint(point)) {
+        if (this.paths.get(id - 1).addWaypoint(point)) {
             occupy(point);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean removeWaypointByPathId(final int id, Point point) {
-        if (this.paths.get(id-1).removeWaypoint(point) != null) {
-            free(point);
             return true;
         }
         return false;
@@ -63,20 +55,8 @@ public class ArukoneBoard {
         this.occupiedFields[point.getX()][point.getY()] = true;
     }
 
-    private void free(Point point) {
-        this.occupiedFields[point.getX()][point.getY()] = false;
-    }
-
     public boolean isFree(Point point) {
         return (point != null && !this.occupiedFields[point.getX()][point.getY()]);
-    }
-
-    public Point removeLastSetWaypointByPathId(int id) {
-        Point point = paths.get(id-1).removeLastSetWaypoint();
-        if (point != null) {
-            free(point);
-        }
-        return point;
     }
 
     public boolean isSolved() {
@@ -103,7 +83,7 @@ public class ArukoneBoard {
                     result.append("    ");
                 }
             }
-            result.append("\n" + lineSep);
+            result.append("\n").append(lineSep);
         }
 
         return result.toString();

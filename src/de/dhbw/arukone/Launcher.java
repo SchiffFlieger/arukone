@@ -22,7 +22,7 @@ public class Launcher {
         }
         board = solver.solve(board, 1);
         end = System.nanoTime();
-        System.out.printf("5x5 -- solution -- time: %.6fs -- iterations: %d\n", (end-start) / 1000000000.0, ArukoneSolver.getIterations());
+        System.out.printf("5x5 -- solution -- time: %.6fs -- iterations: %d\n", (end - start) / 1000000000.0, ArukoneSolver.getIterations());
         System.out.println(board);
         System.out.println();
         ArukoneSolver.reset();
@@ -38,7 +38,7 @@ public class Launcher {
         }
         board = solver.solve(board, 1);
         end = System.nanoTime();
-        System.out.printf("6x6 -- solution -- time: %.6fs -- iterations: %d\n", (end-start) / 1000000000.0, ArukoneSolver.getIterations());
+        System.out.printf("6x6 -- solution -- time: %.6fs -- iterations: %d\n", (end - start) / 1000000000.0, ArukoneSolver.getIterations());
         System.out.println(board);
         System.out.println();
         ArukoneSolver.reset();
@@ -54,7 +54,7 @@ public class Launcher {
         }
         board = solver.solve(board, 1);
         end = System.nanoTime();
-        System.out.printf("7x7 -- solution -- time: %.6fs -- iterations: %d\n", (end-start) / 1000000000.0, ArukoneSolver.getIterations());
+        System.out.printf("7x7 -- solution -- time: %.6fs -- iterations: %d\n", (end - start) / 1000000000.0, ArukoneSolver.getIterations());
         System.out.println(board);
         System.out.println();
         ArukoneSolver.reset();
@@ -70,7 +70,7 @@ public class Launcher {
         }
         board = solver.solve(board, 1);
         end = System.nanoTime();
-        System.out.printf("8x8 -- solution -- time: %.6fs -- iterations: %d\n", (end-start) / 1000000000.0, ArukoneSolver.getIterations());
+        System.out.printf("8x8 -- solution -- time: %.6fs -- iterations: %d\n", (end - start) / 1000000000.0, ArukoneSolver.getIterations());
         System.out.println(board);
         System.out.println();
         ArukoneSolver.reset();
@@ -86,7 +86,7 @@ public class Launcher {
         }
         board = solver.solve(board, 1);
         end = System.nanoTime();
-        System.out.printf("9x9 -- solution -- time: %.6fs -- iterations: %d\n", (end-start) / 1000000000.0, ArukoneSolver.getIterations());
+        System.out.printf("9x9 -- solution -- time: %.6fs -- iterations: %d\n", (end - start) / 1000000000.0, ArukoneSolver.getIterations());
         System.out.println(board);
         System.out.println();
         ArukoneSolver.reset();
@@ -108,12 +108,12 @@ public class Launcher {
         Launcher.size = 6;
         Path.reset();
         ArukoneBoard board = new ArukoneBoard(Launcher.size);
-        board.addPath(new Path(new Point(0,0), new Point(4,0)));
-        board.addPath(new Path(new Point(0,1), new Point(5,0)));
-        board.addPath(new Path(new Point(0,2), new Point(2,2)));
-        board.addPath(new Path(new Point(0,4), new Point(3,2)));
-        board.addPath(new Path(new Point(0,5), new Point(5,2)));
-        board.addPath(new Path(new Point(1,4), new Point(4,2)));
+        board.addPath(new Path(new Point(0, 0), new Point(4, 0)));
+        board.addPath(new Path(new Point(0, 1), new Point(5, 0)));
+        board.addPath(new Path(new Point(0, 2), new Point(2, 2)));
+        board.addPath(new Path(new Point(0, 4), new Point(3, 2)));
+        board.addPath(new Path(new Point(0, 5), new Point(5, 2)));
+        board.addPath(new Path(new Point(1, 4), new Point(4, 2)));
         return board;
     }
 
@@ -121,12 +121,12 @@ public class Launcher {
         Launcher.size = 7;
         Path.reset();
         ArukoneBoard board = new ArukoneBoard(Launcher.size);
-        board.addPath(new Path(new Point(0,6), new Point(6,5)));
-        board.addPath(new Path(new Point(1,5), new Point(2,1)));
-        board.addPath(new Path(new Point(1,6), new Point(5,4)));
-        board.addPath(new Path(new Point(3,3), new Point(4,2)));
-        board.addPath(new Path(new Point(3,4), new Point(6,6)));
-        board.addPath(new Path(new Point(4,4), new Point(5,5)));
+        board.addPath(new Path(new Point(0, 6), new Point(6, 5)));
+        board.addPath(new Path(new Point(1, 5), new Point(2, 1)));
+        board.addPath(new Path(new Point(1, 6), new Point(5, 4)));
+        board.addPath(new Path(new Point(3, 3), new Point(4, 2)));
+        board.addPath(new Path(new Point(3, 4), new Point(6, 6)));
+        board.addPath(new Path(new Point(4, 4), new Point(5, 5)));
         return board;
     }
 
@@ -134,12 +134,12 @@ public class Launcher {
         Launcher.size = 8;
         Path.reset();
         ArukoneBoard board = new ArukoneBoard(Launcher.size);
-        board.addPath(new Path(new Point(0,4), new Point(7,1)));
-        board.addPath(new Path(new Point(1,4), new Point(2,7)));
-        board.addPath(new Path(new Point(1,6), new Point(2,4)));
-        board.addPath(new Path(new Point(1,7), new Point(2,5)));
-        board.addPath(new Path(new Point(3,3), new Point(4,4)));
-        board.addPath(new Path(new Point(3,4), new Point(5,4)));
+        board.addPath(new Path(new Point(0, 4), new Point(7, 1)));
+        board.addPath(new Path(new Point(1, 4), new Point(2, 7)));
+        board.addPath(new Path(new Point(1, 6), new Point(2, 4)));
+        board.addPath(new Path(new Point(1, 7), new Point(2, 5)));
+        board.addPath(new Path(new Point(3, 3), new Point(4, 4)));
+        board.addPath(new Path(new Point(3, 4), new Point(5, 4)));
         return board;
     }
 
@@ -147,15 +147,15 @@ public class Launcher {
         Launcher.size = 9;
         Path.reset();
         ArukoneBoard board = new ArukoneBoard(Launcher.size);
-        board.addPath(new Path(new Point(1,1), new Point(4,4)));
-        board.addPath(new Path(new Point(1,2), new Point(2,3)));
-        board.addPath(new Path(new Point(1,3), new Point(2,7)));
-        board.addPath(new Path(new Point(2,4), new Point(2,6)));
-        board.addPath(new Path(new Point(3,7), new Point(5,1)));
-        board.addPath(new Path(new Point(4,1), new Point(4,3)));
-        board.addPath(new Path(new Point(5,0), new Point(6,2)));
-        board.addPath(new Path(new Point(6,1), new Point(5,8)));
-        board.addPath(new Path(new Point(7,1), new Point(5,7)));
+        board.addPath(new Path(new Point(1, 1), new Point(4, 4)));
+        board.addPath(new Path(new Point(1, 2), new Point(2, 3)));
+        board.addPath(new Path(new Point(1, 3), new Point(2, 7)));
+        board.addPath(new Path(new Point(2, 4), new Point(2, 6)));
+        board.addPath(new Path(new Point(3, 7), new Point(5, 1)));
+        board.addPath(new Path(new Point(4, 1), new Point(4, 3)));
+        board.addPath(new Path(new Point(5, 0), new Point(6, 2)));
+        board.addPath(new Path(new Point(6, 1), new Point(5, 8)));
+        board.addPath(new Path(new Point(7, 1), new Point(5, 7)));
         return board;
     }
 }
