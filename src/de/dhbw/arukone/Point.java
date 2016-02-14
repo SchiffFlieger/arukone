@@ -29,7 +29,6 @@ public class Point {
         Point point = (Point) o;
 
         return x == point.x && y == point.y;
-
     }
 
     @Override
@@ -40,7 +39,10 @@ public class Point {
     }
 
     public boolean isReachable(Point other) {
-        return !this.equals(other) && (this.y == other.getY() && Math.abs(this.x - other.getX()) <= 1 || this.x == other.getX() && Math.abs(this.y - other.getY()) <= 1);
+        int diffY = Math.abs(this.y - other.y);
+        int diffX = Math.abs(this.x - other.x);
+        int diffGes = Math.abs(diffX + diffY);
+        return diffGes == 1;
 
     }
 

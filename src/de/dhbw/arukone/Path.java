@@ -15,8 +15,8 @@ public class Path {
     public Path(Point start, Point end) {
         this.id = id_counter;
         id_counter++;
-        this.pathFromStart = new ArrayList<>();
-        this.pathFromEnd = new ArrayList<>();
+        this.pathFromStart = new LinkedList<>();
+        this.pathFromEnd = new LinkedList<>();
         this.memory = new LinkedList<>();
         this.pathFromStart.add(start);
         this.pathFromEnd.add(end);
@@ -28,8 +28,8 @@ public class Path {
 
     public Path(Path path) {
         this.id = path.getId();
-        this.pathFromStart = new ArrayList<>();
-        this.pathFromEnd = new ArrayList<>();
+        this.pathFromStart = new LinkedList<>();
+        this.pathFromEnd = new LinkedList<>();
         this.memory = new ArrayList<>();
         this.pathFromStart.addAll(path.pathFromStart.stream().map(Point::new).collect(Collectors.toList()));
         this.pathFromEnd.addAll(path.pathFromEnd.stream().map(Point::new).collect(Collectors.toList()));
