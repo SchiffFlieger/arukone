@@ -28,8 +28,7 @@ public class Point {
 
         Point point = (Point) o;
 
-        if (x != point.x) return false;
-        return y == point.y;
+        return x == point.x && y == point.y;
 
     }
 
@@ -41,15 +40,8 @@ public class Point {
     }
 
     public boolean isReachable(Point other) {
-        if (this.equals(other))
-            return false;
+        return !this.equals(other) && (this.y == other.getY() && Math.abs(this.x - other.getX()) <= 1 || this.x == other.getX() && Math.abs(this.y - other.getY()) <= 1);
 
-        if (this.y == other.getY() && Math.abs(this.x - other.getX()) <= 1)
-            return true;
-        if (this.x == other.getX() && Math.abs(this.y - other.getY()) <= 1)
-            return true;
-
-        return false;
     }
 
     public Point left() {

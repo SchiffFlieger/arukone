@@ -2,6 +2,7 @@ package de.dhbw.arukone;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ArukoneBoard {
     private final int size;
@@ -18,14 +19,10 @@ public class ArukoneBoard {
         this.size = board.size;
         this.occupiedFields = new boolean[size][size];
         for (int x = 0; x < size; x++) {
-            for (int y = 0; y < size; y++) {
-                this.occupiedFields[x][y] = board.occupiedFields[x][y];
-            }
+            System.arraycopy(board.occupiedFields[x], 0, this.occupiedFields[x], 0, size);
         }
         this.paths = new ArrayList<>();
-        for (Path path : board.paths) {
-            this.paths.add(new Path(path));
-        }
+        this.paths.addAll(board.paths.stream().map(Path::new).collect(Collectors.toList()));
     }
 
     public List<Path> getPaths() {
@@ -34,9 +31,7 @@ public class ArukoneBoard {
 
     public void addPath(Path path) {
         this.paths.add(path);
-        for (Point point : path.getAllPoints()) {
-            occupy(point);
-        }
+        path.getAllPoints().forEach(this::occupy);
     }
 
     public Path getPathById(int id) {

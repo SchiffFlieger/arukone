@@ -3,6 +3,7 @@ package de.dhbw.arukone;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Path {
     private static int id_counter = 1;
@@ -30,21 +31,13 @@ public class Path {
     public Path(Path path) {
         this.id = path.getId();
         this.pathFromStart = new ArrayList<>();
-        for (Point point : path.pathFromStart) {
-            this.pathFromStart.add(new Point(point));
-        }
         this.pathFromEnd = new ArrayList<>();
-        for (Point point : path.pathFromEnd) {
-            this.pathFromEnd.add(new Point(point));
-        }
         this.blockedPoints = new ArrayList<>();
-        for (Point point : path.blockedPoints) {
-            this.pathFromStart.add(new Point(point));
-        }
         this.memory = new ArrayList<>();
-        for (int i : path.memory) {
-            this.memory.add(i);
-        }
+        this.pathFromStart.addAll(path.pathFromStart.stream().map(Point::new).collect(Collectors.toList()));
+        this.pathFromEnd.addAll(path.pathFromEnd.stream().map(Point::new).collect(Collectors.toList()));
+        this.pathFromStart.addAll(path.blockedPoints.stream().map(Point::new).collect(Collectors.toList()));
+        this.memory.addAll(path.memory.stream().collect(Collectors.toList()));
     }
 
     public int getId() {
@@ -68,12 +61,9 @@ public class Path {
     }
 
     public boolean isComplete() {
-        if (this.pathFromEnd.get(this.pathFromEnd.size() - 1).isReachable(this.pathFromStart.get(this.pathFromStart.size() - 1)) &&
+        return this.pathFromEnd.get(this.pathFromEnd.size() - 1).isReachable(this.pathFromStart.get(this.pathFromStart.size() - 1)) &&
                 isPartComplete(this.pathFromStart) &&
-                isPartComplete(this.pathFromEnd)) {
-            return true;
-        }
-        return false;
+                isPartComplete(this.pathFromEnd);
     }
 
     private boolean isPartComplete(List<Point> points) {
@@ -96,18 +86,6 @@ public class Path {
             return true;
         } else {
             return false;
-        }
-    }
-
-    public Point removeWaypoint(Point point) {
-        if (this.pathFromStart.get(this.pathFromStart.size() - 1).equals(point)) {
-            this.pathFromStart.remove(point);
-            return point;
-        } else if (this.pathFromEnd.get(this.pathFromEnd.size() - 1).equals(point)) {
-            this.pathFromEnd.remove(point);
-            return point;
-        } else {
-            return null;
         }
     }
 
