@@ -10,7 +10,6 @@ public class Path {
     private final int id;
     private List<Point> pathFromStart;
     private List<Point> pathFromEnd;
-    private List<Point> blockedPoints;
     private List<Integer> memory;
 
     public Path(Point start, Point end) {
@@ -19,7 +18,6 @@ public class Path {
         this.pathFromStart = new ArrayList<>();
         this.pathFromEnd = new ArrayList<>();
         this.memory = new LinkedList<>();
-        this.blockedPoints = new LinkedList<>();
         this.pathFromStart.add(start);
         this.pathFromEnd.add(end);
     }
@@ -32,11 +30,9 @@ public class Path {
         this.id = path.getId();
         this.pathFromStart = new ArrayList<>();
         this.pathFromEnd = new ArrayList<>();
-        this.blockedPoints = new ArrayList<>();
         this.memory = new ArrayList<>();
         this.pathFromStart.addAll(path.pathFromStart.stream().map(Point::new).collect(Collectors.toList()));
         this.pathFromEnd.addAll(path.pathFromEnd.stream().map(Point::new).collect(Collectors.toList()));
-        this.pathFromStart.addAll(path.blockedPoints.stream().map(Point::new).collect(Collectors.toList()));
         this.memory.addAll(path.memory.stream().collect(Collectors.toList()));
     }
 

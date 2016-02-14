@@ -7,11 +7,6 @@ import static org.junit.Assert.*;
 public class ArukoneBoardTest {
 
     @Test
-    public void testGetPaths() throws Exception {
-
-    }
-
-    @Test
     public void testAddPath() throws Exception {
 
     }

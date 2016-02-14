@@ -3,7 +3,7 @@ package de.dhbw.arukone;
 import java.io.IOException;
 
 public class Launcher {
-    public static int size = 0;
+    public static int size = 5;
     private static final boolean doPresolve = true;
 
     public static void main(String... args) throws IOException {
@@ -90,6 +90,22 @@ public class Launcher {
         System.out.println(board);
         System.out.println();
         ArukoneSolver.reset();
+
+        board = init10x10();
+        System.out.println("10x10 -- init");
+        System.out.println(board);
+        start = System.nanoTime();
+        if (doPresolve) {
+            solver.presolve(board);
+            System.out.println("10x10 -- after presolve");
+            System.out.println(board);
+        }
+        board = solver.solve(board, 1);
+        end = System.nanoTime();
+        System.out.printf("10x10 -- solution -- time: %.6fs -- iterations: %d\n", (end - start) / 1000000000.0, ArukoneSolver.getIterations());
+        System.out.println(board);
+        System.out.println();
+        ArukoneSolver.reset();
     }
 
     private static ArukoneBoard init5x5() {
@@ -156,6 +172,23 @@ public class Launcher {
         board.addPath(new Path(new Point(5, 0), new Point(6, 2)));
         board.addPath(new Path(new Point(6, 1), new Point(5, 8)));
         board.addPath(new Path(new Point(7, 1), new Point(5, 7)));
+        return board;
+    }
+
+    private static ArukoneBoard init10x10() {
+        Launcher.size = 10;
+        Path.reset();
+        ArukoneBoard board = new ArukoneBoard(Launcher.size);
+        board.addPath(new Path(new Point(1,1), new Point(4,4)));
+        board.addPath(new Path(new Point(2,2), new Point(4,7)));
+        board.addPath(new Path(new Point(2,4), new Point(5,6)));
+        board.addPath(new Path(new Point(1,4), new Point(5,8)));
+        board.addPath(new Path(new Point(2,1), new Point(2,7)));
+        board.addPath(new Path(new Point(1,6), new Point(1,8)));
+        board.addPath(new Path(new Point(6,3), new Point(3,9)));
+        board.addPath(new Path(new Point(3,1), new Point(7,9)));
+        board.addPath(new Path(new Point(4,1), new Point(8,2)));
+        board.addPath(new Path(new Point(6,2), new Point(8,8)));
         return board;
     }
 }
