@@ -7,102 +7,54 @@ public class Launcher {
     private static final boolean doPresolve = true;
 
     public static void main(String... args) throws IOException {
+        solve(5);
+        solve(6);
+        solve(7);
+        solve(8);
+        solve(9);
+        solve(10);
+        solve(11);
+        solve(12);
+    }
+
+    private static void solve(int k) {
         ArukoneSolver solver = new ArukoneSolver();
-        ArukoneBoard board;
+        ArukoneBoard board = null;
         long start, end;
 
-        board = init5x5();
-        System.out.println("5x5 -- init");
-        System.out.println(board);
-        start = System.nanoTime();
-        if (doPresolve) {
-            solver.presolve(board);
-            System.out.println("5x5 -- after presolve");
-            System.out.println(board);
+        switch (k) {
+            case 5:
+                board = init5x5();
+                break;
+            case 6:
+                board = init6x6();
+                break;
+            case 7:
+                board = init7x7();
+                break;
+            case 8:
+                board = init8x8();
+                break;
+            case 9:
+                board = init9x9();
+                break;
+            case 10:
+                board = init10x10();
+                break;
+            case 11:
+                board = init11x11();
+                break;
+            case 12:
+                board = init12x12();
+                break;
         }
-        board = solver.solve(board, 1);
-        end = System.nanoTime();
-        System.out.printf("5x5 -- solution -- time: %.6fs -- iterations: %d\n", (end - start) / 1000000000.0, ArukoneSolver.getIterations());
-        System.out.println(board);
-        System.out.println();
-        ArukoneSolver.reset();
 
-        board = init6x6();
-        System.out.println("6x6 -- init");
+        System.out.printf("%dx%d -- init\n", k, k);
         System.out.println(board);
         start = System.nanoTime();
-        if (doPresolve) {
-            solver.presolve(board);
-            System.out.println("6x6 -- after presolve");
-            System.out.println(board);
-        }
         board = solver.solve(board, 1);
         end = System.nanoTime();
-        System.out.printf("6x6 -- solution -- time: %.6fs -- iterations: %d\n", (end - start) / 1000000000.0, ArukoneSolver.getIterations());
-        System.out.println(board);
-        System.out.println();
-        ArukoneSolver.reset();
-
-        board = init7x7();
-        System.out.println("7x7 -- init");
-        System.out.println(board);
-        start = System.nanoTime();
-        if (doPresolve) {
-            solver.presolve(board);
-            System.out.println("7x7 -- after presolve");
-            System.out.println(board);
-        }
-        board = solver.solve(board, 1);
-        end = System.nanoTime();
-        System.out.printf("7x7 -- solution -- time: %.6fs -- iterations: %d\n", (end - start) / 1000000000.0, ArukoneSolver.getIterations());
-        System.out.println(board);
-        System.out.println();
-        ArukoneSolver.reset();
-
-        board = init8x8();
-        System.out.println("8x8 -- init");
-        System.out.println(board);
-        start = System.nanoTime();
-        if (doPresolve) {
-            solver.presolve(board);
-            System.out.println("8x8 -- after presolve");
-            System.out.println(board);
-        }
-        board = solver.solve(board, 1);
-        end = System.nanoTime();
-        System.out.printf("8x8 -- solution -- time: %.6fs -- iterations: %d\n", (end - start) / 1000000000.0, ArukoneSolver.getIterations());
-        System.out.println(board);
-        System.out.println();
-        ArukoneSolver.reset();
-
-        board = init9x9();
-        System.out.println("9x9 -- init");
-        System.out.println(board);
-        start = System.nanoTime();
-        if (doPresolve) {
-            solver.presolve(board);
-            System.out.println("9x9 -- after presolve");
-            System.out.println(board);
-        }
-        board = solver.solve(board, 1);
-        end = System.nanoTime();
-        System.out.printf("9x9 -- solution -- time: %.6fs -- iterations: %d\n", (end - start) / 1000000000.0, ArukoneSolver.getIterations());
-        System.out.println(board);
-        System.out.println();
-        ArukoneSolver.reset();
-
-        board = init10x10();
-        System.out.println("10x10 -- init");
-        System.out.println(board);
-        start = System.nanoTime();
-        if (doPresolve) {
-            solver.presolve(board);
-            System.out.println("10x10 -- after presolve");
-            System.out.println(board);
-        }
-        board = solver.solve(board, 1);
-        end = System.nanoTime();
-        System.out.printf("10x10 -- solution -- time: %.6fs -- iterations: %d\n", (end - start) / 1000000000.0, ArukoneSolver.getIterations());
+        System.out.printf("%dx%d -- solution -- time: %.6fs -- iterations: %d\n", k, k, (end - start) / 1000000000.0, ArukoneSolver.getIterations());
         System.out.println(board);
         System.out.println();
         ArukoneSolver.reset();
@@ -189,6 +141,39 @@ public class Launcher {
         board.addPath(new Path(new Point(3,1), new Point(7,9)));
         board.addPath(new Path(new Point(4,1), new Point(8,2)));
         board.addPath(new Path(new Point(6,2), new Point(8,8)));
+        return board;
+    }
+
+    private static ArukoneBoard init11x11() {
+        Launcher.size = 11;
+        Path.reset();
+        ArukoneBoard board = new ArukoneBoard(Launcher.size);
+        board.addPath(new Path(new Point(2,8), new Point(9,7)));
+        board.addPath(new Path(new Point(6,3), new Point(10,5)));
+        board.addPath(new Path(new Point(3,0), new Point(8,5)));
+        board.addPath(new Path(new Point(1,1), new Point(1,5)));
+        board.addPath(new Path(new Point(3,3), new Point(9,9)));
+        board.addPath(new Path(new Point(6,1), new Point(7,10)));
+        board.addPath(new Path(new Point(9,1), new Point(6,8)));
+        board.addPath(new Path(new Point(0,7), new Point(4,8)));
+        return board;
+    }
+
+    private static ArukoneBoard init12x12() {
+        Launcher.size = 12;
+        Path.reset();
+        ArukoneBoard board = new ArukoneBoard(Launcher.size);
+        board.addPath(new Path(new Point(6,2), new Point(10,7)));
+        board.addPath(new Path(new Point(9,3), new Point(11,5)));
+        board.addPath(new Path(new Point(10,1), new Point(6,5)));
+        board.addPath(new Path(new Point(1,1), new Point(8,5)));
+        board.addPath(new Path(new Point(2,3), new Point(8,1)));
+        board.addPath(new Path(new Point(8,0), new Point(3,5)));
+        board.addPath(new Path(new Point(0,6), new Point(4,3)));
+        board.addPath(new Path(new Point(4,7), new Point(10,10)));
+        board.addPath(new Path(new Point(4,8), new Point(6,8)));
+        board.addPath(new Path(new Point(2,8), new Point(6,4)));
+        board.addPath(new Path(new Point(6,7), new Point(8,11)));
         return board;
     }
 }
