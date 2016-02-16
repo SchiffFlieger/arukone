@@ -45,6 +45,7 @@ public class ArukoneSolver {
             return board; // board solved
         } else {
             iterations++;
+            presolve(board);
             if (board.getPathById(pathId).isComplete()) {
                 return solve(new ArukoneBoard(board), pathId + 1); // if current path is complete, solve the next path
             } else { // if current path is not complete, try to complete it
