@@ -43,6 +43,8 @@ public class ArukoneSolver {
     public ArukoneBoard solve(ArukoneBoard board, int pathId) {
         if (board.isSolved()) {
             return board; // board solved
+        } else if (!board.isSolveable()) {
+            return null;
         } else {
             iterations++;
             presolve(board);

@@ -112,6 +112,15 @@ public class ArukoneBoard {
         return (getFreeNeighbours(point).size() > 0);
     }
 
+    public boolean isSolveable() {
+        for (Path path : paths) {
+            if (!hasFreeNeighbours(path.getLastPointFromStart()) || !hasFreeNeighbours(path.getLastPointFromEnd())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private int[][] getGrid() {
         int[][] grid = new int[this.size][this.size];
         for (Path path : this.paths) {

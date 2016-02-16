@@ -4,7 +4,6 @@ import java.io.IOException;
 
 public class Launcher {
     public static int size = 5;
-    private static final boolean doPresolve = true;
 
     public static void main(String... args) throws IOException {
         solve(5);
