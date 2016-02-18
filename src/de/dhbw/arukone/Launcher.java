@@ -6,6 +6,7 @@ public class Launcher {
     public static int size = 5;
 
     public static void main(String... args) throws IOException {
+//        new InitializationGUI(args);
         solve(5);
         solve(6);
         solve(7);
