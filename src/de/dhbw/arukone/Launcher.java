@@ -126,20 +126,33 @@ public class Launcher {
         return board;
     }
 
+//    private static ArukoneBoard init10x10() {
+//        Launcher.size = 10;
+//        Path.reset();
+//        ArukoneBoard board = new ArukoneBoard(Launcher.size);
+//        board.addPath(new Path(new Point(1,1), new Point(4,4)));
+//        board.addPath(new Path(new Point(2,2), new Point(4,7)));
+//        board.addPath(new Path(new Point(2,4), new Point(5,6)));
+//        board.addPath(new Path(new Point(1,4), new Point(5,8)));
+//        board.addPath(new Path(new Point(2,1), new Point(2,7)));
+//        board.addPath(new Path(new Point(1,6), new Point(1,8)));
+//        board.addPath(new Path(new Point(6,3), new Point(3,9)));
+//        board.addPath(new Path(new Point(3,1), new Point(7,9)));
+//        board.addPath(new Path(new Point(4,1), new Point(8,2)));
+//        board.addPath(new Path(new Point(6,2), new Point(8,8)));
+//
+//        return board;
+//    }
+
     private static ArukoneBoard init10x10() {
         Launcher.size = 10;
         Path.reset();
         ArukoneBoard board = new ArukoneBoard(Launcher.size);
-        board.addPath(new Path(new Point(1,1), new Point(4,4)));
-        board.addPath(new Path(new Point(2,2), new Point(4,7)));
-        board.addPath(new Path(new Point(2,4), new Point(5,6)));
-        board.addPath(new Path(new Point(1,4), new Point(5,8)));
-        board.addPath(new Path(new Point(2,1), new Point(2,7)));
-        board.addPath(new Path(new Point(1,6), new Point(1,8)));
-        board.addPath(new Path(new Point(6,3), new Point(3,9)));
-        board.addPath(new Path(new Point(3,1), new Point(7,9)));
-        board.addPath(new Path(new Point(4,1), new Point(8,2)));
-        board.addPath(new Path(new Point(6,2), new Point(8,8)));
+        board.addPath(new Path(new Point(0,0), new Point(8,8)));
+        board.addPath(new Path(new Point(1,0), new Point(1,8)));
+        board.addPath(new Path(new Point(2,4), new Point(2,8)));
+        board.addPath(new Path(new Point(0,9), new Point(6,3)));
+        board.addPath(new Path(new Point(0,8), new Point(4,7)));
         return board;
     }
 
