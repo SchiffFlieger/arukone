@@ -1,19 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ArukoneBoard size="5">
-	<Path id="1">
-		<Point id="start" x="0" y="0" />
-		<Point id="end" x="2" y="3" />
-	</Path>
-	<Path id="2">
-		<Point id="start" x="1" y="0" />
-		<Point id="end" x="4" y="0" />
-	</Path>
-	<Path id="3">
-		<Point id="start" x="1" y="1" />
-		<Point id="end" x="4" y="4" />
-	</Path>
-	<Path id="4">
-		<Point id="start" x="1" y="2" />
-		<Point id="end" x="0" y="4" />
-	</Path>
-</ArukoneBoard>
+<board size="5">
+    <path id="1">
+        <point class="start">
+            <x>0</x>
+            <y>0</y>
+        </point>
+        <point class="end">
+            <x>2</x>
+            <y>3</y>
+        </point>
+    </path>
+    <path id="2">
+        <point class="start">
+            <x>1</x>
+            <y>0</y>
+        </point>
+        <point class="end">
+            <x>4</x>
+            <y>0</y>
+        </point>
+    </path>
+    <path id="3">
+        <point class="start">
+            <x>1</x>
+            <y>1</y>
+        </point>
+        <point class="end">
+            <x>4</x>
+            <y>4</y>
+        </point>
+    </path>
+    <path id="4">
+        <point class="start">
+            <x>1</x>
+            <y>2</y>
+        </point>
+        <point class="end">
+            <x>0</x>
+            <y>4</y>
+        </point>
+    </path>
+</board>
