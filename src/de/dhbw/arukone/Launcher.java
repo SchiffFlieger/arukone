@@ -3,14 +3,19 @@ package de.dhbw.arukone;
 import de.dhbw.arukone.reader.BoardReader;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class Launcher {
     public static int size = 5;
 
     public static void main(String... args) throws IOException {
         BoardReader reader = new BoardReader();
-        ArukoneBoard board = reader.readBoard("res/boards/5x5_1.xml");
-        System.out.println(board);
+        Map<String, ArukoneBoard> map = reader.readAllBoardsInDirectory("res/boards");
+        for (String key :
+                map.keySet()) {
+            System.out.println(map.get(key));
+            System.out.println("-----------------");
+        }
 
 //        solve(5);
 //        solve(6);

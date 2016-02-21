@@ -15,12 +15,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
-/**
- * created by Karsten Köhler on 21.02.2016
- */
 public class BoardReader {
     private final String ATTRIBUTE_SIZE;
     private final String ATTRIBUTE_ID;
@@ -42,7 +41,6 @@ public class BoardReader {
         ATTRIBUTE_VALUE_START = "start";
     }
 
-
     public ArukoneBoard readBoard (String filePath) {
         Document doc = getXmlDocument(filePath);
         Element root = doc.getDocumentElement();
@@ -53,6 +51,21 @@ public class BoardReader {
         paths.forEach(board::addPath);
 
         return board;
+    }
+
+    public Map<String, ArukoneBoard> readAllBoardsInDirectory(String path) {
+        Map<String, ArukoneBoard> boards = new HashMap<>();
+        for (File file : listFiles(path)) {
+            boards.put(file.getName(), readBoard(file.getPath()));
+        }
+        return boards;
+    }
+
+    private File[] listFiles (String path) {File dir = new File(path);
+        if (dir.isDirectory()) {
+            return dir.listFiles();
+        }
+        return new File[0];
     }
 
     private List<Path> getAllPaths (Element root) {
