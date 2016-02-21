@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ArukoneBoard size="5">
+	<Path id="1">
+		<Point id="start" x="0" y="0" />
+		<Point id="end" x="2" y="3" />
+	</Path>
+	<Path id="2">
+		<Point id="start" x="1" y="0" />
+		<Point id="end" x="4" y="0" />
+	</Path>
+	<Path id="3">
+		<Point id="start" x="1" y="1" />
+		<Point id="end" x="4" y="4" />
+	</Path>
+	<Path id="4">
+		<Point id="start" x="1" y="2" />
+		<Point id="end" x="0" y="4" />
+	</Path>
+</ArukoneBoard>
