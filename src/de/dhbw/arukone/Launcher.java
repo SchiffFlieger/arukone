@@ -1,19 +1,25 @@
 package de.dhbw.arukone;
 
+import de.dhbw.arukone.reader.BoardReader;
+
 import java.io.IOException;
 
 public class Launcher {
     public static int size = 5;
 
     public static void main(String... args) throws IOException {
-        solve(5);
-        solve(6);
-        solve(7);
-        solve(8);
-        solve(9);
-        solve(10);
-        solve(11);
-        solve(12);
+        BoardReader reader = new BoardReader();
+        ArukoneBoard board = reader.readBoard("res/boards/5x5_1.xml");
+        System.out.println(board);
+
+//        solve(5);
+//        solve(6);
+//        solve(7);
+//        solve(8);
+//        solve(9);
+//        solve(10);
+//        solve(11);
+//        solve(12);
     }
 
     private static void solve(int k) {
