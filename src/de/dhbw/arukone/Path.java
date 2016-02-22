@@ -6,24 +6,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Path {
-    private static int id_counter = 1;
     private final int id;
     private List<Point> pathFromStart;
     private List<Point> pathFromEnd;
     private List<Integer> memory;
 
-    public Path(Point start, Point end) {
-        this.id = id_counter;
-        id_counter++;
+    public Path(int id, Point start, Point end) {
+        this.id = id;
         this.pathFromStart = new LinkedList<>();
         this.pathFromEnd = new LinkedList<>();
         this.memory = new LinkedList<>();
         this.pathFromStart.add(start);
         this.pathFromEnd.add(end);
-    }
-
-    public static void reset() {
-        id_counter = 1;
     }
 
     public Path(Path path) {

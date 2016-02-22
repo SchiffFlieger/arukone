@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<board size="12">
+    <path id="1">
+        <point class="start">
+            <x>6</x>
+            <y>2</y>
+        </point>
+        <point class="end">
+            <x>10</x>
+            <y>7</y>
+        </point>
+    </path>
+    <path id="2">
+        <point class="start">
+            <x>9</x>
+            <y>3</y>
+        </point>
+        <point class="end">
+            <x>11</x>
+            <y>5</y>
+        </point>
+    </path>
+    <path id="3">
+        <point class="start">
+            <x>6</x>
+            <y>5</y>
+        </point>
+        <point class="end">
+            <x>10</x>
+            <y>1</y>
+        </point>
+    </path>
+    <path id="4">
+        <point class="start">
+            <x>1</x>
+            <y>1</y>
+        </point>
+        <point class="end">
+            <x>8</x>
+            <y>5</y>
+        </point>
+    </path>
+    <path id="5">
+        <point class="start">
+            <x>2</x>
+            <y>3</y>
+        </point>
+        <point class="end">
+            <x>8</x>
+            <y>1</y>
+        </point>
+    </path>
+    <path id="6">
+        <point class="start">
+            <x>3</x>
+            <y>5</y>
+        </point>
+        <point class="end">
+            <x>8</x>
+            <y>0</y>
+        </point>
+    </path>
+    <path id="7">
+        <point class="start">
+            <x>0</x>
+            <y>6</y>
+        </point>
+        <point class="end">
+            <x>4</x>
+            <y>3</y>
+        </point>
+    </path>
+    <path id="8">
+        <point class="start">
+            <x>4</x>
+            <y>7</y>
+        </point>
+        <point class="end">
+            <x>10</x>
+            <y>10</y>
+        </point>
+    </path>
+    <path id="9">
+        <point class="start">
+            <x>4</x>
+            <y>8</y>
+        </point>
+        <point class="end">
+            <x>6</x>
+            <y>8</y>
+        </point>
+    </path>
+    <path id="10">
+        <point class="start">
+            <x>2</x>
+            <y>9</y>
+        </point>
+        <point class="end">
+            <x>6</x>
+            <y>4</y>
+        </point>
+    </path>
+    <path id="11">
+        <point class="start">
+            <x>6</x>
+            <y>7</y>
+        </point>
+        <point class="end">
+            <x>8</x>
+            <y>11</y>
+        </point>
+    </path>
+</board>
