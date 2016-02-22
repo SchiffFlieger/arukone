@@ -1,22 +1,17 @@
 package de.dhbw.arukone;
 
 import de.dhbw.arukone.reader.BoardReader;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class Launcher {
     public static int size = 5;
 
     public static void main(String... args) throws IOException {
         BoardReader reader = new BoardReader();
-        Map<String, ArukoneBoard> map = reader.readAllBoardsInDirectory("res/boards");
-        for (String key :
-                map.keySet()) {
-            System.out.println(map.get(key));
-            System.out.println("-----------------");
-        }
-        System.out.printf("size: %d", map.size());
+        ObservableList<ArukoneBoard> list = reader.readAllBoardsInDirectory("res/boards");
+        System.out.printf("size: %d", list.size());
     }
 
     private static void solve(int k) {

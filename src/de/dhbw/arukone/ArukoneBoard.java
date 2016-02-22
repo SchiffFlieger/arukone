@@ -6,16 +6,19 @@ import java.util.stream.Collectors;
 
 public class ArukoneBoard {
     private final int size;
+
     private List<Path> paths;
     private boolean[][] occupiedFields;
-
-    public ArukoneBoard(final int size) {
+    private final String identifier;
+    public ArukoneBoard(String identifier, final int size) {
         this.size = size;
         this.occupiedFields = new boolean[size][size];
         this.paths = new ArrayList<>();
+        this.identifier = identifier;
     }
 
     public ArukoneBoard(ArukoneBoard board) {
+        this.identifier = board.identifier;
         this.size = board.size;
         this.occupiedFields = new boolean[size][size];
         for (int x = 0; x < size; x++) {
@@ -64,7 +67,11 @@ public class ArukoneBoard {
     }
 
     @Override
-    public String toString() {
+    public String toString () {
+        return this.identifier;
+    }
+
+    public String deepToString () {
         StringBuilder result = new StringBuilder();
         String lineSep = getLineSeparator();
 
@@ -82,6 +89,10 @@ public class ArukoneBoard {
         }
 
         return result.toString();
+    }
+
+    public int getSize () {
+        return size;
     }
 
     public List<Point> getFreeNeighbours(Point point) {

@@ -1,5 +1,8 @@
 package de.dhbw.arukone.gui;
 
+import de.dhbw.arukone.ArukoneBoard;
+import de.dhbw.arukone.reader.BoardReader;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -25,6 +28,21 @@ public class Controller implements Initializable {
     @Override
     public void initialize (URL location, ResourceBundle resources) {
         fieldSleep.textProperty().bindBidirectional(sliderSleep.valueProperty(), new NumberStringConverter("#### ms"));
+
+        ObservableList<ArukoneBoard> list = new BoardReader().readAllBoardsInDirectory("res/boards");
+        list.sort((o1, o2) -> {
+            if (o1.getSize() > o2.getSize()) {
+                return 1;
+            } else if (o1.getSize() < o2.getSize()) {
+                return -1;
+            } else {
+                return o1.toString().compareTo(o2.toString());
+            }
+        });
+        chooseField.setItems(list);
+        if (!list.isEmpty()) {
+            chooseField.setValue(list.get(0));
+        }
     }
 
     public void handleStart (ActionEvent actionEvent) {

@@ -4,6 +4,8 @@ package de.dhbw.arukone.reader;
 import de.dhbw.arukone.ArukoneBoard;
 import de.dhbw.arukone.Path;
 import de.dhbw.arukone.Point;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,10 +17,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class BoardReader {
     private final String ATTRIBUTE_SIZE;
@@ -45,7 +45,7 @@ public class BoardReader {
         Document doc = getXmlDocument(filePath);
         Element root = doc.getDocumentElement();
 
-        ArukoneBoard board = new ArukoneBoard(Integer.parseInt(root.getAttribute(ATTRIBUTE_SIZE)));
+        ArukoneBoard board = new ArukoneBoard(getIdentifierFromPath(filePath), Integer.parseInt(root.getAttribute(ATTRIBUTE_SIZE)));
 
         List<Path> paths = getAllPaths(root);
         paths.forEach(board::addPath);
@@ -53,10 +53,17 @@ public class BoardReader {
         return board;
     }
 
-    public Map<String, ArukoneBoard> readAllBoardsInDirectory(String path) {
-        Map<String, ArukoneBoard> boards = new HashMap<>();
+    private String getIdentifierFromPath (String string) {
+        String name = string.split("\\\\")[2].split("\\.")[0];
+        final int version = Integer.parseInt(name.split("_")[1]);
+        name = name.split("_")[0];
+        return String.format("%s V%d\n", name, version);
+    }
+
+    public ObservableList<ArukoneBoard> readAllBoardsInDirectory(String path) {
+        ObservableList<ArukoneBoard> boards = FXCollections.observableArrayList();
         for (File file : listFiles(path)) {
-            boards.put(file.getName(), readBoard(file.getPath()));
+            boards.add(readBoard(file.getPath()));
         }
         return boards;
     }
