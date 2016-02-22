@@ -18,7 +18,8 @@ public class InitializationGUI extends Application {
     @Override
     public void start (Stage primaryStage) throws Exception {
         primaryStage.setTitle("Arukone Solver");
-        GridPane pane = FXMLLoader.load(getClass().getClassLoader().getResource("resources/init.fxml"));
+
+        GridPane pane = FXMLLoader.load(getClass().getResource("fxml/init.fxml"));
         Scene scene = new Scene(pane);
         primaryStage.setScene(scene);
         primaryStage.show();

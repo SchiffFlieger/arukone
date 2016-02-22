@@ -24,7 +24,7 @@
       <CheckBox fx:id="checkBlocked" mnemonicParsing="false" text="check blocked" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" />
       <Label text="sleep:" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
       <TextField fx:id="fieldSleep" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Slider fx:id="sliderSleep" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+      <Slider fx:id="sliderSleep" max="999" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
       <Button fx:id="start" mnemonicParsing="false" onAction="#handleStart" prefWidth="55.0" text="Start" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
       <Button fx:id="help" mnemonicParsing="false" onAction="#handleHelp" prefWidth="55.0" text="Help" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
       <Button fx:id="about" mnemonicParsing="false" onAction="#handleAbout" prefWidth="55.0" text="About" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
