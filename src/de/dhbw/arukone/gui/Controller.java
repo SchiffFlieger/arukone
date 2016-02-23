@@ -16,8 +16,6 @@ import java.util.ResourceBundle;
  */
 public class Controller implements Initializable {
     public ComboBox chooseField;
-    public CheckBox autoFill;
-    public CheckBox checkBlocked;
     public TextField fieldSleep;
     public Slider sliderSleep;
     public Button start;
