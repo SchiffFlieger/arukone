@@ -3,7 +3,7 @@ package de.dhbw.arukone.gui;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -19,9 +19,10 @@ public class InitializationGUI extends Application {
     public void start (Stage primaryStage) throws Exception {
         primaryStage.setTitle("Arukone Solver");
 
-        GridPane pane = FXMLLoader.load(getClass().getResource("fxml/init.fxml"));
+        VBox pane = FXMLLoader.load(getClass().getResource("fxml/init.fxml"));
         Scene scene = new Scene(pane);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 }

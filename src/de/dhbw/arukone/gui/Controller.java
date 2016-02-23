@@ -15,17 +15,21 @@ import java.util.ResourceBundle;
  * created by Karsten Köhler on 18.02.2016
  */
 public class Controller implements Initializable {
-    public ComboBox chooseField;
-    public TextField fieldSleep;
-    public Slider sliderSleep;
-    public Button start;
-    public Button help;
-    public Button about;
+    public ComboBox chooseBoard;
+    public CheckBox showSolving;
+    public TextField txtSleepTime;
+    public Slider sliderSleepTime;
+    public Button btnStart;
+    public Button btnHelp;
+    public Button btnAbout;
+    public Label lblSleepTime;
+    public Label lblBoard;
+    public TitledPane paneOptions;
 
 
     @Override
     public void initialize (URL location, ResourceBundle resources) {
-        fieldSleep.textProperty().bindBidirectional(sliderSleep.valueProperty(), new NumberStringConverter("#### ms"));
+        txtSleepTime.textProperty().bindBidirectional(sliderSleepTime.valueProperty(), new NumberStringConverter("#### ms"));
 
         ObservableList<ArukoneBoard> list = new BoardReader().readAllBoardsInDirectory("res/boards");
         list.sort((o1, o2) -> {
@@ -37,9 +41,9 @@ public class Controller implements Initializable {
                 return o1.toString().compareTo(o2.toString());
             }
         });
-        chooseField.setItems(list);
+        chooseBoard.setItems(list);
         if (!list.isEmpty()) {
-            chooseField.setValue(list.get(0));
+            chooseBoard.setValue(list.get(0));
         }
     }
 
@@ -53,5 +57,13 @@ public class Controller implements Initializable {
 
     public void handleAbout (ActionEvent actionEvent) {
         System.out.println("about");
+    }
+
+    public void toggleSolvingOptions (ActionEvent actionEvent) {
+        if (showSolving.isSelected()) {
+            paneOptions.setDisable(false);
+        } else {
+            paneOptions.setDisable(true);
+        }
     }
 }
