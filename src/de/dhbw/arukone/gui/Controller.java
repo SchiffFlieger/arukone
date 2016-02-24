@@ -6,15 +6,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 
 import java.net.URL;
@@ -43,7 +36,11 @@ public class Controller implements Initializable {
     }
 
     public void handleStart (ActionEvent actionEvent) {
-        System.out.println("start");
+        System.out.println(" -- start");
+        ArukoneBoard board = (ArukoneBoard) chooseBoard.getSelectionModel().getSelectedItem();
+        System.out.println(board.deepToString());
+
+        new SolverGUI(5, 5, 50);
     }
 
     public void handleHelp (ActionEvent actionEvent) {

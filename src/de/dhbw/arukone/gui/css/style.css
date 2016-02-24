@@ -1,0 +1,13 @@
+.empty {
+    -fx-fill: red;
+    -fx-border-color: black;
+    -fx-border-width: 0.1;
+}
+
+.filled {
+    -fx-fill: green;
+    -fx-border-color: black;
+    -fx-border-width: 0.1;
+}
+
+
