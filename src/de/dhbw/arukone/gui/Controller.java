@@ -8,7 +8,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 
 import java.net.URL;
@@ -41,11 +47,19 @@ public class Controller implements Initializable {
     }
 
     public void handleHelp (ActionEvent actionEvent) {
-        System.out.println("help");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Help");
+        alert.setHeaderText("header dummy");
+        alert.setContentText("content dummy");
+        alert.showAndWait();
     }
 
     public void handleAbout (ActionEvent actionEvent) {
-        System.out.println("about");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About");
+        alert.setHeaderText("header dummy");
+        alert.setContentText("content dummy");
+        alert.showAndWait();
     }
 
     public void toggleSolvingOptions (ActionEvent actionEvent) {
