@@ -1,10 +1,14 @@
 package de.dhbw.arukone.gui;
 
+import de.dhbw.arukone.gui.controller.SolverController;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,48 +17,24 @@ import java.util.Map;
  */
 public class SolverGUI {
 
-    private final int WIDTH;
-    private final int HEIGHT;
-    private final int TILE_SIZE;
-
-    private Map<String, StackPane> tileMap;
-    private Scene scene;
-    private Stage stage;
-
     public SolverGUI(int width, int height, int tileSize) {
-        this.WIDTH = width;
-        this.HEIGHT = height;
-        this.TILE_SIZE = tileSize;
-        this.tileMap = new HashMap<>();
-
-        Pane root = new Pane();
-        scene = new Scene(root, TILE_SIZE, TILE_SIZE);
-        scene.getStylesheets().add("de/dhbw/arukone/gui/css/style.css");
-
-
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                StackPane cell = new StackPane();
-                cell.setPrefSize(TILE_SIZE, TILE_SIZE);
-                cell.setLayoutX(x*TILE_SIZE);
-                cell.setLayoutY(y*TILE_SIZE);
-                cell.getStyleClass().add("empty");
-
-                root.getChildren().add(cell);
-                tileMap.put(String.format("[%d,%d]", x, y), cell);
-            }
+        VBox root = null;
+        SolverController controller = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/solver.fxml"));
+            root = loader.load();
+            controller = loader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        stage = new Stage();
+        controller.init(width, height, tileSize);
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("de/dhbw/arukone/gui/css/style.css");
+
+        Stage stage = new Stage();
         stage.setTitle("Arukone Solver -- solving");
         stage.setScene(scene);
-        stage.setWidth(5+WIDTH*TILE_SIZE);
-        stage.setHeight(40+HEIGHT*TILE_SIZE);
         stage.show();
     }
-
-
-
-
-
 }
