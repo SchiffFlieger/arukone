@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class SolverGUI {
         scene.getStylesheets().add("de/dhbw/arukone/gui/css/style.css");
 
         Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Arukone Solver -- solving");
         stage.setScene(scene);
         stage.show();
