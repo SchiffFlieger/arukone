@@ -49,7 +49,7 @@ public class Controller implements Initializable {
     public void handleHelp (ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Help");
-        alert.setHeaderText("header dummy");
+        alert.setHeaderText(null);
         alert.setContentText("content dummy");
         alert.showAndWait();
     }
@@ -57,7 +57,7 @@ public class Controller implements Initializable {
     public void handleAbout (ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About");
-        alert.setHeaderText("header dummy");
+        alert.setHeaderText(null);
         alert.setContentText("content dummy");
         alert.showAndWait();
     }
