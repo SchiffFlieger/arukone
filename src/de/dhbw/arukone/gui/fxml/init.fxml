@@ -5,8 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="165.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.arukone.gui.Controller">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="184.0" prefWidth="312.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.arukone.gui.Controller">
    <children>
       <HBox prefHeight="18.0" prefWidth="708.0">
          <children>
@@ -40,7 +39,7 @@
                         <Insets right="5.0" top="3.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="txtSleepTime" alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="60.0">
+                  <TextField fx:id="txtSleepTime" alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="77.0">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
