@@ -1,6 +1,7 @@
-package de.dhbw.arukone.gui;
+package de.dhbw.arukone.gui.controller;
 
 import de.dhbw.arukone.ArukoneBoard;
+import de.dhbw.arukone.gui.SolverGUI;
 import de.dhbw.arukone.reader.BoardReader;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -16,7 +17,7 @@ import java.util.ResourceBundle;
 /**
  * created by Karsten Köhler on 18.02.2016
  */
-public class Controller implements Initializable {
+public class InitController implements Initializable {
     public TitledPane paneOptions;
     public ComboBox chooseBoard;
     public CheckBox showSolving;
