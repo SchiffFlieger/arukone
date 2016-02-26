@@ -25,11 +25,11 @@ public class SolverGUI {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/solver.fxml"));
             root = loader.load();
             controller = loader.getController();
+            controller.init(width, height, tileSize);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        controller.init(width, height, tileSize);
         Scene scene = new Scene(root);
         scene.getStylesheets().add("de/dhbw/arukone/gui/css/style.css");
 

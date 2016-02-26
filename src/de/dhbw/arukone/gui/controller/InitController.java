@@ -41,7 +41,7 @@ public class InitController implements Initializable {
         ArukoneBoard board = (ArukoneBoard) chooseBoard.getSelectionModel().getSelectedItem();
         System.out.println(board.deepToString());
 
-        new SolverGUI(5, 5, 50);
+        new SolverGUI(board.getSize(), board.getSize(), 30);
     }
 
     public void handleHelp (ActionEvent actionEvent) {

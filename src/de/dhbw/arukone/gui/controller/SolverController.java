@@ -16,8 +16,7 @@ import java.util.ResourceBundle;
  */
 public class SolverController implements Initializable {
     public Button btnPause;
-    public Button btnResume;
-    public Button btnStop;
+    public Button btnContinue;
     public Pane boardPane;
 
     private Map<String, StackPane> tileMap;
@@ -43,14 +42,10 @@ public class SolverController implements Initializable {
     }
 
     public void handlePause(ActionEvent actionEvent) {
-
+        System.out.println("pause");
     }
 
-    public void handleResume(ActionEvent actionEvent) {
-
-    }
-
-    public void handleStop(ActionEvent actionEvent) {
-
+    public void handleContinue(ActionEvent actionEvent) {
+        System.out.println("continue");
     }
 }
