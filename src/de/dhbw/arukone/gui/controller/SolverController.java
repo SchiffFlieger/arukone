@@ -60,10 +60,9 @@ public class SolverController implements Initializable {
 
     private void drawBoard() {
         for (Path path : board.getPaths()) {
-            Point start = path.getStart();
-            Point end = path.getEnd();
-            drawPoint(start, path.getId());
-            drawPoint(end, path.getId());
+            for (Point point : path.getAllPoints()) {
+                drawPoint(point, path.getId());
+            }
         }
     }
 
