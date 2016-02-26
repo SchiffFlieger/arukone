@@ -1,5 +1,8 @@
 package de.dhbw.arukone.gui.controller;
 
+import de.dhbw.arukone.ArukoneBoard;
+import de.dhbw.arukone.Path;
+import de.dhbw.arukone.Point;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -19,6 +22,7 @@ public class SolverController implements Initializable {
     public Button btnContinue;
     public Pane boardPane;
 
+    private ArukoneBoard board;
     private Map<String, StackPane> tileMap;
 
     @Override
@@ -41,11 +45,30 @@ public class SolverController implements Initializable {
         }
     }
 
+    public void setBoard(ArukoneBoard board) {
+        this.board = board;
+        drawBoard();
+    }
+
     public void handlePause(ActionEvent actionEvent) {
         System.out.println("pause");
     }
 
     public void handleContinue(ActionEvent actionEvent) {
         System.out.println("continue");
+    }
+
+    private void drawBoard() {
+        for (Path path : board.getPaths()) {
+            Point start = path.getStart();
+            Point end = path.getEnd();
+            drawPoint(start, path.getId());
+            drawPoint(end, path.getId());
+        }
+    }
+
+    private void drawPoint(Point point, int pathId) {
+        tileMap.get(String.format("[%d,%d]", point.getX(), point.getY())).getStyleClass().clear();
+        tileMap.get(String.format("[%d,%d]", point.getX(), point.getY())).getStyleClass().add("filled" + pathId);
     }
 }
