@@ -37,7 +37,7 @@ public class SolverController implements Initializable {
                 cell.setPrefSize(tileSize, tileSize);
                 cell.setLayoutX(x*tileSize);
                 cell.setLayoutY(y*tileSize);
-                cell.getStyleClass().add("empty");
+                cell.getStyleClass().add("root");
 
                 boardPane.getChildren().add(cell);
                 tileMap.put(String.format("[%d,%d]", x, y), cell);
@@ -68,6 +68,7 @@ public class SolverController implements Initializable {
 
     private void drawPoint(Point point, int pathId) {
         tileMap.get(String.format("[%d,%d]", point.getX(), point.getY())).getStyleClass().clear();
+        tileMap.get(String.format("[%d,%d]", point.getX(), point.getY())).getStyleClass().add("root");
         tileMap.get(String.format("[%d,%d]", point.getX(), point.getY())).getStyleClass().add("filled" + pathId);
     }
 }
