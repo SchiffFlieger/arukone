@@ -17,6 +17,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystem;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class BoardReader {
         TAG_X = "x";
         TAG_Y = "y";
         ATTRIBUTE_VALUE_START = "start";
-        FILE_SEP = System.getProperty("file.separator");
+        FILE_SEP = File.separator;
     }
 
     public ArukoneBoard readBoard (String filePath) {
