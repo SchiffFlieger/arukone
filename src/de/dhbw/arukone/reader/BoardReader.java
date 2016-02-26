@@ -17,7 +17,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileSystem;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,7 +29,6 @@ public class BoardReader {
     private final String TAG_X;
     private final String TAG_Y;
     private final String ATTRIBUTE_VALUE_START;
-    private final String FILE_SEP;
 
     public BoardReader () {
         ATTRIBUTE_SIZE = "size";
@@ -41,7 +39,6 @@ public class BoardReader {
         TAG_X = "x";
         TAG_Y = "y";
         ATTRIBUTE_VALUE_START = "start";
-        FILE_SEP = File.separator;
     }
 
     public ArukoneBoard readBoard (String filePath) {
@@ -57,7 +54,7 @@ public class BoardReader {
     }
 
     private String getIdentifierFromPath (String string) {
-        String name = string.split(FILE_SEP)[2].split("\\.")[0];
+        String name = new File(string).getName().split("\\.")[0];
         final int version = Integer.parseInt(name.split("_")[1]);
         name = name.split("_")[0];
         return String.format("%s V%d\n", name, version);
