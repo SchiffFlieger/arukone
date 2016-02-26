@@ -41,20 +41,10 @@ public class ArukoneSolver {
     }
 
     public ArukoneBoard solve(ArukoneBoard board, int pathId) {
-        System.out.println("------------------");
-        System.out.println(board);
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         if (board.isSolved()) {
             return board; // board solved
-        } else if (!board.isSolveable()) {
-            return null;
         } else {
             iterations++;
-//            presolve(board);
             if (board.getPathById(pathId).isComplete()) {
                 return solve(new ArukoneBoard(board), pathId + 1); // if current path is complete, solve the next path
             } else { // if current path is not complete, try to complete it

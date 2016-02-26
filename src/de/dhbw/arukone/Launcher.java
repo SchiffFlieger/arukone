@@ -11,7 +11,14 @@ public class Launcher {
     public static void main(String... args) throws IOException {
         BoardReader reader = new BoardReader();
         ObservableList<ArukoneBoard> list = reader.readAllBoardsInDirectory("res/boards");
-        System.out.printf("size: %d", list.size());
+        ArukoneSolver solver = new ArukoneSolver();
+        ArukoneBoard board = list.get(9);
+        System.out.println(board);
+        System.out.println("--------------------");
+        System.out.println(board.deepToString());
+        System.out.println("--------------------");
+        board = solver.solve(board, 1);
+        System.out.println(board.deepToString());
     }
 
     private static void solve(int k) {

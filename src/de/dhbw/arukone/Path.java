@@ -11,7 +11,7 @@ public class Path {
     private List<Point> pathFromEnd;
     private List<Integer> memory;
 
-    public Path(int id, Point start, Point end) {
+    public Path (int id, Point start, Point end) {
         this.id = id;
         this.pathFromStart = new LinkedList<>();
         this.pathFromEnd = new LinkedList<>();
@@ -20,7 +20,7 @@ public class Path {
         this.pathFromEnd.add(end);
     }
 
-    public Path(Path path) {
+    public Path (Path path) {
         this.id = path.getId();
         this.pathFromStart = new LinkedList<>();
         this.pathFromEnd = new LinkedList<>();
@@ -30,33 +30,33 @@ public class Path {
         this.memory.addAll(path.memory.stream().collect(Collectors.toList()));
     }
 
-    public int getId() {
+    public int getId () {
         return id;
     }
 
-    public Point getLastPointFromStart() {
+    public Point getLastPointFromStart () {
         return this.pathFromStart.get(this.pathFromStart.size() - 1);
     }
 
-    public Point getLastPointFromEnd() {
+    public Point getLastPointFromEnd () {
         return this.pathFromEnd.get(this.pathFromEnd.size() - 1);
     }
 
-    public Point getStart() {
+    public Point getStart () {
         return this.pathFromStart.get(0);
     }
 
-    public Point getEnd() {
+    public Point getEnd () {
         return this.pathFromEnd.get(0);
     }
 
-    public boolean isComplete() {
+    public boolean isComplete () {
         return this.pathFromEnd.get(this.pathFromEnd.size() - 1).isReachable(this.pathFromStart.get(this.pathFromStart.size() - 1)) &&
                 isPartComplete(this.pathFromStart) &&
                 isPartComplete(this.pathFromEnd);
     }
 
-    private boolean isPartComplete(List<Point> points) {
+    private boolean isPartComplete (List<Point> points) {
         for (int i = 0; i < points.size() - 1; i++) {
             if (!points.get(i).isReachable(points.get(i + 1))) {
                 return false;
@@ -65,7 +65,7 @@ public class Path {
         return true;
     }
 
-    public boolean addWaypoint(Point point) {
+    public boolean addWaypoint (Point point) {
         if (point.isReachable(this.getLastPointFromStart())) {
             this.pathFromStart.add(point);
             this.memory.add(1);
@@ -79,7 +79,7 @@ public class Path {
         }
     }
 
-    private int getLastWaypointFlag() {
+    private int getLastWaypointFlag () {
         if (this.memory.isEmpty()) {
             return 0;
         } else {
@@ -87,7 +87,7 @@ public class Path {
         }
     }
 
-    public Point getLastSetWaypoint() {
+    public Point getLastSetWaypoint () {
         int flag = getLastWaypointFlag();
         if (flag == 0) {
             return getStart(); // list is empty
@@ -100,7 +100,29 @@ public class Path {
         }
     }
 
-    public List<Point> getAllPoints() {
+    public Point removeWaypoint (Point point) {
+        if (this.pathFromStart.get(this.pathFromStart.size() - 1).equals(point)) {
+            this.pathFromStart.remove(point);
+            return point;
+        } else if (this.pathFromEnd.get(this.pathFromEnd.size() - 1).equals(point)) {
+            this.pathFromEnd.remove(point);
+            return point;
+        } else {
+            return null;
+        }
+    }
+
+    public Point removeLastSetWaypoint () {
+        Point point = getLastSetWaypoint();
+        if (!(point.equals(getStart()) || point.equals(getEnd()))) {
+            this.memory.remove(memory.size() - 1);
+            return removeWaypoint(point);
+        } else {
+            return null;
+        }
+    }
+
+    public List<Point> getAllPoints () {
         List<Point> list = new ArrayList<>();
         list.addAll(this.pathFromStart);
         list.addAll(this.pathFromEnd);
@@ -108,7 +130,7 @@ public class Path {
     }
 
     @Override
-    public String toString() {
+    public String toString () {
         StringBuilder result = new StringBuilder();
 
         for (Point point : this.pathFromStart) {
