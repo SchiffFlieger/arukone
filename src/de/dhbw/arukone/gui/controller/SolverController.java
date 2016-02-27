@@ -1,6 +1,7 @@
 package de.dhbw.arukone.gui.controller;
 
 import de.dhbw.arukone.ArukoneBoard;
+import de.dhbw.arukone.ArukoneSolver;
 import de.dhbw.arukone.Path;
 import de.dhbw.arukone.Point;
 import javafx.event.ActionEvent;
@@ -23,11 +24,13 @@ public class SolverController implements Initializable {
     public Pane boardPane;
 
     private ArukoneBoard board;
+    private ArukoneSolver solver;
     private Map<String, StackPane> tileMap;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         tileMap = new HashMap<>();
+        solver = new ArukoneSolver();
     }
 
     public void init(int width, int height, int tileSize) {
@@ -56,9 +59,10 @@ public class SolverController implements Initializable {
 
     public void handleContinue(ActionEvent actionEvent) {
         System.out.println("continue");
+        solver.solve(board, 1);
     }
 
-    private void drawBoard() {
+    public void drawBoard() {
         for (Path path : board.getPaths()) {
             for (Point point : path.getAllPoints()) {
                 drawPoint(point, path.getId());
