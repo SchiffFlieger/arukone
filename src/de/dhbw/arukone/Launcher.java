@@ -21,22 +21,6 @@ public class Launcher {
         System.out.println(solver.solve(board, 1));
         System.out.println(ArukoneSolver.iterations);
     }
-
-    private static void solve(int k) {
-        ArukoneSolver solver = new ArukoneSolver();
-        ArukoneBoard board = null;
-        long start, end;
-
-        System.out.printf("%dx%d -- init\n", k, k);
-        System.out.println(board);
-        start = System.nanoTime();
-        solver.solve(board, 1);
-        end = System.nanoTime();
-        System.out.printf("%dx%d -- solution -- time: %.6fs -- iterations: %d\n", k, k, (end - start) / 1000000000.0, ArukoneSolver.getIterations());
-        System.out.println(board);
-        System.out.println();
-        ArukoneSolver.reset();
-    }
 }
 
 
