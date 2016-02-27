@@ -41,9 +41,6 @@ public class ArukoneSolver {
     }
 
     public boolean solve(ArukoneBoard board, int pathId) {
-        System.out.println("--------------");
-        System.out.println(board.deepToString());
-        System.out.println("------------------");
         if (board.isSolved()) {
             return true; // board solved
         } else {

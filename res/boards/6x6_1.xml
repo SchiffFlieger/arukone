@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <board size="6">
-    <path id="2">
+    <path id="1">
         <point class="start">
             <x>4</x>
             <y>2</y>
@@ -10,7 +10,7 @@
             <y>5</y>
         </point>
     </path>
-    <path id="6">
+    <path id="2">
         <point class="start">
             <x>2</x>
             <y>1</y>
@@ -20,7 +20,7 @@
             <y>5</y>
         </point>
     </path>
-    <path id="7">
+    <path id="3">
         <point class="start">
             <x>2</x>
             <y>5</y>
@@ -30,7 +30,7 @@
             <y>0</y>
         </point>
     </path>
-    <path id="8">
+    <path id="4">
         <point class="start">
             <x>1</x>
             <y>1</y>
@@ -40,7 +40,7 @@
             <y>4</y>
         </point>
     </path>
-    <path id="9">
+    <path id="5">
         <point class="start">
             <x>4</x>
             <y>5</y>
