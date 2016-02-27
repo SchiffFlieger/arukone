@@ -2,22 +2,27 @@ package de.dhbw.arukone;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class ArukoneBoard {
     private final int size;
 
     private List<Path> paths;
+    private Stack<Integer> pathStack;
     private boolean[][] occupiedFields;
     private final String identifier;
-    public ArukoneBoard(String identifier, final int size) {
+
+    public ArukoneBoard (String identifier, final int size) {
         this.size = size;
         this.occupiedFields = new boolean[size][size];
         this.paths = new ArrayList<>();
+        this.pathStack = new Stack<>();
         this.identifier = identifier;
     }
 
-    public ArukoneBoard(ArukoneBoard board) {
+    @Deprecated
+    public ArukoneBoard (ArukoneBoard board) {
         this.identifier = board.identifier;
         this.size = board.size;
         this.occupiedFields = new boolean[size][size];
@@ -26,38 +31,36 @@ public class ArukoneBoard {
         }
         this.paths = new ArrayList<>();
         this.paths.addAll(board.paths.stream().map(Path::new).collect(Collectors.toList()));
+        //TODO copy stack
     }
 
-    public List<Path> getPaths() {
+    public List<Path> getPaths () {
         return paths;
     }
 
-    public void addPath(Path path) {
+    public void addPath (Path path) {
         this.paths.add(path);
         path.getAllPoints().forEach(this::occupy);
     }
 
-    public Path getPathById(int id) {
+    public Path getPathById (int id) {
         return this.paths.get(id - 1);
     }
 
-    public boolean addWaypointByPathId(final int id, Point point) {
+    public boolean addWaypointByPathId (final int id, Point point) {
         if (this.paths.get(id - 1).addWaypoint(point)) {
+            pathStack.push(id-1);
             occupy(point);
             return true;
         }
         return false;
     }
 
-    private void occupy(Point point) {
-        this.occupiedFields[point.getX()][point.getY()] = true;
-    }
-
-    public boolean isFree(Point point) {
+    public boolean isFree (Point point) {
         return (point != null && !this.occupiedFields[point.getX()][point.getY()]);
     }
 
-    public boolean isSolved() {
+    public boolean isSolved () {
         for (Path path : paths) {
             if (!path.isComplete()) {
                 return false;
@@ -95,7 +98,7 @@ public class ArukoneBoard {
         return size;
     }
 
-    public List<Point> getFreeNeighbours(Point point) {
+    public List<Point> getFreeNeighbours (Point point) {
         List<Point> neighbours = new ArrayList<>(4);
 
         Point up = point.up();
@@ -119,11 +122,25 @@ public class ArukoneBoard {
         return neighbours;
     }
 
-    public boolean hasFreeNeighbours(Point point) {
+    public boolean hasFreeNeighbours (Point point) {
         return (getFreeNeighbours(point).size() > 0);
     }
 
-    public boolean isSolveable() {
+    public Point removeLastSetWaypoint() {
+        return removeLastSetWaypointByPathId(pathStack.peek()+1);
+    }
+
+    public Point removeLastSetWaypointByPathId (int id) {
+        Point point = paths.get(id - 1).removeLastSetWaypoint();
+        if (point != null) {
+            pathStack.pop();
+            free(point);
+        }
+        return point;
+    }
+
+    @Deprecated
+    public boolean isSolveable () {
         for (Path path : paths) {
             if (!hasFreeNeighbours(path.getLastPointFromStart()) || !hasFreeNeighbours(path.getLastPointFromEnd())) {
                 return false;
@@ -132,7 +149,15 @@ public class ArukoneBoard {
         return true;
     }
 
-    private int[][] getGrid() {
+    private void free (Point point) {
+        this.occupiedFields[point.getX()][point.getY()] = false;
+    }
+
+    private void occupy (Point point) {
+        this.occupiedFields[point.getX()][point.getY()] = true;
+    }
+
+    private int[][] getGrid () {
         int[][] grid = new int[this.size][this.size];
         for (Path path : this.paths) {
             grid[path.getStart().getX()][path.getStart().getY()] = path.getId();
@@ -144,7 +169,7 @@ public class ArukoneBoard {
         return grid;
     }
 
-    private String getLineSeparator() {
+    private String getLineSeparator () {
         StringBuilder lineSepBuilder = new StringBuilder();
         for (int i = 0; i <= this.size; i++) {
             lineSepBuilder.append(".   ");

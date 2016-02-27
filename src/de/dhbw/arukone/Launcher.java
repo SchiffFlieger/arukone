@@ -17,7 +17,8 @@ public class Launcher {
         System.out.println("--------------------");
         System.out.println(board.deepToString());
         System.out.println("--------------------");
-        board = solver.solve(board, 1);
+        System.out.println(solver.solve(board, 1));
+        System.out.println(ArukoneSolver.iterations);
         System.out.println(board.deepToString());
     }
 
@@ -29,7 +30,7 @@ public class Launcher {
         System.out.printf("%dx%d -- init\n", k, k);
         System.out.println(board);
         start = System.nanoTime();
-        board = solver.solve(board, 1);
+        solver.solve(board, 1);
         end = System.nanoTime();
         System.out.printf("%dx%d -- solution -- time: %.6fs -- iterations: %d\n", k, k, (end - start) / 1000000000.0, ArukoneSolver.getIterations());
         System.out.println(board);

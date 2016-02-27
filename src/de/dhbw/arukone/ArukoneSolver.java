@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ArukoneSolver {
 
-    private static long iterations = 0;
+    public static long iterations = 0;
 
     public static void reset() {
         iterations = 0;
@@ -40,15 +40,19 @@ public class ArukoneSolver {
         }
     }
 
-    public ArukoneBoard solve(ArukoneBoard board, int pathId) {
+    public boolean solve(ArukoneBoard board, int pathId) {
+        System.out.println("--------------");
+        System.out.println(board.deepToString());
+        System.out.println("------------------");
         if (board.isSolved()) {
-            return board; // board solved
+            return true; // board solved
         } else {
             iterations++;
             if (board.getPathById(pathId).isComplete()) {
-                return solve(new ArukoneBoard(board), pathId + 1); // if current path is complete, solve the next path
+                return solve(board, pathId + 1); // if current path is complete, solve the next path
             } else { // if current path is not complete, try to complete it
-                ArukoneBoard next = null;
+                boolean next = false;
+                int checked = 0;
                 Path currentPath = board.getPathById(pathId);
                 Point point = currentPath.getLastSetWaypoint();
                 Point up = point.up();
@@ -57,30 +61,35 @@ public class ArukoneSolver {
                 Point left = point.left();
 
                 if (board.isFree(up)) {
-                    next = new ArukoneBoard(board);
-                    next.addWaypointByPathId(pathId, up);
-                    next = solve(next, pathId);
+                    checked++;
+                    board.addWaypointByPathId(pathId, up);
+                    next = solve(board, pathId);
                 }
-                if (next == null && board.isFree(right)) {
-                    next = new ArukoneBoard(board);
-                    next.addWaypointByPathId(pathId, right);
-                    next = solve(next, pathId);
+                if (!next && board.isFree(right)) {
+                    checked++;
+                    board.addWaypointByPathId(pathId, right);
+                    next = solve(board, pathId);
                 }
-                if (next == null && board.isFree(down)) {
-                    next = new ArukoneBoard(board);
-                    next.addWaypointByPathId(pathId, down);
-                    next = solve(next, pathId);
+                if (!next && board.isFree(down)) {
+                    checked++;
+                    board.addWaypointByPathId(pathId, down);
+                    next = solve(board, pathId);
                 }
-                if (next == null && board.isFree(left)) {
-                    next = new ArukoneBoard(board);
-                    next.addWaypointByPathId(pathId, left);
-                    next = solve(next, pathId);
+                if (!next && board.isFree(left)) {
+                    checked++;
+                    board.addWaypointByPathId(pathId, left);
+                    next = solve(board, pathId);
                 }
-                if (!board.hasFreeNeighbours(point)) {
-                    return null;
+                if (board.getFreeNeighbours(point).size() - checked == 0) {
+                    board.removeLastSetWaypoint();
+                    return false;
                 } else {
-                    return next;
+                    return true;
                 }
+                // wenn keine moeglichen wege frei
+                //      gehe schritt zurueck
+                // sonst
+                // return true, weil loesung gefunden
             }
         }
     }
