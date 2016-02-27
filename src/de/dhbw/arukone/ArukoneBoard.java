@@ -1,12 +1,14 @@
 package de.dhbw.arukone;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import de.dhbw.arukone.observer.ChangeListener;
+
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ArukoneBoard {
     private final int size;
+
+    private Set<ChangeListener> listeners;
 
     private List<Path> paths;
     private Stack<Integer> pathStack;
@@ -18,6 +20,7 @@ public class ArukoneBoard {
         this.occupiedFields = new boolean[size][size];
         this.paths = new ArrayList<>();
         this.pathStack = new Stack<>();
+        this.listeners = new HashSet<>();
         this.identifier = identifier;
     }
 
@@ -32,6 +35,15 @@ public class ArukoneBoard {
         this.paths = new ArrayList<>();
         this.paths.addAll(board.paths.stream().map(Path::new).collect(Collectors.toList()));
         //TODO copy stack
+        //TODO copy listeners
+    }
+
+    public void addListener(ChangeListener listener) {
+        this.listeners.add(listener);
+    }
+
+    public void removeListener(ChangeListener listener) {
+        this.listeners.remove(listener);
     }
 
     public List<Path> getPaths () {
@@ -51,8 +63,10 @@ public class ArukoneBoard {
         if (this.paths.get(id - 1).addWaypoint(point)) {
             pathStack.push(id-1);
             occupy(point);
+            notifyAllListeners();
             return true;
         }
+        notifyAllListeners();
         return false;
     }
 
@@ -136,6 +150,7 @@ public class ArukoneBoard {
             pathStack.pop();
             free(point);
         }
+        notifyAllListeners();
         return point;
     }
 
@@ -147,6 +162,10 @@ public class ArukoneBoard {
             }
         }
         return true;
+    }
+
+    private void notifyAllListeners() {
+        this.listeners.forEach(ChangeListener::boardChanged);
     }
 
     private void free (Point point) {
