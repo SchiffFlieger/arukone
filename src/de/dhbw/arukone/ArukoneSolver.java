@@ -83,10 +83,6 @@ public class ArukoneSolver {
                 } else {
                     return true;
                 }
-                // wenn keine moeglichen wege frei
-                //      gehe schritt zurueck
-                // sonst
-                // return true, weil loesung gefunden
             }
         }
     }

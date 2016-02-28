@@ -1,8 +1,9 @@
 package de.dhbw.arukone;
 
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public class ArukoneBoard {
     private final int size;
@@ -18,20 +19,6 @@ public class ArukoneBoard {
         this.paths = new ArrayList<>();
         this.pathStack = new Stack<>();
         this.identifier = identifier;
-    }
-
-    @Deprecated
-    public ArukoneBoard (ArukoneBoard board) {
-        this.identifier = board.identifier;
-        this.size = board.size;
-        this.occupiedFields = new boolean[size][size];
-        for (int x = 0; x < size; x++) {
-            System.arraycopy(board.occupiedFields[x], 0, this.occupiedFields[x], 0, size);
-        }
-        this.paths = new ArrayList<>();
-        this.paths.addAll(board.paths.stream().map(Path::new).collect(Collectors.toList()));
-        //TODO copy stack
-        //TODO copy listeners
     }
 
     public List<Path> getPaths () {
@@ -137,16 +124,6 @@ public class ArukoneBoard {
             free(point);
         }
         return point;
-    }
-
-    @Deprecated
-    public boolean isSolveable () {
-        for (Path path : paths) {
-            if (!hasFreeNeighbours(path.getLastPointFromStart()) || !hasFreeNeighbours(path.getLastPointFromEnd())) {
-                return false;
-            }
-        }
-        return true;
     }
 
     private void free (Point point) {

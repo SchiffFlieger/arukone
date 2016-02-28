@@ -3,7 +3,6 @@ package de.dhbw.arukone;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Path {
     private final int id;
@@ -18,16 +17,6 @@ public class Path {
         this.memory = new LinkedList<>();
         this.pathFromStart.add(start);
         this.pathFromEnd.add(end);
-    }
-
-    public Path (Path path) {
-        this.id = path.getId();
-        this.pathFromStart = new LinkedList<>();
-        this.pathFromEnd = new LinkedList<>();
-        this.memory = new ArrayList<>();
-        this.pathFromStart.addAll(path.pathFromStart.stream().map(Point::new).collect(Collectors.toList()));
-        this.pathFromEnd.addAll(path.pathFromEnd.stream().map(Point::new).collect(Collectors.toList()));
-        this.memory.addAll(path.memory.stream().collect(Collectors.toList()));
     }
 
     public int getId () {
