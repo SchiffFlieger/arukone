@@ -9,7 +9,7 @@ public class Launcher {
     public static int size;
 
     public static void main(String... args) throws IOException {
-        ArukoneBoard board = new BoardReader().readBoard("res/boards/9x9_2.xml");
+        ArukoneBoard board = new BoardReader().readBoard("res/boards/8x8_2.xml");
         size = board.getSize();
 
         ArukoneSolver solver = new ArukoneSolver();
@@ -29,7 +29,7 @@ public class Launcher {
         System.out.println(board.deepToString());
     }
 
-    public static String createElapsedTimeString(long start, long end) {
+    private static String createElapsedTimeString(long start, long end) {
         long elapsedTime = end - start;
 
         return String.format("%02dh %02dm %02ds %04dms",

@@ -3,16 +3,7 @@ package de.dhbw.arukone;
 import java.util.List;
 
 public class ArukoneSolver {
-
     public static long iterations = 0;
-
-    public static void reset() {
-        iterations = 0;
-    }
-
-    public static long getIterations() {
-        return iterations;
-    }
 
     public void presolve(ArukoneBoard board) {
         boolean step = true;

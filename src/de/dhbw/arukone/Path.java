@@ -6,9 +6,9 @@ import java.util.List;
 
 public class Path {
     private final int id;
-    private List<Point> pathFromStart;
-    private List<Point> pathFromEnd;
-    private List<Integer> memory;
+    private final List<Point> pathFromStart;
+    private final List<Point> pathFromEnd;
+    private final List<Integer> memory;
 
     public Path (int id, Point start, Point end) {
         this.id = id;
@@ -89,7 +89,7 @@ public class Path {
         }
     }
 
-    public Point removeWaypoint (Point point) {
+    private Point removeWaypoint (Point point) {
         if (this.pathFromStart.get(this.pathFromStart.size() - 1).equals(point)) {
             this.pathFromStart.remove(point);
             return point;

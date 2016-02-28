@@ -8,9 +8,9 @@ import java.util.Stack;
 public class ArukoneBoard {
     private final int size;
 
-    private List<Path> paths;
-    private Stack<Integer> pathStack;
-    private boolean[][] occupiedFields;
+    private final List<Path> paths;
+    private final Stack<Integer> pathStack;
+    private final boolean[][] occupiedFields;
     private final String identifier;
 
     public ArukoneBoard (String identifier, final int size) {
@@ -34,13 +34,11 @@ public class ArukoneBoard {
         return this.paths.get(id - 1);
     }
 
-    public boolean addWaypointByPathId (final int id, Point point) {
-        if (this.paths.get(id - 1).addWaypoint(point)) {
-            pathStack.push(id-1);
-            occupy(point);
-            return true;
-        }
-        return false;
+    public void addWaypointByPathId (final int id, Point point) {
+        this.paths.get(id - 1).addWaypoint(point);
+        pathStack.push(id-1);
+        occupy(point);
+
     }
 
     public boolean isFree (Point point) {
@@ -109,21 +107,16 @@ public class ArukoneBoard {
         return neighbours;
     }
 
-    public boolean hasFreeNeighbours (Point point) {
-        return (getFreeNeighbours(point).size() > 0);
+    public void removeLastSetWaypoint() {
+        removeLastSetWaypointByPathId(pathStack.peek()+1);
     }
 
-    public Point removeLastSetWaypoint() {
-        return removeLastSetWaypointByPathId(pathStack.peek()+1);
-    }
-
-    public Point removeLastSetWaypointByPathId (int id) {
+    private void removeLastSetWaypointByPathId (int id) {
         Point point = paths.get(id - 1).removeLastSetWaypoint();
         if (point != null) {
             pathStack.pop();
             free(point);
         }
-        return point;
     }
 
     private void free (Point point) {
