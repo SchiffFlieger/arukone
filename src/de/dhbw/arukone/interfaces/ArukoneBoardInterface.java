@@ -1,21 +1,18 @@
 package de.dhbw.arukone.interfaces;
 
-import de.dhbw.arukone.old.Path;
-import de.dhbw.arukone.old.Point;
-
 import java.util.List;
 
 /**
  * created by Karsten Köhler on 28.02.2016
  */
 public interface ArukoneBoardInterface {
-    void addPath (Path path);
+    void addPath (PathInterface path);
 
-    Path getPathById (int id);
+    PathInterface getPathById (int id);
 
-    void addWaypointByPathId (int id, Point point);
+    void addWaypointByPathId (int id, PointInterface point);
 
-    boolean isFree (Point point);
+    boolean isFree (PointInterface point);
 
     boolean isSolved ();
 
@@ -23,7 +20,7 @@ public interface ArukoneBoardInterface {
 
     int getSize ();
 
-    List<Point> getFreeNeighbours (Point point);
+    List<PointInterface> getFreeNeighbours (PointInterface point);
 
     void removeLastSetWaypoint ();
 }

@@ -48,18 +48,18 @@ public class Path implements PathInterface {
 
     @Override
     public boolean isComplete () {
-        return this.pathFromEnd.get(this.pathFromEnd.size() - 1).isReachable(this.pathFromStart.get(this.pathFromStart.size() - 1)) &&
+        return this.pathFromEnd.get(this.pathFromEnd.size() - 1).isNeighbour(this.pathFromStart.get(this.pathFromStart.size() - 1)) &&
                 isPartComplete(this.pathFromStart) &&
                 isPartComplete(this.pathFromEnd);
     }
 
     @Override
     public boolean addWaypoint (Point point) {
-        if (point.isReachable(this.getLastPointFromStart())) {
+        if (point.isNeighbour(this.getLastPointFromStart())) {
             this.pathFromStart.add(point);
             this.memory.add(1);
             return true;
-        } else if (point.isReachable(this.getLastPointFromEnd())) {
+        } else if (point.isNeighbour(this.getLastPointFromEnd())) {
             this.pathFromEnd.add(point);
             this.memory.add(-1);
             return true;
@@ -131,7 +131,7 @@ public class Path implements PathInterface {
 
     private boolean isPartComplete (List<Point> points) {
         for (int i = 0; i < points.size() - 1; i++) {
-            if (!points.get(i).isReachable(points.get(i + 1))) {
+            if (!points.get(i).isNeighbour(points.get(i + 1))) {
                 return false;
             }
         }

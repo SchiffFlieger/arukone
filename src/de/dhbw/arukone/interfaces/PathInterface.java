@@ -1,7 +1,5 @@
 package de.dhbw.arukone.interfaces;
 
-import de.dhbw.arukone.old.Point;
-
 import java.util.List;
 
 /**
@@ -10,21 +8,21 @@ import java.util.List;
 public interface PathInterface {
     int getId ();
 
-    Point getLastPointFromStart ();
+    PointInterface getLastPointFromStart ();
 
-    Point getLastPointFromEnd ();
+    PointInterface getLastPointFromEnd ();
 
-    Point getStart ();
+    PointInterface getStart ();
 
-    Point getEnd ();
+    PointInterface getEnd ();
 
     boolean isComplete ();
 
-    boolean addWaypoint (Point point);
+    boolean addWaypoint (PointInterface point);
 
-    Point getLastSetWaypoint ();
+    PointInterface getLastSetWaypoint ();
 
-    Point removeLastSetWaypoint ();
+    PointInterface removeLastSetWaypoint ();
 
-    List<Point> getAllPoints ();
+    List<PointInterface> getAllPoints ();
 }

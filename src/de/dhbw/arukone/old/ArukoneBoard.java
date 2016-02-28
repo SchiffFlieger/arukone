@@ -2,6 +2,8 @@ package de.dhbw.arukone.old;
 
 
 import de.dhbw.arukone.interfaces.ArukoneBoardInterface;
+import de.dhbw.arukone.interfaces.PathInterface;
+import de.dhbw.arukone.interfaces.PointInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.Stack;
 public class ArukoneBoard implements ArukoneBoardInterface {
     private final int size;
 
-    private final List<Path> paths;
+    private final List<PathInterface> paths;
     private final Stack<Integer> pathStack;
     private final boolean[][] occupiedFields;
     private final String identifier;
@@ -28,18 +30,18 @@ public class ArukoneBoard implements ArukoneBoardInterface {
 //    }
 
     @Override
-    public void addPath (Path path) {
+    public void addPath (PathInterface path) {
         this.paths.add(path);
         path.getAllPoints().forEach(this::occupy);
     }
 
     @Override
-    public Path getPathById (int id) {
+    public PathInterface getPathById (int id) {
         return this.paths.get(id - 1);
     }
 
     @Override
-    public void addWaypointByPathId (final int id, Point point) {
+    public void addWaypointByPathId (final int id, PointInterface point) {
         this.paths.get(id - 1).addWaypoint(point);
         pathStack.push(id - 1);
         occupy(point);
@@ -47,13 +49,13 @@ public class ArukoneBoard implements ArukoneBoardInterface {
     }
 
     @Override
-    public boolean isFree (Point point) {
+    public boolean isFree (PointInterface point) {
         return (point != null && !this.occupiedFields[point.getX()][point.getY()]);
     }
 
     @Override
     public boolean isSolved () {
-        for (Path path : paths) {
+        for (PathInterface path : paths) {
             if (!path.isComplete()) {
                 return false;
             }
@@ -93,13 +95,13 @@ public class ArukoneBoard implements ArukoneBoardInterface {
     }
 
     @Override
-    public List<Point> getFreeNeighbours (Point point) {
-        List<Point> neighbours = new ArrayList<>(4);
+    public List<PointInterface> getFreeNeighbours (PointInterface point) {
+        List<PointInterface> neighbours = new ArrayList<>(4);
 
-        Point up = point.up();
-        Point right = point.right();
-        Point down = point.down();
-        Point left = point.left();
+        PointInterface up = point.up();
+        PointInterface right = point.right();
+        PointInterface down = point.down();
+        PointInterface left = point.left();
 
         if (up != null && this.isFree(up)) {
             neighbours.add(up);
@@ -123,27 +125,27 @@ public class ArukoneBoard implements ArukoneBoardInterface {
     }
 
     private void removeLastSetWaypointByPathId (int id) {
-        Point point = paths.get(id - 1).removeLastSetWaypoint();
+        PointInterface point = paths.get(id - 1).removeLastSetWaypoint();
         if (point != null) {
             pathStack.pop();
             free(point);
         }
     }
 
-    private void free (Point point) {
+    private void free (PointInterface point) {
         this.occupiedFields[point.getX()][point.getY()] = false;
     }
 
-    private void occupy (Point point) {
+    private void occupy (PointInterface point) {
         this.occupiedFields[point.getX()][point.getY()] = true;
     }
 
     private int[][] getGrid () {
         int[][] grid = new int[this.size][this.size];
-        for (Path path : this.paths) {
+        for (PathInterface path : this.paths) {
             grid[path.getStart().getX()][path.getStart().getY()] = path.getId();
             grid[path.getEnd().getX()][path.getEnd().getY()] = path.getId();
-            for (Point point : path.getAllPoints()) {
+            for (PointInterface point : path.getAllPoints()) {
                 grid[point.getX()][point.getY()] = path.getId();
             }
         }
@@ -153,7 +155,7 @@ public class ArukoneBoard implements ArukoneBoardInterface {
     private String getLineSeparator () {
         StringBuilder lineSepBuilder = new StringBuilder();
         for (int i = 0; i <= this.size; i++) {
-            lineSepBuilder.append("   ");
+            lineSepBuilder.append(".   ");
         }
         return lineSepBuilder.toString() + "\n";
     }

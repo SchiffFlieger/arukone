@@ -22,12 +22,11 @@ public class Point implements PointInterface {
     }
 
     @Override
-    public boolean isReachable (Point other) {
-        int diffY = Math.abs(this.y - other.y);
-        int diffX = Math.abs(this.x - other.x);
+    public boolean isNeighbour (PointInterface other) {
+        int diffY = Math.abs(this.y - other.getY());
+        int diffX = Math.abs(this.x - other.getX());
         int diffGes = Math.abs(diffX + diffY);
         return diffGes == 1;
-
     }
 
     @Override
