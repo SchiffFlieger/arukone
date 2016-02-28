@@ -5,7 +5,7 @@ import java.util.List;
 public class ArukoneSolver {
     public static long iterations = 0;
 
-    public void presolve(ArukoneBoard board) {
+    public void presolve (ArukoneBoard board) {
         boolean step = true;
         while (step) {
             step = false;
@@ -31,7 +31,7 @@ public class ArukoneSolver {
         }
     }
 
-    public boolean solve(ArukoneBoard board, int pathId) {
+    public boolean solve (ArukoneBoard board, int pathId) {
         if (board.isSolved()) {
             return true; // board solved
         } else {

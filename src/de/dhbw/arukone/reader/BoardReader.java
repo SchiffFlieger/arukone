@@ -53,14 +53,7 @@ public class BoardReader {
         return board;
     }
 
-    private String getIdentifierFromPath (String string) {
-        String name = new File(string).getName().split("\\.")[0];
-        final int version = Integer.parseInt(name.split("_")[1]);
-        name = name.split("_")[0];
-        return String.format("%s V%d\n", name, version);
-    }
-
-    public ObservableList<ArukoneBoard> readAllBoardsInDirectory(String path) {
+    public ObservableList<ArukoneBoard> readAllBoardsInDirectory (String path) {
         ObservableList<ArukoneBoard> boards = FXCollections.observableArrayList();
         for (File file : listFiles(path)) {
             boards.add(readBoard(file.getPath()));
@@ -68,7 +61,15 @@ public class BoardReader {
         return boards;
     }
 
-    private File[] listFiles (String path) {File dir = new File(path);
+    private String getIdentifierFromPath (String string) {
+        String name = new File(string).getName().split("\\.")[0];
+        final int version = Integer.parseInt(name.split("_")[1]);
+        name = name.split("_")[0];
+        return String.format("%s V%d\n", name, version);
+    }
+
+    private File[] listFiles (String path) {
+        File dir = new File(path);
         if (dir.isDirectory()) {
             return dir.listFiles();
         }
@@ -117,7 +118,7 @@ public class BoardReader {
             File xml = new File(filePath);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            doc =  builder.parse(xml);
+            doc = builder.parse(xml);
         } catch (ParserConfigurationException | IOException | SAXException e) {
             e.printStackTrace();
         }

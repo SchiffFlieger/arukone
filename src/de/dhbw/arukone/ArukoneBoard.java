@@ -36,7 +36,7 @@ public class ArukoneBoard {
 
     public void addWaypointByPathId (final int id, Point point) {
         this.paths.get(id - 1).addWaypoint(point);
-        pathStack.push(id-1);
+        pathStack.push(id - 1);
         occupy(point);
 
     }
@@ -107,8 +107,8 @@ public class ArukoneBoard {
         return neighbours;
     }
 
-    public void removeLastSetWaypoint() {
-        removeLastSetWaypointByPathId(pathStack.peek()+1);
+    public void removeLastSetWaypoint () {
+        removeLastSetWaypointByPathId(pathStack.peek() + 1);
     }
 
     private void removeLastSetWaypointByPathId (int id) {

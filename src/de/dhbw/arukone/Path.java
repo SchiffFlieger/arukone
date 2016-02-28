@@ -45,15 +45,6 @@ public class Path {
                 isPartComplete(this.pathFromEnd);
     }
 
-    private boolean isPartComplete (List<Point> points) {
-        for (int i = 0; i < points.size() - 1; i++) {
-            if (!points.get(i).isReachable(points.get(i + 1))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public boolean addWaypoint (Point point) {
         if (point.isReachable(this.getLastPointFromStart())) {
             this.pathFromStart.add(point);
@@ -68,14 +59,6 @@ public class Path {
         }
     }
 
-    private int getLastWaypointFlag () {
-        if (this.memory.isEmpty()) {
-            return 0;
-        } else {
-            return this.memory.get(this.memory.size() - 1);
-        }
-    }
-
     public Point getLastSetWaypoint () {
         int flag = getLastWaypointFlag();
         if (flag == 0) {
@@ -86,18 +69,6 @@ public class Path {
             } else {
                 return getLastPointFromEnd();
             }
-        }
-    }
-
-    private Point removeWaypoint (Point point) {
-        if (this.pathFromStart.get(this.pathFromStart.size() - 1).equals(point)) {
-            this.pathFromStart.remove(point);
-            return point;
-        } else if (this.pathFromEnd.get(this.pathFromEnd.size() - 1).equals(point)) {
-            this.pathFromEnd.remove(point);
-            return point;
-        } else {
-            return null;
         }
     }
 
@@ -132,5 +103,34 @@ public class Path {
             result.append(this.pathFromEnd.get(i)).append(", ");
         }
         return result.toString();
+    }
+
+    private Point removeWaypoint (Point point) {
+        if (this.pathFromStart.get(this.pathFromStart.size() - 1).equals(point)) {
+            this.pathFromStart.remove(point);
+            return point;
+        } else if (this.pathFromEnd.get(this.pathFromEnd.size() - 1).equals(point)) {
+            this.pathFromEnd.remove(point);
+            return point;
+        } else {
+            return null;
+        }
+    }
+
+    private boolean isPartComplete (List<Point> points) {
+        for (int i = 0; i < points.size() - 1; i++) {
+            if (!points.get(i).isReachable(points.get(i + 1))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private int getLastWaypointFlag () {
+        if (this.memory.isEmpty()) {
+            return 0;
+        } else {
+            return this.memory.get(this.memory.size() - 1);
+        }
     }
 }
