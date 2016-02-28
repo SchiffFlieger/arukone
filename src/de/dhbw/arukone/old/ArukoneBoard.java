@@ -1,11 +1,13 @@
-package de.dhbw.arukone;
+package de.dhbw.arukone.old;
 
+
+import de.dhbw.arukone.interfaces.ArukoneBoardInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class ArukoneBoard {
+public class ArukoneBoard implements ArukoneBoardInterface {
     private final int size;
 
     private final List<Path> paths;
@@ -21,19 +23,22 @@ public class ArukoneBoard {
         this.identifier = identifier;
     }
 
-    public List<Path> getPaths () {
-        return paths;
-    }
+//    public List<Path> getPaths () {
+//        return paths;
+//    }
 
+    @Override
     public void addPath (Path path) {
         this.paths.add(path);
         path.getAllPoints().forEach(this::occupy);
     }
 
+    @Override
     public Path getPathById (int id) {
         return this.paths.get(id - 1);
     }
 
+    @Override
     public void addWaypointByPathId (final int id, Point point) {
         this.paths.get(id - 1).addWaypoint(point);
         pathStack.push(id - 1);
@@ -41,10 +46,12 @@ public class ArukoneBoard {
 
     }
 
+    @Override
     public boolean isFree (Point point) {
         return (point != null && !this.occupiedFields[point.getX()][point.getY()]);
     }
 
+    @Override
     public boolean isSolved () {
         for (Path path : paths) {
             if (!path.isComplete()) {
@@ -59,6 +66,7 @@ public class ArukoneBoard {
         return this.identifier;
     }
 
+    @Override
     public String deepToString () {
         StringBuilder result = new StringBuilder();
         String lineSep = getLineSeparator();
@@ -79,10 +87,12 @@ public class ArukoneBoard {
         return result.toString();
     }
 
+    @Override
     public int getSize () {
         return size;
     }
 
+    @Override
     public List<Point> getFreeNeighbours (Point point) {
         List<Point> neighbours = new ArrayList<>(4);
 
@@ -107,6 +117,7 @@ public class ArukoneBoard {
         return neighbours;
     }
 
+    @Override
     public void removeLastSetWaypoint () {
         removeLastSetWaypointByPathId(pathStack.peek() + 1);
     }
@@ -142,7 +153,7 @@ public class ArukoneBoard {
     private String getLineSeparator () {
         StringBuilder lineSepBuilder = new StringBuilder();
         for (int i = 0; i <= this.size; i++) {
-            lineSepBuilder.append(".   ");
+            lineSepBuilder.append("   ");
         }
         return lineSepBuilder.toString() + "\n";
     }

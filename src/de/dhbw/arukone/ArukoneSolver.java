@@ -1,35 +1,37 @@
 package de.dhbw.arukone;
 
-import java.util.List;
+import de.dhbw.arukone.old.ArukoneBoard;
+import de.dhbw.arukone.old.Path;
+import de.dhbw.arukone.old.Point;
 
 public class ArukoneSolver {
     public static long iterations = 0;
 
-    public void presolve (ArukoneBoard board) {
-        boolean step = true;
-        while (step) {
-            step = false;
-
-            for (Path path : board.getPaths()) {
-                if (!path.isComplete()) {
-                    List<Point> freeNeighbours = board.getFreeNeighbours(path.getLastPointFromStart());
-                    if (freeNeighbours.size() == 1) {
-                        board.addWaypointByPathId(path.getId(), freeNeighbours.get(0));
-                        step = true;
-                    }
-                    if (path.isComplete()) {
-                        continue;
-                    }
-                    freeNeighbours.clear();
-                    freeNeighbours = board.getFreeNeighbours(path.getLastPointFromEnd());
-                    if (freeNeighbours.size() == 1) {
-                        board.addWaypointByPathId(path.getId(), freeNeighbours.get(0));
-                        step = true;
-                    }
-                }
-            }
-        }
-    }
+//    public void presolve (ArukoneBoard board) {
+//        boolean step = true;
+//        while (step) {
+//            step = false;
+//
+//            for (Path path : board.getPaths()) {
+//                if (!path.isComplete()) {
+//                    List<Point> freeNeighbours = board.getFreeNeighbours(path.getLastPointFromStart());
+//                    if (freeNeighbours.size() == 1) {
+//                        board.addWaypointByPathId(path.getId(), freeNeighbours.get(0));
+//                        step = true;
+//                    }
+//                    if (path.isComplete()) {
+//                        continue;
+//                    }
+//                    freeNeighbours.clear();
+//                    freeNeighbours = board.getFreeNeighbours(path.getLastPointFromEnd());
+//                    if (freeNeighbours.size() == 1) {
+//                        board.addWaypointByPathId(path.getId(), freeNeighbours.get(0));
+//                        step = true;
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     public boolean solve (ArukoneBoard board, int pathId) {
         if (board.isSolved()) {

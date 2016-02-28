@@ -1,10 +1,12 @@
-package de.dhbw.arukone;
+package de.dhbw.arukone.old;
+
+import de.dhbw.arukone.interfaces.PathInterface;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Path {
+public class Path implements PathInterface {
     private final int id;
     private final List<Point> pathFromStart;
     private final List<Point> pathFromEnd;
@@ -19,32 +21,39 @@ public class Path {
         this.pathFromEnd.add(end);
     }
 
+    @Override
     public int getId () {
         return id;
     }
 
+    @Override
     public Point getLastPointFromStart () {
         return this.pathFromStart.get(this.pathFromStart.size() - 1);
     }
 
+    @Override
     public Point getLastPointFromEnd () {
         return this.pathFromEnd.get(this.pathFromEnd.size() - 1);
     }
 
+    @Override
     public Point getStart () {
         return this.pathFromStart.get(0);
     }
 
+    @Override
     public Point getEnd () {
         return this.pathFromEnd.get(0);
     }
 
+    @Override
     public boolean isComplete () {
         return this.pathFromEnd.get(this.pathFromEnd.size() - 1).isReachable(this.pathFromStart.get(this.pathFromStart.size() - 1)) &&
                 isPartComplete(this.pathFromStart) &&
                 isPartComplete(this.pathFromEnd);
     }
 
+    @Override
     public boolean addWaypoint (Point point) {
         if (point.isReachable(this.getLastPointFromStart())) {
             this.pathFromStart.add(point);
@@ -59,6 +68,7 @@ public class Path {
         }
     }
 
+    @Override
     public Point getLastSetWaypoint () {
         int flag = getLastWaypointFlag();
         if (flag == 0) {
@@ -72,6 +82,7 @@ public class Path {
         }
     }
 
+    @Override
     public Point removeLastSetWaypoint () {
         Point point = getLastSetWaypoint();
         if (!(point.equals(getStart()) || point.equals(getEnd()))) {
@@ -82,6 +93,7 @@ public class Path {
         }
     }
 
+    @Override
     public List<Point> getAllPoints () {
         List<Point> list = new ArrayList<>();
         list.addAll(this.pathFromStart);

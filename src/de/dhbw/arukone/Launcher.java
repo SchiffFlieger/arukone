@@ -1,5 +1,6 @@
 package de.dhbw.arukone;
 
+import de.dhbw.arukone.old.ArukoneBoard;
 import de.dhbw.arukone.reader.BoardReader;
 
 import java.io.IOException;
@@ -9,7 +10,7 @@ public class Launcher {
     public static int size;
 
     public static void main (String... args) throws IOException {
-        ArukoneBoard board = new BoardReader().readBoard("res/boards/8x8_2.xml");
+        ArukoneBoard board = new BoardReader().readBoard("res/boards/8x8_3.xml");
         size = board.getSize();
 
         ArukoneSolver solver = new ArukoneSolver();

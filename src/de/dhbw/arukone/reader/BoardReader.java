@@ -1,9 +1,9 @@
 package de.dhbw.arukone.reader;
 
 
-import de.dhbw.arukone.ArukoneBoard;
-import de.dhbw.arukone.Path;
-import de.dhbw.arukone.Point;
+import de.dhbw.arukone.old.ArukoneBoard;
+import de.dhbw.arukone.old.Path;
+import de.dhbw.arukone.old.Point;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.w3c.dom.Document;
