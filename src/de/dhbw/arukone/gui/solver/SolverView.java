@@ -1,7 +1,6 @@
-package de.dhbw.arukone.gui;
+package de.dhbw.arukone.gui.solver;
 
 import de.dhbw.arukone.ArukoneBoard;
-import de.dhbw.arukone.gui.controller.SolverController;
 import de.dhbw.arukone.observer.BoardChangeListener;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,13 +13,13 @@ import java.io.IOException;
 /**
  * Created by karsten on 24.02.16.
  */
-public class SolverGUI {
+public class SolverView {
 
-    public SolverGUI(ArukoneBoard board, int tileSize) {
+    public SolverView (ArukoneBoard board, int tileSize) {
         VBox root = null;
         SolverController controller = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/solver.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/solver.fxml"));
             root = loader.load();
             controller = loader.getController();
             controller.init(board.getSize(), board.getSize(), tileSize);

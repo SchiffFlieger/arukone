@@ -1,7 +1,7 @@
 package de.dhbw.arukone.observer;
 
 import de.dhbw.arukone.ArukoneBoard;
-import de.dhbw.arukone.gui.controller.SolverController;
+import de.dhbw.arukone.gui.solver.SolverController;
 
 /**
  * created by Karsten Köhler on 27.02.2016

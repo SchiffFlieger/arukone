@@ -1,7 +1,7 @@
-package de.dhbw.arukone.gui.controller;
+package de.dhbw.arukone.gui.init;
 
 import de.dhbw.arukone.ArukoneBoard;
-import de.dhbw.arukone.gui.SolverGUI;
+import de.dhbw.arukone.gui.solver.SolverView;
 import de.dhbw.arukone.reader.BoardReader;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -40,7 +40,7 @@ public class InitController implements Initializable {
         System.out.println(" -- start");
         ArukoneBoard board = (ArukoneBoard) chooseBoard.getSelectionModel().getSelectedItem();
 
-        new SolverGUI(board, 30);
+        new SolverView(board, 30);
     }
 
     public void handleHelp (ActionEvent actionEvent) {

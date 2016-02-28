@@ -1,4 +1,4 @@
-package de.dhbw.arukone.gui.controller;
+package de.dhbw.arukone.gui.solver;
 
 import de.dhbw.arukone.ArukoneBoard;
 import de.dhbw.arukone.ArukoneSolver;
