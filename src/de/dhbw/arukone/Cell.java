@@ -1,4 +1,4 @@
-package de.dhbw.arukone.faster;
+package de.dhbw.arukone;
 
 /**
  * created by Karsten Köhler on 28.02.2016

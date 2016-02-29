@@ -1,9 +1,6 @@
 package de.dhbw.arukone;
 
 
-import de.dhbw.arukone.faster.FastArukoneBoard;
-import de.dhbw.arukone.faster.FastArukoneSolver;
-
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 

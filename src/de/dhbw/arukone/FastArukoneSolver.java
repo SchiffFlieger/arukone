@@ -1,8 +1,4 @@
-package de.dhbw.arukone.faster;
-
-import de.dhbw.arukone.interfaces.PathInterface;
-import de.dhbw.arukone.interfaces.PointInterface;
-import de.dhbw.arukone.old.ArukoneBoard;
+package de.dhbw.arukone;
 
 public class FastArukoneSolver {
     public static long iterations = 0;

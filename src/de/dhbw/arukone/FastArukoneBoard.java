@@ -1,6 +1,4 @@
-package de.dhbw.arukone.faster;
-
-import de.dhbw.arukone.interfaces.PointInterface;
+package de.dhbw.arukone;
 
 import java.util.*;
 
