@@ -10,7 +10,7 @@ public class Launcher {
     public static int size;
 
     public static void main (String... args) throws IOException {
-        FastArukoneBoard board = new BoardReader().readBoard("res/boards/9x9_1.xml");
+        FastArukoneBoard board = new BoardReader().readBoard("res/boards/8x8_3.xml");
         FastArukoneSolver solver = new FastArukoneSolver();
 
         System.out.println("-- arukone solver");

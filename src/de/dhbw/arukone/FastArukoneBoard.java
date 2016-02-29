@@ -12,6 +12,7 @@ public class FastArukoneBoard {
     private final Cell[][] board;
     private final Stack<Cell> stack;
     private final Map<Integer, Cell> startCellMap;
+    private final Map<Integer, Cell> endCellMap;
 
     public FastArukoneBoard(String identifier, int size) {
         this.size = size;
@@ -20,6 +21,7 @@ public class FastArukoneBoard {
         this.board = new Cell[size][size];
         this.stack = new Stack<>();
         this.startCellMap = new HashMap<>();
+        this.endCellMap = new HashMap<>();
 
         initBoard();
     }
@@ -35,67 +37,12 @@ public class FastArukoneBoard {
         end.setFixed();
 
         startCellMap.put(value, start);
+        endCellMap.put(value, end);
     }
 
     public boolean isPathComplete (int pathId) {
-        Cell active = startCellMap.get(pathId);
-        Set<Cell> visited = new HashSet<>();
-
-        boolean go = true;
-
-        while(true) {
-            Cell up = this.up(active);
-            Cell right = this.right(active);
-            Cell down = this.down(active);
-            Cell left = this.left(active);
-
-            if (active.isConnected(up)) {
-                if (!visited.contains(up)) {
-                    if (up.isFixed()) {
-                        return true;
-                    } else {
-                        visited.add(active);
-                        active = up;
-                        continue;
-                    }
-                }
-            }
-            if (active.isConnected(right)) {
-                if (!visited.contains(right)) {
-                    if (right.isFixed()) {
-                        return true;
-                    } else {
-                        visited.add(active);
-                        active = right;
-                        continue;
-                    }
-                }
-            }
-            if (active.isConnected(down)) {
-                if (!visited.contains(down)) {
-                    if (down.isFixed()) {
-                        return true;
-                    } else {
-                        visited.add(active);
-                        active = down;
-                        continue;
-                    }
-                }
-            }
-            if (active.isConnected(left)) {
-                if (!visited.contains(left)) {
-                    if (left.isFixed()) {
-                        return true;
-                    } else {
-                        visited.add(active);
-                        active = left;
-                        continue;
-                    }
-                }
-            }
-
-            return false;
-        }
+        Cell start = startCellMap.get(pathId);
+        return isPathComplete(start);
     }
 
     public Cell getActivePoint(int pathId) {
@@ -105,9 +52,15 @@ public class FastArukoneBoard {
         return startCellMap.get(pathId);
     }
 
-    public void setWaypoint (int x, int y, int value) {
-        board[x][y].setValue(value);
-        stack.add(board[x][y]);
+    public void setWaypoint (Cell active, Cell next) {
+        int x = next.getX();
+        int y = next.getY();
+
+        active.setNext(next);
+        next.setPrevious(active);
+
+        next.setValue(active.getValue());
+        stack.add(next);
     }
 
     public boolean isFree (Cell cell) {
@@ -125,8 +78,11 @@ public class FastArukoneBoard {
 
     public void removeLastSetWaypoint () {
         if (!stack.isEmpty()) {
-            Cell point = stack.pop();
-            board[point.getX()][point.getY()].setValue(0); // clear cell
+            Cell deleted = stack.pop();
+            deleted.setValue(0); // clear cell
+
+            deleted.getPrevious().setNext(null);
+            deleted.setPrevious(null);
         }
     }
 
@@ -206,6 +162,15 @@ public class FastArukoneBoard {
         }
 
         return result.toString();
+    }
+
+    private boolean isPathComplete(Cell active) {
+        Cell next = active.getNext();
+        if (next != null) {
+            return isPathComplete(next);
+        } else {
+            return active.isConnected(endCellMap.get(active.getValue()));
+        }
     }
 
     private String getLineSeparator () {

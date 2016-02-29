@@ -22,22 +22,22 @@ public class FastArukoneSolver {
 
                 if (board.isFree(up)) {
                     checked++;
-                    board.setWaypoint(up.getX(), up.getY(), pathId);
+                    board.setWaypoint(cell, up);
                     next = solve(board, pathId);
                 }
                 if (!next && board.isFree(right)) {
                     checked++;
-                    board.setWaypoint(right.getX(), right.getY(), pathId);
+                    board.setWaypoint(cell, right);
                     next = solve(board, pathId);
                 }
                 if (!next && board.isFree(down)) {
                     checked++;
-                    board.setWaypoint(down.getX(), down.getY(), pathId);
+                    board.setWaypoint(cell, down);
                     next = solve(board, pathId);
                 }
                 if (!next && board.isFree(left)) {
                     checked++;
-                    board.setWaypoint(left.getX(), left.getY(), pathId);
+                    board.setWaypoint(cell, left);
                     next = solve(board, pathId);
                 }
                 if (board.getFreeNeighbours(cell).size() - checked == 0) {

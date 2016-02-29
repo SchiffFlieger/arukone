@@ -9,11 +9,15 @@ public class Cell {
     private boolean fixed;
     private int value;
 
+    private Cell next;
+    private Cell previous;
+
     public Cell(int x, int y) {
         this.x = x;
         this.y = y;
         this.fixed = false;
         this.value = 0;
+        this.next = null;
     }
 
     public int getValue() {
@@ -60,6 +64,14 @@ public class Cell {
         this.fixed = true;
     }
 
+    public Cell getNext () {
+        return next;
+    }
+
+    public void setNext (Cell next) {
+        this.next = next;
+    }
+
     @Override
     public String toString() {
         return String.format("Cell [%d|%d] value: %d fixed: %b", x, y, value, fixed);
@@ -86,5 +98,13 @@ public class Cell {
         result = 98993 * result + (fixed ? 1 : 0);
         result = 98993 * result + value;
         return result;
+    }
+
+    public Cell getPrevious () {
+        return previous;
+    }
+
+    public void setPrevious (Cell previous) {
+        this.previous = previous;
     }
 }
