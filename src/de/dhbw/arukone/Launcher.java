@@ -1,7 +1,7 @@
 package de.dhbw.arukone;
 
-import de.dhbw.arukone.old.ArukoneBoard;
-import de.dhbw.arukone.reader.BoardReader;
+
+import de.dhbw.arukone.faster.FastArukoneBoard;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -10,24 +10,7 @@ public class Launcher {
     public static int size;
 
     public static void main (String... args) throws IOException {
-        ArukoneBoard board = new BoardReader().readBoard("res/boards/8x8_2.xml");
-        size = board.getSize();
-
-        ArukoneSolver solver = new ArukoneSolver();
-
-        System.out.println("-- arukone solver");
-        System.out.println("initial board:");
-        System.out.println(board.deepToString());
-        System.out.println();
-
-        System.out.println("-- start solving");
-        long start = System.currentTimeMillis();
-        solver.solve(board, 1);
-        long end = System.currentTimeMillis();
-
-        System.out.printf("-- board solved -- time: %s -- iterations: %d\n", createElapsedTimeString(start, end), ArukoneSolver.iterations);
-        System.out.println("solved board:");
-        System.out.println(board.deepToString());
+        FastArukoneBoard board = new FastArukoneBoard("test", 5);
     }
 
     private static String createElapsedTimeString (long start, long end) {

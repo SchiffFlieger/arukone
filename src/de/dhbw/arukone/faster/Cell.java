@@ -5,17 +5,18 @@ import de.dhbw.arukone.interfaces.PointInterface;
 /**
  * created by Karsten Köhler on 28.02.2016
  */
-public class Cell implements PointInterface {
+public class Cell {
     private final int x;
     private final int y;
     private final int boardSize;
-    private final boolean fixed;
+    private boolean fixed;
     private int value;
 
     public Cell(int x, int y, int boardSize) {
         this(x, y, boardSize, false, 0);
     }
 
+    @Deprecated
     public Cell(int x, int y, int boardSize, boolean fixed, int value) {
         this.x = x;
         this.y = y;
@@ -28,17 +29,20 @@ public class Cell implements PointInterface {
         return this.value;
     }
 
-    @Override
+    public void setValue(int value) {
+        if (!fixed) {
+            this.value = value;
+        }
+    }
+
     public int getX () {
         return this.x;
     }
 
-    @Override
     public int getY () {
         return this.y;
     }
 
-    @Override
     public boolean isNeighbour (PointInterface other) {
         int diffY = Math.abs(this.y - other.getY());
         int diffX = Math.abs(this.x - other.getX());
@@ -46,33 +50,37 @@ public class Cell implements PointInterface {
         return diffGes == 1;
     }
 
-    @Override
-    public PointInterface left () {
+    public Cell left () {
         if (this.y <= 0)
             return null;
         return new Cell(this.x, this.y - 1, this.boardSize);
     }
 
-    @Override
-    public PointInterface right () {
+    public Cell right () {
         if (this.y >= boardSize - 1)
             return null;
         return new Cell(this.x, this.y + 1, boardSize);
     }
 
-    @Override
-    public PointInterface down () {
+    public Cell down () {
         if (this.x <= 0) {
             return null;
         }
         return new Cell(this.x - 1, this.y, this.boardSize);
     }
 
-    @Override
-    public PointInterface up () {
+    public Cell up () {
         if (this.x >= boardSize - 1) {
             return null;
         }
         return new Cell(this.x + 1, this.y, this.boardSize);
+    }
+
+    public boolean isFixed() {
+        return fixed;
+    }
+
+    public void setFixed() {
+        this.fixed = true;
     }
 }
