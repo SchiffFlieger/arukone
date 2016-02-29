@@ -43,11 +43,21 @@ public class Cell {
         return this.y;
     }
 
-    public boolean isNeighbour (PointInterface other) {
+    public boolean isNeighbour (Cell other) {
         int diffY = Math.abs(this.y - other.getY());
         int diffX = Math.abs(this.x - other.getX());
         int diffGes = Math.abs(diffX + diffY);
         return diffGes == 1;
+    }
+
+    public boolean isConnected(Cell other) {
+        if (other == null) {
+            return false;
+        }
+        if (isNeighbour(other)) {
+            return this.getValue() == other.getValue();
+        }
+        return false;
     }
 
     public Cell left () {

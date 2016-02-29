@@ -40,34 +40,71 @@ public class FastArukoneBoard {
     }
 
     public boolean isPathComplete (int pathId) {
-        Cell start = cellMap.get(pathId);
-        return false;
-    }
+        Cell active = cellMap.get(pathId);
+        Cell previous = null;
 
-    private boolean isConnected(Cell current, Cell next) {
-        if (current == null) { // erste Zelle
-            current = next;
-            List<Cell> neighbours = getFreeNeighbours(current);
-            if (neighbours.isEmpty()) {
-                return false; // keine Zelle mit der Startzelle verbunden
-            }
-            for (Cell cell : neighbours) {
-                if (cell.getValue() == current.getValue()) {
-                    next = cell;
+        boolean go = true;
+
+        while(true) {
+            Cell up = active.up();
+            Cell right = active.right();
+            Cell down = active.down();
+            Cell left = active.left();
+
+            if (active.isConnected(up)) {
+                if (!up.equals(previous)) {
+                    if (up.isFixed()) {
+                        return true;
+                    } else {
+                        previous = active;
+                        active = up;
+                        continue;
+                    }
                 }
             }
-            return isConnected(current, next);
-        } else {
-            if (next.isFixed()) {
-                return true;
+            if (active.isConnected(right)) {
+                if (!right.equals(previous)) {
+                    if (right.isFixed()) {
+                        return true;
+                    } else {
+                        previous = active;
+                        active = right;
+                        continue;
+                    }
+                }
             }
+            if (active.isConnected(down)) {
+                if (!down.equals(previous)) {
+                    if (down.isFixed()) {
+                        return true;
+                    } else {
+                        previous = active;
+                        active = down;
+                        continue;
+                    }
+                }
+            }
+            if (active.isConnected(left)) {
+                if (!left.equals(previous)) {
+                    if (left.isFixed()) {
+                        return true;
+                    } else {
+                        previous = active;
+                        active = left;
+                        continue;
+                    }
+                }
+            }
+
+            return false;
         }
-        // TODO implement
-        return false;
     }
 
-    public Cell getActivePoint() {
-        return stack.peek();
+    public Cell getActivePoint(int pathId) {
+        if (!stack.isEmpty() && stack.peek().getValue() == pathId) {
+            return stack.peek();
+        }
+        return cellMap.get(pathId);
     }
 
     public void setWaypoint (int x, int y, int value) {
@@ -76,12 +113,16 @@ public class FastArukoneBoard {
     }
 
     public boolean isFree (Cell cell) {
-        return cell.getValue() == 0;
+        return cell != null && cell.getValue() == 0;
     }
 
     public boolean isSolved () {
-        //TODO implement
-        return false;
+        for (int key : cellMap.keySet()) {
+            if (!isPathComplete(key)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public int getSize () {
