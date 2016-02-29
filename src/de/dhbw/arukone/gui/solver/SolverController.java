@@ -1,9 +1,6 @@
 package de.dhbw.arukone.gui.solver;
 
-import de.dhbw.arukone.ArukoneBoard;
-import de.dhbw.arukone.ArukoneSolver;
-import de.dhbw.arukone.Path;
-import de.dhbw.arukone.Point;
+import de.dhbw.arukone.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -30,7 +27,6 @@ public class SolverController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         tileMap = new HashMap<>();
-        solver = new ArukoneSolver();
     }
 
     public void init(int width, int height, int tileSize) {
@@ -59,20 +55,25 @@ public class SolverController implements Initializable {
 
     public void handleContinue(ActionEvent actionEvent) {
         System.out.println("continue");
-        solver.solve(board, 1);
+        Launcher.size = board.getSize();
+        Thread thread = new Thread(new ArukoneSolver(board, 500));
+        thread.start();
     }
 
     public void drawBoard() {
+        for (String key :
+                tileMap.keySet()) {
+            StackPane pane = tileMap.get(key);
+            pane.getStyleClass().clear();
+            pane.getStyleClass().add("root");
+        }
         for (Path path : board.getPaths()) {
             for (Point point : path.getAllPoints()) {
-                drawPoint(point, path.getId());
+                if (!board.isFree(point)) {
+                    StackPane pane = tileMap.get(String.format("[%d,%d]", point.getX(), point.getY()));
+                    pane.getStyleClass().add("filled" + path.getId());
+                }
             }
         }
-    }
-
-    private void drawPoint(Point point, int pathId) {
-        tileMap.get(String.format("[%d,%d]", point.getX(), point.getY())).getStyleClass().clear();
-        tileMap.get(String.format("[%d,%d]", point.getX(), point.getY())).getStyleClass().add("root");
-        tileMap.get(String.format("[%d,%d]", point.getX(), point.getY())).getStyleClass().add("filled" + pathId);
     }
 }
