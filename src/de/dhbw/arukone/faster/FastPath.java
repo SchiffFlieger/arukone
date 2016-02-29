@@ -1,6 +1,7 @@
 package de.dhbw.arukone.faster;
 
 import de.dhbw.arukone.interfaces.PathInterface;
+import de.dhbw.arukone.interfaces.PointInterface;
 import de.dhbw.arukone.old.Point;
 
 import java.util.List;
@@ -9,53 +10,54 @@ import java.util.List;
  * created by Karsten Köhler on 28.02.2016
  */
 public class FastPath implements PathInterface {
+
     @Override
-    public int getId () {
+    public int getId() {
         return 0;
     }
 
     @Override
-    public Point getLastPointFromStart () {
+    public PointInterface getLastPointFromStart() {
         return null;
     }
 
     @Override
-    public Point getLastPointFromEnd () {
+    public PointInterface getLastPointFromEnd() {
         return null;
     }
 
     @Override
-    public Point getStart () {
+    public PointInterface getStart() {
         return null;
     }
 
     @Override
-    public Point getEnd () {
+    public PointInterface getEnd() {
         return null;
     }
 
     @Override
-    public boolean isComplete () {
+    public boolean isComplete() {
         return false;
     }
 
     @Override
-    public boolean addWaypoint (Point point) {
+    public boolean addWaypoint(PointInterface point) {
         return false;
     }
 
     @Override
-    public Point getLastSetWaypoint () {
+    public PointInterface getLastSetWaypoint() {
         return null;
     }
 
     @Override
-    public Point removeLastSetWaypoint () {
+    public PointInterface removeLastSetWaypoint() {
         return null;
     }
 
     @Override
-    public List<Point> getAllPoints () {
+    public List<PointInterface> getAllPoints() {
         return null;
     }
 }

@@ -1,6 +1,7 @@
 package de.dhbw.arukone.old;
 
 import de.dhbw.arukone.interfaces.PathInterface;
+import de.dhbw.arukone.interfaces.PointInterface;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -8,11 +9,11 @@ import java.util.List;
 
 public class Path implements PathInterface {
     private final int id;
-    private final List<Point> pathFromStart;
-    private final List<Point> pathFromEnd;
+    private final List<PointInterface> pathFromStart;
+    private final List<PointInterface> pathFromEnd;
     private final List<Integer> memory;
 
-    public Path (int id, Point start, Point end) {
+    public Path (int id, PointInterface start, PointInterface end) {
         this.id = id;
         this.pathFromStart = new LinkedList<>();
         this.pathFromEnd = new LinkedList<>();
@@ -27,22 +28,22 @@ public class Path implements PathInterface {
     }
 
     @Override
-    public Point getLastPointFromStart () {
+    public PointInterface getLastPointFromStart () {
         return this.pathFromStart.get(this.pathFromStart.size() - 1);
     }
 
     @Override
-    public Point getLastPointFromEnd () {
+    public PointInterface getLastPointFromEnd () {
         return this.pathFromEnd.get(this.pathFromEnd.size() - 1);
     }
 
     @Override
-    public Point getStart () {
+    public PointInterface getStart () {
         return this.pathFromStart.get(0);
     }
 
     @Override
-    public Point getEnd () {
+    public PointInterface getEnd () {
         return this.pathFromEnd.get(0);
     }
 
@@ -54,7 +55,7 @@ public class Path implements PathInterface {
     }
 
     @Override
-    public boolean addWaypoint (Point point) {
+    public boolean addWaypoint (PointInterface point) {
         if (point.isNeighbour(this.getLastPointFromStart())) {
             this.pathFromStart.add(point);
             this.memory.add(1);
@@ -69,7 +70,7 @@ public class Path implements PathInterface {
     }
 
     @Override
-    public Point getLastSetWaypoint () {
+    public PointInterface getLastSetWaypoint () {
         int flag = getLastWaypointFlag();
         if (flag == 0) {
             return getStart(); // list is empty
@@ -83,8 +84,8 @@ public class Path implements PathInterface {
     }
 
     @Override
-    public Point removeLastSetWaypoint () {
-        Point point = getLastSetWaypoint();
+    public PointInterface removeLastSetWaypoint () {
+        PointInterface point = getLastSetWaypoint();
         if (!(point.equals(getStart()) || point.equals(getEnd()))) {
             this.memory.remove(memory.size() - 1);
             return removeWaypoint(point);
@@ -94,8 +95,8 @@ public class Path implements PathInterface {
     }
 
     @Override
-    public List<Point> getAllPoints () {
-        List<Point> list = new ArrayList<>();
+    public List<PointInterface> getAllPoints () {
+        List<PointInterface> list = new ArrayList<>();
         list.addAll(this.pathFromStart);
         list.addAll(this.pathFromEnd);
         return list;
@@ -105,7 +106,7 @@ public class Path implements PathInterface {
     public String toString () {
         StringBuilder result = new StringBuilder();
 
-        for (Point point : this.pathFromStart) {
+        for (PointInterface point : this.pathFromStart) {
             result.append(point).append(", ");
         }
         if (!isComplete()) {
@@ -117,7 +118,7 @@ public class Path implements PathInterface {
         return result.toString();
     }
 
-    private Point removeWaypoint (Point point) {
+    private PointInterface removeWaypoint (PointInterface point) {
         if (this.pathFromStart.get(this.pathFromStart.size() - 1).equals(point)) {
             this.pathFromStart.remove(point);
             return point;
@@ -129,7 +130,7 @@ public class Path implements PathInterface {
         }
     }
 
-    private boolean isPartComplete (List<Point> points) {
+    private boolean isPartComplete (List<PointInterface> points) {
         for (int i = 0; i < points.size() - 1; i++) {
             if (!points.get(i).isNeighbour(points.get(i + 1))) {
                 return false;

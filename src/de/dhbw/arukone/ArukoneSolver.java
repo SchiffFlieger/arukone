@@ -1,5 +1,7 @@
 package de.dhbw.arukone;
 
+import de.dhbw.arukone.interfaces.PathInterface;
+import de.dhbw.arukone.interfaces.PointInterface;
 import de.dhbw.arukone.old.ArukoneBoard;
 import de.dhbw.arukone.old.Path;
 import de.dhbw.arukone.old.Point;
@@ -43,12 +45,12 @@ public class ArukoneSolver {
             } else { // if current path is not complete, try to complete it
                 boolean next = false;
                 int checked = 0;
-                Path currentPath = board.getPathById(pathId);
-                Point point = currentPath.getLastSetWaypoint();
-                Point up = point.up();
-                Point right = point.right();
-                Point down = point.down();
-                Point left = point.left();
+                PathInterface currentPath = board.getPathById(pathId);
+                PointInterface point = currentPath.getLastSetWaypoint();
+                PointInterface up = point.up();
+                PointInterface right = point.right();
+                PointInterface down = point.down();
+                PointInterface left = point.left();
 
                 if (board.isFree(up)) {
                     checked++;
