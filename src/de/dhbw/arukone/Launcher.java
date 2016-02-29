@@ -19,7 +19,20 @@ public class Launcher {
         board.addFixedPath(5, 1, 4, 4, 3);
 
         FastArukoneSolver solver = new FastArukoneSolver();
+
+        System.out.println("-- arukone solver");
+        System.out.println("initial board:");
+        System.out.println(board);
+        System.out.println();
+
+        System.out.println("-- start solving");
+        long start = System.currentTimeMillis();
         solver.solve(board, 1);
+        long end = System.currentTimeMillis();
+
+        System.out.printf("-- board solved -- time: %s -- iterations: %d\n", createElapsedTimeString(start, end), FastArukoneSolver.iterations);
+        System.out.println("solved board:");
+        System.out.println(board);
     }
 
     private static String createElapsedTimeString (long start, long end) {

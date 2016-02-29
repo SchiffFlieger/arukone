@@ -1,28 +1,19 @@
 package de.dhbw.arukone.faster;
 
-import de.dhbw.arukone.interfaces.PointInterface;
-
 /**
  * created by Karsten Köhler on 28.02.2016
  */
 public class Cell {
     private final int x;
     private final int y;
-    private final int boardSize;
     private boolean fixed;
     private int value;
 
-    public Cell(int x, int y, int boardSize) {
-        this(x, y, boardSize, false, 0);
-    }
-
-    @Deprecated
-    public Cell(int x, int y, int boardSize, boolean fixed, int value) {
+    public Cell(int x, int y) {
         this.x = x;
         this.y = y;
-        this.boardSize = boardSize;
-        this.fixed = fixed;
-        this.value = value;
+        this.fixed = false;
+        this.value = 0;
     }
 
     public int getValue() {
@@ -60,37 +51,16 @@ public class Cell {
         return false;
     }
 
-    public Cell left () {
-        if (this.y <= 0)
-            return null;
-        return new Cell(this.x, this.y - 1, this.boardSize);
-    }
-
-    public Cell right () {
-        if (this.y >= boardSize - 1)
-            return null;
-        return new Cell(this.x, this.y + 1, boardSize);
-    }
-
-    public Cell down () {
-        if (this.x <= 0) {
-            return null;
-        }
-        return new Cell(this.x - 1, this.y, this.boardSize);
-    }
-
-    public Cell up () {
-        if (this.x >= boardSize - 1) {
-            return null;
-        }
-        return new Cell(this.x + 1, this.y, this.boardSize);
-    }
-
     public boolean isFixed() {
         return fixed;
     }
 
     public void setFixed() {
         this.fixed = true;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Cell [%d|%d] value: %d fixed: %b", x, y, value, fixed);
     }
 }

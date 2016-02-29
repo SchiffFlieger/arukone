@@ -46,10 +46,10 @@ public class FastArukoneBoard {
         boolean go = true;
 
         while(true) {
-            Cell up = active.up();
-            Cell right = active.right();
-            Cell down = active.down();
-            Cell left = active.left();
+            Cell up = this.up(active);
+            Cell right = this.right(active);
+            Cell down = this.down(active);
+            Cell left = this.left(active);
 
             if (active.isConnected(up)) {
                 if (!up.equals(previous)) {
@@ -125,17 +125,50 @@ public class FastArukoneBoard {
         return true;
     }
 
+    public void removeLastSetWaypoint () {
+        if (!stack.isEmpty()) {
+            Cell point = stack.pop();
+            board[point.getX()][point.getY()].setValue(0); // clear cell
+        }
+    }
+
+    public Cell left (Cell active) {
+        if (active.getY() <= 0)
+            return null;
+        return board[active.getX()][active.getY() - 1];
+    }
+
+    public Cell right (Cell active) {
+        if (active.getY() >= size - 1)
+            return null;
+        return board[active.getX()][active.getY() + 1];
+    }
+
+    public Cell up (Cell active) {
+        if (active.getX() <= 0) {
+            return null;
+        }
+        return board[active.getX() - 1][active.getY()];
+    }
+
+    public Cell down (Cell active) {
+        if (active.getX() >= size - 1) {
+            return null;
+        }
+        return board[active.getX() + 1][active.getY()];
+    }
+
     public int getSize () {
         return this.size;
     }
 
-    public List<Cell> getFreeNeighbours (Cell point) {
+    public List<Cell> getFreeNeighbours (Cell cell) {
         List<Cell> neighbours = new ArrayList<>(4);
 
-        Cell up = point.up();
-        Cell right = point.right();
-        Cell down = point.down();
-        Cell left = point.left();
+        Cell up = this.up(cell);
+        Cell right = this.right(cell);
+        Cell down = this.down(cell);
+        Cell left = this.left(cell);
 
         if (up != null && this.isFree(up)) {
             neighbours.add(up);
@@ -151,13 +184,6 @@ public class FastArukoneBoard {
         }
 
         return neighbours;
-    }
-
-    public void removeLastSetWaypoint () {
-        if (!stack.isEmpty()) {
-            Cell point = stack.pop();
-            board[point.getX()][point.getY()].setValue(0); // clear cell
-        }
     }
 
     public String getIdentifier() {
@@ -195,7 +221,7 @@ public class FastArukoneBoard {
     private void initBoard() {
         for (int x = 0; x < board.length; x++) {
             for (int y = 0; y < board.length; y++) {
-                board[x][y] = new Cell(x, y, size);
+                board[x][y] = new Cell(x, y);
             }
         }
     }

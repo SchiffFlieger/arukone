@@ -18,11 +18,11 @@ public class FastArukoneSolver {
             } else { // if current path is not complete, try to complete it
                 boolean next = false;
                 int checked = 0;
-                Cell point = board.getActivePoint(pathId);
-                Cell up = point.up();
-                Cell right = point.right();
-                Cell down = point.down();
-                Cell left = point.left();
+                Cell cell = board.getActivePoint(pathId);
+                Cell up = board.up(cell);
+                Cell right = board.right(cell);
+                Cell down = board.down(cell);
+                Cell left = board.left(cell);
 
                 if (board.isFree(up)) {
                     checked++;
@@ -44,7 +44,7 @@ public class FastArukoneSolver {
                     board.setWaypoint(left.getX(), left.getY(), pathId);
                     next = solve(board, pathId);
                 }
-                if (board.getFreeNeighbours(point).size() - checked == 0) {
+                if (board.getFreeNeighbours(cell).size() - checked == 0) {
                     board.removeLastSetWaypoint();
                     return false;
                 } else {
