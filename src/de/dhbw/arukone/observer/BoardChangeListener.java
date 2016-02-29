@@ -18,6 +18,5 @@ public class BoardChangeListener implements ChangeListener {
     @Override
     public void boardChanged () {
         controller.drawBoard();
-        System.out.println("-- redraw board");
     }
 }

@@ -23,6 +23,7 @@ public class SolverController implements Initializable {
     private ArukoneBoard board;
     private ArukoneSolver solver;
     private Map<String, StackPane> tileMap;
+    private int sleep;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -44,6 +45,10 @@ public class SolverController implements Initializable {
         }
     }
 
+    public void setSleepTime(int sleep) {
+        this.sleep = sleep;
+    }
+
     public void setBoard(ArukoneBoard board) {
         this.board = board;
         drawBoard();
@@ -56,7 +61,7 @@ public class SolverController implements Initializable {
     public void handleContinue(ActionEvent actionEvent) {
         System.out.println("continue");
         Launcher.size = board.getSize();
-        Thread thread = new Thread(new ArukoneSolver(board, 500));
+        Thread thread = new Thread(new ArukoneSolver(board, sleep));
         thread.start();
     }
 

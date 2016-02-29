@@ -40,7 +40,7 @@ public class InitController implements Initializable {
         System.out.println(" -- start");
         ArukoneBoard board = (ArukoneBoard) chooseBoard.getSelectionModel().getSelectedItem();
 
-        new SolverView(board, 30);
+        new SolverView(board, 30, Integer.parseInt(txtSleepTime.textProperty().get()));
     }
 
     public void handleHelp (ActionEvent actionEvent) {

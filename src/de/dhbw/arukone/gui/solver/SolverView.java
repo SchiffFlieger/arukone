@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 public class SolverView {
 
-    public SolverView (ArukoneBoard board, int tileSize) {
+    public SolverView (ArukoneBoard board, int tileSize, int sleep) {
         VBox root = null;
         SolverController controller = null;
         try {
@@ -24,6 +24,7 @@ public class SolverView {
             controller = loader.getController();
             controller.init(board.getSize(), board.getSize(), tileSize);
             controller.setBoard(board);
+            controller.setSleepTime(sleep);
             board.addListener(new BoardChangeListener(board, controller));
         } catch (IOException e) {
             e.printStackTrace();
