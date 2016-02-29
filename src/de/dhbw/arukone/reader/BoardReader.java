@@ -1,9 +1,7 @@
 package de.dhbw.arukone.reader;
 
 
-import de.dhbw.arukone.old.ArukoneBoard;
-import de.dhbw.arukone.old.Path;
-import de.dhbw.arukone.old.Point;
+import de.dhbw.arukone.FastArukoneBoard;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.w3c.dom.Document;
@@ -18,7 +16,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.List;
 
 public class BoardReader {
     private final String ATTRIBUTE_SIZE;
@@ -41,20 +38,18 @@ public class BoardReader {
         ATTRIBUTE_VALUE_START = "start";
     }
 
-    public ArukoneBoard readBoard (String filePath) {
+    public FastArukoneBoard readBoard (String filePath) {
         Document doc = getXmlDocument(filePath);
         Element root = doc.getDocumentElement();
 
-        ArukoneBoard board = new ArukoneBoard(getIdentifierFromPath(filePath), Integer.parseInt(root.getAttribute(ATTRIBUTE_SIZE)));
-
-        List<Path> paths = getAllPaths(root);
-        paths.forEach(board::addPath);
+        FastArukoneBoard board = new FastArukoneBoard(getIdentifierFromPath(filePath), Integer.parseInt(root.getAttribute(ATTRIBUTE_SIZE)));
+        this.addAllPaths(root, board);
 
         return board;
     }
 
-    public ObservableList<ArukoneBoard> readAllBoardsInDirectory (String path) {
-        ObservableList<ArukoneBoard> boards = FXCollections.observableArrayList();
+    public ObservableList<FastArukoneBoard> readAllBoardsInDirectory (String path) {
+        ObservableList<FastArukoneBoard> boards = FXCollections.observableArrayList();
         for (File file : listFiles(path)) {
             boards.add(readBoard(file.getPath()));
         }
@@ -76,25 +71,22 @@ public class BoardReader {
         return new File[0];
     }
 
-    private List<Path> getAllPaths (Element root) {
-        List<Path> paths = new LinkedList<>();
+    private void addAllPaths(Element root, FastArukoneBoard board) {
         NodeList pathList = root.getElementsByTagName(TAG_PATH);
         for (int i = 0; i < pathList.getLength(); i++) {
             Node pathNode = pathList.item(i);
             if (pathNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element pathElement = (Element) pathNode;
-                Path path = getSinglePath(pathElement);
-                paths.add(path);
+                addSinglePath(pathElement, board);
             }
         }
-        return paths;
     }
 
-    private Path getSinglePath (Element pathElement) {
+    private void addSinglePath(Element pathElement, FastArukoneBoard board) {
         final int id = Integer.parseInt(pathElement.getAttribute(ATTRIBUTE_ID));
         NodeList pointList = pathElement.getElementsByTagName(TAG_POINT);
 
-        Point start = null, end = null;
+        int startX = 0, startY=0, endX=0, endY=0;
         for (int j = 0; j < pointList.getLength(); j++) {
             Node pointNode = pointList.item(j);
             if (pointNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -103,13 +95,15 @@ public class BoardReader {
                 final int x = Integer.parseInt(pointElement.getElementsByTagName(TAG_X).item(0).getTextContent());
                 final int y = Integer.parseInt(pointElement.getElementsByTagName(TAG_Y).item(0).getTextContent());
                 if (clazz.equalsIgnoreCase(ATTRIBUTE_VALUE_START)) {
-                    start = new Point(x, y);
+                    startX = x;
+                    startY = y;
                 } else {
-                    end = new Point(x, y);
+                    endX = x;
+                    endY = y;
                 }
             }
         }
-        return new Path(id, start, end);
+        board.addFixedPath(id, startX, startY, endX, endY);
     }
 
     private Document getXmlDocument (String filePath) {

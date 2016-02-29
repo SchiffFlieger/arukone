@@ -1,6 +1,8 @@
 package de.dhbw.arukone;
 
 
+import de.dhbw.arukone.reader.BoardReader;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -8,13 +10,7 @@ public class Launcher {
     public static int size;
 
     public static void main (String... args) throws IOException {
-        FastArukoneBoard board = new FastArukoneBoard("test", 5);
-        board.addFixedPath(1, 0, 0, 4, 1);
-        board.addFixedPath(2, 0, 2, 3, 1);
-        board.addFixedPath(3, 1, 2, 4, 2);
-        board.addFixedPath(4, 0, 4, 3, 3);
-        board.addFixedPath(5, 1, 4, 4, 3);
-
+        FastArukoneBoard board = new BoardReader().readBoard("res/boards/5x5_1.xml");
         FastArukoneSolver solver = new FastArukoneSolver();
 
         System.out.println("-- arukone solver");
