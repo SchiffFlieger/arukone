@@ -20,7 +20,7 @@
             <y>6</y>
         </point>
     </path>
-    <path id="5">
+    <path id="3">
         <point class="start">
             <x>1</x>
             <y>6</y>
@@ -30,7 +30,7 @@
             <y>4</y>
         </point>
     </path>
-    <path id="6">
+    <path id="4">
         <point class="start">
             <x>0</x>
             <y>3</y>
@@ -40,7 +40,7 @@
             <y>1</y>
         </point>
     </path>
-    <path id="7">
+    <path id="5">
         <point class="start">
             <x>1</x>
             <y>3</y>
@@ -50,7 +50,7 @@
             <y>5</y>
         </point>
     </path>
-    <path id="8">
+    <path id="6">
         <point class="start">
             <x>0</x>
             <y>0</y>
@@ -60,7 +60,7 @@
             <y>4</y>
         </point>
     </path>
-    <path id="9">
+    <path id="7">
         <point class="start">
             <x>5</x>
             <y>0</y>

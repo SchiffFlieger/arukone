@@ -22,6 +22,7 @@ public class Cell {
 
     public void setValue(int value) {
         if (!fixed) {
+
             this.value = value;
         }
     }
@@ -62,5 +63,28 @@ public class Cell {
     @Override
     public String toString() {
         return String.format("Cell [%d|%d] value: %d fixed: %b", x, y, value, fixed);
+    }
+
+    @Override
+    public boolean equals (Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Cell cell = (Cell) o;
+
+        if (x != cell.x) return false;
+        if (y != cell.y) return false;
+        if (fixed != cell.fixed) return false;
+        return value == cell.value;
+
+    }
+
+    @Override
+    public int hashCode () {
+        int result = x;
+        result = 98993 * result + y;
+        result = 98993 * result + (fixed ? 1 : 0);
+        result = 98993 * result + value;
+        return result;
     }
 }

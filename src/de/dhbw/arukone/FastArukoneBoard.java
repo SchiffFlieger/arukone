@@ -11,7 +11,7 @@ public class FastArukoneBoard {
 
     private final Cell[][] board;
     private final Stack<Cell> stack;
-    private final Map<Integer, Cell> cellMap;
+    private final Map<Integer, Cell> startCellMap;
 
     public FastArukoneBoard(String identifier, int size) {
         this.size = size;
@@ -19,7 +19,7 @@ public class FastArukoneBoard {
 
         this.board = new Cell[size][size];
         this.stack = new Stack<>();
-        this.cellMap = new HashMap<>();
+        this.startCellMap = new HashMap<>();
 
         initBoard();
     }
@@ -34,13 +34,12 @@ public class FastArukoneBoard {
         end.setValue(value);
         end.setFixed();
 
-        cellMap.put(value, start);
+        startCellMap.put(value, start);
     }
 
     public boolean isPathComplete (int pathId) {
-        //TODO hier ist ne Endlosschleife
-        Cell active = cellMap.get(pathId);
-        Cell previous = null;
+        Cell active = startCellMap.get(pathId);
+        Set<Cell> visited = new HashSet<>();
 
         boolean go = true;
 
@@ -51,44 +50,44 @@ public class FastArukoneBoard {
             Cell left = this.left(active);
 
             if (active.isConnected(up)) {
-                if (!up.equals(previous)) {
+                if (!visited.contains(up)) {
                     if (up.isFixed()) {
                         return true;
                     } else {
-                        previous = active;
+                        visited.add(active);
                         active = up;
                         continue;
                     }
                 }
             }
             if (active.isConnected(right)) {
-                if (!right.equals(previous)) {
+                if (!visited.contains(right)) {
                     if (right.isFixed()) {
                         return true;
                     } else {
-                        previous = active;
+                        visited.add(active);
                         active = right;
                         continue;
                     }
                 }
             }
             if (active.isConnected(down)) {
-                if (!down.equals(previous)) {
+                if (!visited.contains(down)) {
                     if (down.isFixed()) {
                         return true;
                     } else {
-                        previous = active;
+                        visited.add(active);
                         active = down;
                         continue;
                     }
                 }
             }
             if (active.isConnected(left)) {
-                if (!left.equals(previous)) {
+                if (!visited.contains(left)) {
                     if (left.isFixed()) {
                         return true;
                     } else {
-                        previous = active;
+                        visited.add(active);
                         active = left;
                         continue;
                     }
@@ -103,7 +102,7 @@ public class FastArukoneBoard {
         if (!stack.isEmpty() && stack.peek().getValue() == pathId) {
             return stack.peek();
         }
-        return cellMap.get(pathId);
+        return startCellMap.get(pathId);
     }
 
     public void setWaypoint (int x, int y, int value) {
@@ -116,7 +115,7 @@ public class FastArukoneBoard {
     }
 
     public boolean isSolved () {
-        for (int key : cellMap.keySet()) {
+        for (int key : startCellMap.keySet()) {
             if (!isPathComplete(key)) {
                 return false;
             }

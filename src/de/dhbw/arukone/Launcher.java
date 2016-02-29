@@ -10,7 +10,7 @@ public class Launcher {
     public static int size;
 
     public static void main (String... args) throws IOException {
-        FastArukoneBoard board = new BoardReader().readBoard("res/boards/5x5_1.xml");
+        FastArukoneBoard board = new BoardReader().readBoard("res/boards/9x9_1.xml");
         FastArukoneSolver solver = new FastArukoneSolver();
 
         System.out.println("-- arukone solver");
@@ -31,7 +31,7 @@ public class Launcher {
     private static String createElapsedTimeString (long start, long end) {
         long elapsedTime = end - start;
 
-        return String.format("%02dh %02dm %02ds %04dms",
+        return String.format("%02dh %02dm %02ds %03dms",
                 TimeUnit.MILLISECONDS.toHours(elapsedTime),
                 TimeUnit.MILLISECONDS.toMinutes(elapsedTime) % TimeUnit.HOURS.toMinutes(1),
                 TimeUnit.MILLISECONDS.toSeconds(elapsedTime) % TimeUnit.MINUTES.toSeconds(1),

@@ -5,8 +5,6 @@ public class FastArukoneSolver {
 
 
     public boolean solve (FastArukoneBoard board, int pathId) {
-        System.out.println("--------------- " + iterations);
-        System.out.println(board);
         if (board.isSolved()) {
             return true; // board solved
         } else {
