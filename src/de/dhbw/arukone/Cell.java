@@ -1,8 +1,5 @@
 package de.dhbw.arukone;
 
-/**
- * created by Karsten Köhler on 28.02.2016
- */
 public class Cell {
     private final int x;
     private final int y;
@@ -12,7 +9,7 @@ public class Cell {
     private Cell next;
     private Cell previous;
 
-    public Cell(int x, int y) {
+    public Cell (int x, int y) {
         this.x = x;
         this.y = y;
         this.fixed = false;
@@ -20,11 +17,28 @@ public class Cell {
         this.next = null;
     }
 
-    public int getValue() {
+    public boolean isNeighbour (Cell other) {
+        int diffY = Math.abs(this.y - other.getY());
+        int diffX = Math.abs(this.x - other.getX());
+        int diffGes = Math.abs(diffX + diffY);
+        return diffGes == 1;
+    }
+
+    public boolean isConnected (Cell other) {
+        if (other == null) {
+            return false;
+        }
+        if (isNeighbour(other)) {
+            return this.getValue() == other.getValue();
+        }
+        return false;
+    }
+
+    public int getValue () {
         return this.value;
     }
 
-    public void setValue(int value) {
+    public void setValue (int value) {
         if (!fixed) {
 
             this.value = value;
@@ -39,28 +53,11 @@ public class Cell {
         return this.y;
     }
 
-    public boolean isNeighbour (Cell other) {
-        int diffY = Math.abs(this.y - other.getY());
-        int diffX = Math.abs(this.x - other.getX());
-        int diffGes = Math.abs(diffX + diffY);
-        return diffGes == 1;
-    }
-
-    public boolean isConnected(Cell other) {
-        if (other == null) {
-            return false;
-        }
-        if (isNeighbour(other)) {
-            return this.getValue() == other.getValue();
-        }
-        return false;
-    }
-
-    public boolean isFixed() {
+    public boolean isFixed () {
         return fixed;
     }
 
-    public void setFixed() {
+    public void setFixed () {
         this.fixed = true;
     }
 
@@ -72,23 +69,30 @@ public class Cell {
         this.next = next;
     }
 
+    public Cell getPrevious () {
+        return previous;
+    }
+
+    public void setPrevious (Cell previous) {
+        this.previous = previous;
+    }
+
     @Override
-    public String toString() {
+    public String toString () {
         return String.format("Cell [%d|%d] value: %d fixed: %b", x, y, value, fixed);
     }
 
     @Override
-    public boolean equals (Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals (Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
 
-        Cell cell = (Cell) o;
+        Cell cell = (Cell) other;
 
         if (x != cell.x) return false;
         if (y != cell.y) return false;
         if (fixed != cell.fixed) return false;
         return value == cell.value;
-
     }
 
     @Override
@@ -98,13 +102,5 @@ public class Cell {
         result = 98993 * result + (fixed ? 1 : 0);
         result = 98993 * result + value;
         return result;
-    }
-
-    public Cell getPrevious () {
-        return previous;
-    }
-
-    public void setPrevious (Cell previous) {
-        this.previous = previous;
     }
 }

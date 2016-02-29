@@ -10,8 +10,8 @@ public class FastArukoneSolver {
         } else {
             iterations++;
             if (board.isPathComplete(pathId)) {
-                return solve(board, pathId + 1); // if current path is complete, solve the next path
-            } else { // if current path is not complete, try to complete it
+                return solve(board, pathId + 1);
+            } else {
                 boolean next = false;
                 int checked = 0;
                 Cell cell = board.getActivePoint(pathId);

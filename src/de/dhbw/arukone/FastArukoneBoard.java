@@ -2,9 +2,6 @@ package de.dhbw.arukone;
 
 import java.util.*;
 
-/**
- * created by Karsten Köhler on 28.02.2016
- */
 public class FastArukoneBoard {
     private final int size;
     private final String identifier;
@@ -14,7 +11,7 @@ public class FastArukoneBoard {
     private final Map<Integer, Cell> startCellMap;
     private final Map<Integer, Cell> endCellMap;
 
-    public FastArukoneBoard(String identifier, int size) {
+    public FastArukoneBoard (String identifier, int size) {
         this.size = size;
         this.identifier = identifier;
 
@@ -26,7 +23,7 @@ public class FastArukoneBoard {
         initBoard();
     }
 
-    public void addFixedPath(int value, int startX, int startY, int endX, int endY) {
+    public void addFixedPath (int value, int startX, int startY, int endX, int endY) {
         Cell start = board[startX][startY];
         Cell end = board[endX][endY];
 
@@ -40,16 +37,22 @@ public class FastArukoneBoard {
         endCellMap.put(value, end);
     }
 
+    public boolean isFree (Cell cell) {
+        return cell != null && cell.getValue() == 0;
+    }
+
     public boolean isPathComplete (int pathId) {
         Cell start = startCellMap.get(pathId);
         return isPathComplete(start);
     }
 
-    public Cell getActivePoint(int pathId) {
-        if (!stack.isEmpty() && stack.peek().getValue() == pathId) {
-            return stack.peek();
+    public boolean isSolved () {
+        for (int key : startCellMap.keySet()) {
+            if (!isPathComplete(key)) {
+                return false;
+            }
         }
-        return startCellMap.get(pathId);
+        return true;
     }
 
     public void setWaypoint (Cell active, Cell next) {
@@ -61,19 +64,6 @@ public class FastArukoneBoard {
 
         next.setValue(active.getValue());
         stack.add(next);
-    }
-
-    public boolean isFree (Cell cell) {
-        return cell != null && cell.getValue() == 0;
-    }
-
-    public boolean isSolved () {
-        for (int key : startCellMap.keySet()) {
-            if (!isPathComplete(key)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public void removeLastSetWaypoint () {
@@ -112,10 +102,6 @@ public class FastArukoneBoard {
         return board[active.getX() + 1][active.getY()];
     }
 
-    public int getSize () {
-        return this.size;
-    }
-
     public List<Cell> getFreeNeighbours (Cell cell) {
         List<Cell> neighbours = new ArrayList<>(4);
 
@@ -140,8 +126,19 @@ public class FastArukoneBoard {
         return neighbours;
     }
 
-    public String getIdentifier() {
+    public Cell getActivePoint (int pathId) {
+        if (!stack.isEmpty() && stack.peek().getValue() == pathId) {
+            return stack.peek();
+        }
+        return startCellMap.get(pathId);
+    }
+
+    public String getIdentifier () {
         return identifier;
+    }
+
+    public int getSize () {
+        return this.size;
     }
 
     @Override
@@ -164,7 +161,7 @@ public class FastArukoneBoard {
         return result.toString();
     }
 
-    private boolean isPathComplete(Cell active) {
+    private boolean isPathComplete (Cell active) {
         Cell next = active.getNext();
         if (next != null) {
             return isPathComplete(next);
@@ -181,7 +178,7 @@ public class FastArukoneBoard {
         return lineSepBuilder.toString() + "\n";
     }
 
-    private void initBoard() {
+    private void initBoard () {
         for (int x = 0; x < board.length; x++) {
             for (int y = 0; y < board.length; y++) {
                 board[x][y] = new Cell(x, y);
