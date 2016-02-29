@@ -38,6 +38,7 @@ public class FastArukoneBoard {
     }
 
     public boolean isPathComplete (int pathId) {
+        //TODO hier ist ne Endlosschleife
         Cell active = cellMap.get(pathId);
         Cell previous = null;
 
