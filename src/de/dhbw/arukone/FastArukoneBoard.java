@@ -1,5 +1,7 @@
 package de.dhbw.arukone;
 
+import de.dhbw.arukone.observer.ChangeListener;
+
 import java.util.*;
 
 public class FastArukoneBoard {
@@ -11,6 +13,8 @@ public class FastArukoneBoard {
     private final Map<Integer, Cell> startCellMap;
     private final Map<Integer, Cell> endCellMap;
 
+    private final List<ChangeListener> listeners;
+
     public FastArukoneBoard (String identifier, int size) {
         this.size = size;
         this.identifier = identifier;
@@ -20,7 +24,17 @@ public class FastArukoneBoard {
         this.startCellMap = new HashMap<>();
         this.endCellMap = new HashMap<>();
 
+        this.listeners = new ArrayList<>();
+
         initBoard();
+    }
+
+    public void addListener(ChangeListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeListener(ChangeListener listener) {
+        listeners.remove(listener);
     }
 
     public void addFixedPath (int value, int startX, int startY, int endX, int endY) {
@@ -64,6 +78,8 @@ public class FastArukoneBoard {
 
         next.setValue(active.getValue());
         stack.add(next);
+
+        notifyAllListeners(next);
     }
 
     public void removeLastSetWaypoint () {
@@ -73,6 +89,8 @@ public class FastArukoneBoard {
 
             deleted.getPrevious().setNext(null);
             deleted.setPrevious(null);
+
+            notifyAllListeners(deleted);
         }
     }
 
@@ -160,7 +178,7 @@ public class FastArukoneBoard {
 
         return result.toString();
     }
-
+    
     private boolean isPathComplete (Cell active) {
         Cell next = active.getNext();
         if (next != null) {
@@ -169,13 +187,20 @@ public class FastArukoneBoard {
             return active.isConnected(endCellMap.get(active.getValue()));
         }
     }
-
+    
     private String getLineSeparator () {
         StringBuilder lineSepBuilder = new StringBuilder();
         for (int i = 0; i <= this.size; i++) {
             lineSepBuilder.append(".   ");
         }
         return lineSepBuilder.toString() + "\n";
+    }
+    
+    private void notifyAllListeners(Cell cell) {
+        for (ChangeListener listener :
+                listeners) {
+            listener.changed(cell);
+        }
     }
 
     private void initBoard () {

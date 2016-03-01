@@ -1,6 +1,7 @@
 package de.dhbw.arukone;
 
 
+import de.dhbw.arukone.observer.CellChangedListener;
 import de.dhbw.arukone.reader.BoardReader;
 
 import java.io.IOException;
@@ -10,7 +11,8 @@ public class Launcher {
     public static int size;
 
     public static void main (String... args) throws IOException {
-        FastArukoneBoard board = new BoardReader().readBoard("res/boards/8x8_3.xml");
+        FastArukoneBoard board = new BoardReader().readBoard("res/boards/5x5_1.xml");
+        board.addListener(new CellChangedListener());
         FastArukoneSolver solver = new FastArukoneSolver();
 
         System.out.println("-- arukone solver");
