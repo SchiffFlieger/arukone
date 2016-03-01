@@ -20,27 +20,28 @@ import java.util.ResourceBundle;
 public class InitController implements Initializable {
     public TitledPane paneOptions;
     public ComboBox chooseBoard;
-    public CheckBox showSolving;
     public TextField txtSleepTime;
+    public TextField txtTileSize;
     public Slider sliderSleepTime;
+    public Slider sliderTileSize;
     public Button btnStart;
     public Button btnHelp;
     public Button btnAbout;
-    public Label lblSleepTime;
-    public Label lblBoard;
 
     @Override
     public void initialize (URL location, ResourceBundle resources) {
         fillComboBoxWithBoards();
-        onlyNumericInputOnSleepTimeTextField();
-        bindTextFieldToSlider();
+        setNumericInputOnly(txtSleepTime, 0, 3000);
+        setNumericInputOnly(txtTileSize, 0, 100);
+        bindSleepTimeSlider();
+        bindTileSizeSlider();
     }
 
     public void handleStart (ActionEvent actionEvent) {
         System.out.println(" -- start");
         ArukoneBoard board = (ArukoneBoard) chooseBoard.getSelectionModel().getSelectedItem();
 
-        new SolverView(board, 30, Integer.parseInt(txtSleepTime.textProperty().get()));
+        new SolverView(board, Integer.parseInt(txtTileSize.textProperty().get()), Integer.parseInt(txtSleepTime.textProperty().get()));
     }
 
     public void handleHelp (ActionEvent actionEvent) {
@@ -59,16 +60,12 @@ public class InitController implements Initializable {
         alert.showAndWait();
     }
 
-    public void toggleSolvingOptions (ActionEvent actionEvent) {
-        if (showSolving.isSelected()) {
-            paneOptions.setDisable(false);
-        } else {
-            paneOptions.setDisable(true);
-        }
+    private void bindSleepTimeSlider() {
+        txtSleepTime.textProperty().bindBidirectional(sliderSleepTime.valueProperty(), new NumberStringConverter("####"));
     }
 
-    private void bindTextFieldToSlider() {
-        txtSleepTime.textProperty().bindBidirectional(sliderSleepTime.valueProperty(), new NumberStringConverter("####"));
+    private void bindTileSizeSlider() {
+        txtTileSize.textProperty().bindBidirectional(sliderTileSize.valueProperty(), new NumberStringConverter("###"));
     }
 
     private void fillComboBoxWithBoards() {
@@ -88,25 +85,25 @@ public class InitController implements Initializable {
         }
     }
 
-    private void onlyNumericInputOnSleepTimeTextField() {
-        txtSleepTime.textProperty().addListener(new ChangeListener<String>() {
+    private void setNumericInputOnly(TextField field, int minValue, int maxValue) {
+        field.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (newValue.matches("[0-9]*")) {
                     if (newValue.equals("")) {
-                        txtSleepTime.textProperty().setValue("0");
+                        field.textProperty().setValue("0");
                         return;
                     }
                     int value = Integer.parseInt(newValue);
-                    if (value < 0) {
-                        txtSleepTime.textProperty().setValue("0");
-                    } else if (value > 3000) {
-                        txtSleepTime.textProperty().setValue("3000");
+                    if (value < minValue) {
+                        field.textProperty().setValue(String.valueOf(minValue));
+                    } else if (value > maxValue) {
+                        field.textProperty().setValue(String.valueOf(maxValue));
                     } else {
-                        txtSleepTime.textProperty().setValue(String.valueOf(value));
+                        field.textProperty().setValue(String.valueOf(value));
                     }
                 } else {
-                    txtSleepTime.textProperty().setValue(oldValue);
+                    field.textProperty().setValue(oldValue);
                 }
             }
         });
