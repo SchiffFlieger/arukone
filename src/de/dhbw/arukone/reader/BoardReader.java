@@ -15,7 +15,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
 
 public class BoardReader {
     private final String ATTRIBUTE_SIZE;
@@ -57,10 +56,7 @@ public class BoardReader {
     }
 
     private String getIdentifierFromPath (String string) {
-        String name = new File(string).getName().split("\\.")[0];
-        final int version = Integer.parseInt(name.split("_")[1]);
-        name = name.split("_")[0];
-        return String.format("%s V%d\n", name, version);
+        return new File(string).getName().split("\\.")[0];
     }
 
     private File[] listFiles (String path) {
