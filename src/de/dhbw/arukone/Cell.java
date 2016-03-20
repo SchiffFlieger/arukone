@@ -1,14 +1,44 @@
 package de.dhbw.arukone;
 
+/**
+ * Represents a single field of an {@link ArukoneBoard}.
+ */
 public class Cell {
+    /**
+     * x-coordinate of the cell
+     */
     private final int x;
+
+    /**
+     * y-coordinate of the cell
+     */
     private final int y;
+
+    /**
+     * true if the cell cannot be changed
+     */
     private boolean fixed;
+
+    /**
+     * path id if the cell belongs to a path, else 0
+     */
     private int value;
 
+    /**
+     * next cell in the path
+     */
     private Cell next;
+
+    /**
+     * previous cell in the path
+     */
     private Cell previous;
 
+    /**
+     * Basic contructor for an empty {@link Cell}.
+     * @param x x-coordinate of the cell
+     * @param y y-coordinate of the cell
+     */
     public Cell (int x, int y) {
         this.x = x;
         this.y = y;
@@ -17,6 +47,11 @@ public class Cell {
         this.next = null;
     }
 
+    /**
+     * Checks if the given cell is a neighbor of the current cell.
+     * @param other cell to check
+     * @return true if neighbor, else false
+     */
     public boolean isNeighbour (Cell other) {
         int diffY = Math.abs(this.y - other.getY());
         int diffX = Math.abs(this.x - other.getX());
@@ -24,6 +59,11 @@ public class Cell {
         return diffGes == 1;
     }
 
+    /**
+     * Checks if the given cell is connected to the current cell. It is connected if both cells are neighbors and belong to the same path.
+     * @param other cell to check
+     * @return true if connected, else false
+     */
     public boolean isConnected (Cell other) {
         if (other == null) {
             return false;
@@ -40,7 +80,6 @@ public class Cell {
 
     public void setValue (int value) {
         if (!fixed) {
-
             this.value = value;
         }
     }

@@ -1,10 +1,30 @@
-package de.dhbw.arukone;
+package de.dhbw.arukone.solver;
 
-public class FastArukoneSolver {
+import de.dhbw.arukone.ArukoneBoard;
+import de.dhbw.arukone.Cell;
+
+/**
+ * Solver for {@link ArukoneBoard}.
+ */
+public class ArukoneSolver {
     public static long iterations = 0;
 
+    /**
+     * Solves a given {@link ArukoneBoard} using a backtracking algorithm.
+     * @param board {@link ArukoneBoard} to solve
+     * @return true if board is solved, else false.
+     */
+    public boolean solve (ArukoneBoard board) {
+        return solve(board, 1);
+    }
 
-    public boolean solve (FastArukoneBoard board, int pathId) {
+    /**
+     * Solves a given {@link ArukoneBoard} using a backtracking algorithm.
+     * @param board {@link ArukoneBoard} to solve
+     * @param pathId current path to complete
+     * @return true if board is solved, else false.
+     */
+    private boolean solve (ArukoneBoard board, int pathId) {
         if (board.isSolved()) {
             return true; // board solved
         } else {

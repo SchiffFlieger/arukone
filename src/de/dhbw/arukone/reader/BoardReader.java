@@ -1,9 +1,7 @@
 package de.dhbw.arukone.reader;
 
 
-import de.dhbw.arukone.FastArukoneBoard;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import de.dhbw.arukone.ArukoneBoard;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -16,58 +14,40 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ *  Reader for reading {@link ArukoneBoard} from a xml-file.
+ */
 public class BoardReader {
-    private final String ATTRIBUTE_SIZE;
-    private final String ATTRIBUTE_ID;
-    private final String ATTRIBUTE_CLASS;
-    private final String TAG_PATH;
-    private final String TAG_POINT;
-    private final String TAG_X;
-    private final String TAG_Y;
-    private final String ATTRIBUTE_VALUE_START;
+    private final String ATTRIBUTE_SIZE = "size";
+    private final String ATTRIBUTE_ID = "id";
+    private final String ATTRIBUTE_CLASS = "class";
+    private final String TAG_PATH = "path";
+    private final String TAG_POINT = "point";
+    private final String TAG_X = "x";
+    private final String TAG_Y = "y";
+    private final String ATTRIBUTE_VALUE_START = "start";
 
-    public BoardReader () {
-        ATTRIBUTE_SIZE = "size";
-        ATTRIBUTE_ID = "id";
-        ATTRIBUTE_CLASS = "class";
-        TAG_PATH = "path";
-        TAG_POINT = "point";
-        TAG_X = "x";
-        TAG_Y = "y";
-        ATTRIBUTE_VALUE_START = "start";
-    }
-
-    public FastArukoneBoard readBoard (String filePath) {
-        Document doc = getXmlDocument(filePath);
+    /**
+     * Creates a {@link ArukoneBoard} from a given xml-file.
+     * @param filePath path to file
+     * @return instance of {@link ArukoneBoard}
+     */
+    public ArukoneBoard readBoard (String filePath) {
+        Document doc = getXmlDocument(new File(filePath));
         Element root = doc.getDocumentElement();
 
-        FastArukoneBoard board = new FastArukoneBoard(getIdentifierFromPath(filePath), Integer.parseInt(root.getAttribute(ATTRIBUTE_SIZE)));
+        ArukoneBoard board = new ArukoneBoard(getIdentifierFromPath(filePath), Integer.parseInt(root.getAttribute(ATTRIBUTE_SIZE)));
         this.addAllPaths(root, board);
 
         return board;
     }
 
-    public ObservableList<FastArukoneBoard> readAllBoardsInDirectory (String path) {
-        ObservableList<FastArukoneBoard> boards = FXCollections.observableArrayList();
-        for (File file : listFiles(path)) {
-            boards.add(readBoard(file.getPath()));
-        }
-        return boards;
-    }
-
-    private String getIdentifierFromPath (String string) {
-        return new File(string).getName().split("\\.")[0];
-    }
-
-    private File[] listFiles (String path) {
-        File dir = new File(path);
-        if (dir.isDirectory()) {
-            return dir.listFiles();
-        }
-        return new File[0];
-    }
-
-    private void addAllPaths(Element root, FastArukoneBoard board) {
+    /**
+     * Traverses all path-nodes in the xml-file.
+     * @param root xml root node
+     * @param board instance of {@link ArukoneBoard}
+     */
+    private void addAllPaths(Element root, ArukoneBoard board) {
         NodeList pathList = root.getElementsByTagName(TAG_PATH);
         for (int i = 0; i < pathList.getLength(); i++) {
             Node pathNode = pathList.item(i);
@@ -78,7 +58,12 @@ public class BoardReader {
         }
     }
 
-    private void addSinglePath(Element pathElement, FastArukoneBoard board) {
+    /**
+     * Adds a single path to the {@link ArukoneBoard}.
+     * @param pathElement xml node
+     * @param board instance of {@link ArukoneBoard}
+     */
+    private void addSinglePath(Element pathElement, ArukoneBoard board) {
         final int id = Integer.parseInt(pathElement.getAttribute(ATTRIBUTE_ID));
         NodeList pointList = pathElement.getElementsByTagName(TAG_POINT);
 
@@ -102,17 +87,30 @@ public class BoardReader {
         board.addFixedPath(id, startX, startY, endX, endY);
     }
 
-    private Document getXmlDocument (String filePath) {
+    /**
+     * Builds a xml document of the given file.
+     * @param file {@link File} to parse
+     * @return instance of {@link Document}
+     */
+    private Document getXmlDocument (File file) {
         Document doc = null;
         try {
-            File xml = new File(filePath);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            doc = builder.parse(xml);
+            doc = builder.parse(file);
         } catch (ParserConfigurationException | IOException | SAXException e) {
             e.printStackTrace();
         }
 
         return doc;
+    }
+
+    /**
+     * Creates an identifier based on the file name.
+     * @param path path to file
+     * @return identifier
+     */
+    private String getIdentifierFromPath (String path) {
+        return new File(path).getName().split("\\.")[0];
     }
 }
